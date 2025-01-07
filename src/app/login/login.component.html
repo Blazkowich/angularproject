@@ -1,21 +1,37 @@
-<div class="img-on">
-  <img src="/assets/on.svg" alt="on" class="img-fluid">
-</div>
+<div class="container-fluid vh-100">
+  <div class="row h-100">
+    <!-- Main Content -->
+    <div class="col-12 d-flex flex-column justify-content-center align-items-center">
+      <!-- Header Section with Logo -->
+      <div class="d-flex align-items-center mb-5">
+        <img src="/assets/on.svg" alt="on" class="img-fluid me-3" style="height: 7vh; width: auto;">
+        <div class="d-flex">
+          <h1 class="d-inline me-2 fs-2 mb-0">Welcome to</h1>
+          <h1 class="d-inline fs-2 text-success mb-0">גיוס</h1>
+        </div>
+      </div>
 
-<div class="login-header-text d-flex justify-content-center align-items-center position-absolute top-10 start-50 translate-middle-x z-index-1">
-  <h1 class="m-0 me-2" style="font-size: 1.5rem;">Welcome to</h1>
-  <h1 class="m-0" style="color: #3EC99C; font-size: 1.5rem;">גיוס</h1>
-</div>
+      <!-- Login Form -->
+      <div class="w-100 px-3" style="max-width: 500px;">
+        <div class="mb-4">
+          <input type="text" class="form-control form-control-lg py-3 rounded-3" placeholder="Username">
+        </div>
+        <div class="mb-4">
+          <input type="password" class="form-control form-control-lg py-3 rounded-3" placeholder="Password">
+        </div>
 
-<div class="login-input d-flex flex-column justify-content-center align-items-center position-absolute top-50 start-50 translate-middle z-index-1">
-  <input type="text" class="form-control mb-3" placeholder="Username">
-  <input type="password" class="form-control mb-3" placeholder="Password">
-</div>
+        <!-- Forgot Password -->
+        <div class="text-center mb-4">
+          <a href="#" class="text-decoration-none fw-bold" style="color: #6B4EFF;">Forgot Password?</a>
+        </div>
 
-<div class="forgot text-center position-absolute top-50 start-50 translate-middle z-index-1">
-  <a href="#" class="text-decoration-none" style="font-size: 1.7vh; color: #6B4EFF; font-weight: bold;">Forgot Password?</a>
-</div>
-
-<div class="position-fixed top-90 start-50 translate-middle-x z-index-1">
-  <button class="login-button btn btn-primary btn-lg w-100">Enter</button>
+        <!-- Login Button -->
+        <div class="d-grid">
+          <button class="btn btn-primary btn-lg py-3 rounded-pill" style="background-color: #446BF2;">
+            Enter
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

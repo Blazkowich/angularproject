@@ -7,166 +7,32 @@
   z-index: 9999;
 }
 
-/* ============================= Login Pic Section ============================= */
-.img-on {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  width: 100vw;
-  position: absolute;
-  top: 0;
-  left: 0;
-  overflow: hidden;
-  z-index: 1;
-}
-
-.img-on img {
-  width: 7vh;
-  height: auto;
-  position: relative;
-  top: -38.1%;
-  left: -5.5%;
-  transform: none;
-}
-
-/* ============================= Login Header Section ============================= */
-.login-header-text {
-  font-size: 1.5vh;
-  color: #000000;
-  text-align: left;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  position: absolute;
-  top: 10%;
-  left: 50.5%;
-  transform: translateX(-50%);
-  white-space: nowrap;
-  z-index: 1;
-}
-
-.login-header-text h1 {
-  margin: 0;
-  padding: 0;
-  font-weight: bold;
-  letter-spacing: 1px;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 1.5rem;
-}
-
-.login-header-text h1:first-child {
-  margin-right: 10px;
-}
-
-.login-header-text h1:last-child {
-  color: #3EC99C;
-}
-
-/* ============================= Login Input Section ============================= */
-.login-input {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  width: 100vw;
-}
-
-input[type=text], input[type=password], select {
-  width: 1200px;
-  max-width: 500px;
-  height: 70px;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
+.form-control {
   border: 1px solid #ccc;
-  border-radius: 10px;
-  box-sizing: border-box;
-  position: relative;
-  z-index: 1;
+  height: 70px;
 }
 
-/* ============================= Forgot Password Section ============================= */
-.forgot {
-  font-size: 1.7vh;
-  color: #6B4EFF;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-150%, 350%);
-  font-weight: bold;
-  z-index: 1;
+.form-control:focus {
+  border-color: #446BF2;
+  box-shadow: 0 0 0 0.25rem rgba(68, 107, 242, 0.25);
 }
 
-.forgot a {
-  text-decoration: none;
-}
-
-/* ============================= Login Button Section ============================= */
-.login-button {
-  width: 300px;
-  height: 50px;
-  background-color: #446BF2;
-  color: white;
-  border: none;
-  border-radius: 25px;
-  font-size: 18px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  cursor: pointer;
-  position: fixed;
-  top: 90%;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.login-button:hover {
-  opacity: 0.9;
-}
-
-/* ============================= Window Size Transform Section ============================= */
-@media (max-width: 400px) {
-  .img-on img {
-    width: 8vh;
-    top: -38.1%;
-    left: -38%;
-  }
-
-  .login-header-text {
-    left: 55%;
-    top: 10%;
-    font-size: 2.5vh;
-  }
-
-  .login-header-text h1 {
-    font-size: 1.8rem;
-  }
-
-  .login-header-text h1:first-child {
-    font-size: 1.6rem;
-  }
-
-  .login-input {
-    width: 90%;
-    max-width: 400px;
-    height: auto;
-    padding: 20px;
-  }
-
-  input[type=text], input[type=password], select {
-    width: 100%;
+@media (max-width: 576px) {
+  .form-control {
     height: 50px;
   }
 
-  .forgot {
-    transform: translate(-100%, 400%);
+  h1 {
+    font-size: 1.5rem !important;
   }
+
+  img {
+    height: 5vh !important;
+  }
+}
+
+/* Ensure the page takes up full viewport height */
+html, body {
+  height: 100%;
+  margin: 0;
 }
