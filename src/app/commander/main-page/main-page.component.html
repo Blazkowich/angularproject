@@ -1,10 +1,19 @@
-<control-icons></control-icons>>
+<control-icons style="display: block;"></control-icons>
 
-<div class="no-jobs-message">
+<div class="no-jobs-message"  *ngIf="jobs.length === 0">
   <h2>You don't have open jobs</h2>
   <h3>הגדירו תפקיד שצריך לאייש ואנחנו נפרסם אותו</h3>
   <h3>למתנדבים.</h3>
   <h3>כאשר יוגשו מועמדויות לתפקיד תוכל לראות אותן פה.</h3>
+</div>
+
+<div class="job-box-container">
+  <div class="job-box" *ngFor="let job of jobs">
+    <div class="job-box-content">
+      <img src="/assets/circle.svg" alt="circle">
+      <h4>{{ job.jobName }}</h4>
+    </div>
+  </div>
 </div>
 
 <div>

@@ -1,4 +1,47 @@
 /* =============================
+   Job Box Styles
+============================= */
+
+.job-box-container {
+  position: relative;
+  padding-top: 100px;
+}
+
+.job-box {
+  width: 320px;
+  height: 90px;
+  background-color: #5B7BFF;
+  display: flex;
+  align-items: center;
+  margin: 10px auto;
+  border-radius: 5px;
+  position: relative;
+}
+
+.job-box-content {
+  display: flex;
+  align-items: center;
+}
+
+.job-box-content img {
+  width: 70px;
+  height: 60px;
+  border-radius: 50%;
+  margin-right: 19px;
+}
+
+.job-box-content h4 {
+  color: rgb(0, 0, 0);
+  margin: 0;
+  font-size: 1.2rem;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 10px;
+}
+
+
+/* =============================
    No Job Section
 ============================= */
 
@@ -71,5 +114,10 @@
 
   .img-guy-main-component {
     transform: translateY(-180px);
+  }
+
+  .job-box {
+    transform: translate(0%, -20%);
+    width: 300px;
   }
 }

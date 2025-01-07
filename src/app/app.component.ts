@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { CreateJobComponent } from './commander/create-job/create-job.component';
+import { MainPageComponent } from "./commander/main-page/main-page.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CreateJobComponent],
+  imports: [MainPageComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
