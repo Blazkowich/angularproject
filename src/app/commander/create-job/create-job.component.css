@@ -28,7 +28,10 @@
   width: 100vw;
 }
 
-input[type=text], input[type=password], input[type=number], select {
+.create-job-input-1 input[type=text],
+.create-job-input-1 input[type=password],
+.create-job-input-1 input[type=number],
+.create-job-input-1 select {
   width: 500px;
   max-width: 500px;
   height: 50px;
@@ -51,13 +54,120 @@ input[type=text], input[type=password], input[type=number], select {
    Job Input 2 Section
 ============================= */
 
+.create-job-input-2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 45vh;
+  width: 100vw;
+}
+
+.create-job-input-2 input[type=text],
+.create-job-input-2 input[type=password],
+.create-job-input-2 input[type=number],
+.create-job-input-2 select {
+  width: 500px;
+  max-width: 500px;
+  height: 100px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+.create-job-input-2 h4 {
+  align-self: flex;
+  font-size: 14px;
+  margin-right: 0%;
+}
+
+.create-job-input-2 h5 {
+  align-self: flex;
+  font-size: 14px;
+  margin-right: 0%;
+
+}
+
 /* =============================
    Job Input 3 Section
 ============================= */
 
+.create-job-input-3 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 45vh;
+  width: 100vw;
+}
+
+.create-job-input-3 input[type=text],
+.create-job-input-3 select {
+  width: 500px;
+  max-width: 500px;
+  height: 50px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
 /* =============================
    Job Input Completion Section
 ============================= */
+.create-job-input-4 {
+  width: 100%;
+  padding: 20px;
+}
+
+.centered-fields {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.form-group label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.form-group p {
+  font-size: 16px;
+  margin: 5px 0;
+  color: #333;
+}
+
+.add-button {
+  width: 200px;
+  padding: 10px;
+  background-color: green;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  display: block;
+  margin: 20px auto;
+}
+
+.add-button:hover {
+  background-color: darkgreen;
+}
+
 
 /* =============================
    Next Button Section
@@ -77,7 +187,7 @@ input[type=text], input[type=password], input[type=number], select {
   text-align: center;
   cursor: not-allowed;
   position: fixed;
-  top: 90%;
+  top: 80%;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -85,6 +195,25 @@ input[type=text], input[type=password], input[type=number], select {
 .next-button.active {
   background-color: #446BF2;
   cursor: pointer;
+}
+
+.back-button {
+    width: 200px;
+    height: 50px;
+    background-color: grey;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    position: fixed;
+    top: 88%;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 /* =============================
@@ -103,8 +232,26 @@ input[type=text], input[type=password], input[type=number], select {
     padding: 20px;
   }
 
-  input[type=text], input[type=password], input[type=number], select {
+  .create-job-input-1 input[type=text],
+  .create-job-input-1 input[type=password],
+  .create-job-input-1 input[type=number],
+  .create-job-input-1 select {
     width: 100%;
+    height: 50px;
+  }
+
+  .create-job-input-2 h4 {
+    margin-right: -50%;
+  }
+
+  .create-job-input-2 input[type=text] {
+    width: 80%;
+    height: 100px;
+  }
+
+  .create-job-input-3 input[type=text],
+  .create-job-input-3 select {
+    width: 90%;
     height: 50px;
   }
 }

@@ -18,6 +18,14 @@ export class CreateJobComponent {
   positions: number | null = null;
   openBase: boolean = false;
   closedBase: boolean = false;
+  jobDescription: string = '';
+  additionalInfo: string = '';
+  commonQuestions: string = '';
+  commonAnswers: string = '';
+  education: string = '';
+  techSkills: string = '';
+  workExperience: string = '';
+  passedCourses: string = '';
   progressNumber: number = 25;
 
   // Flags for form validation and page transitions
@@ -42,45 +50,72 @@ export class CreateJobComponent {
     this.isFirstFormValid = Boolean(this.isFirstFormValid);
   }
 
-  goToNextPage(): void {
-    if (this.isFirstFormValid) {
-      this.isPage1Completed = true;
-      this.progressNumber = 50;
-    }
-  }
-
   // Page 2 validation
   validateSecondPageFields(): void {
     this.isSecondFormValid =
-      this.address.trim() !== '' &&
-      (this.openBase || this.closedBase);
+      this.jobDescription.trim() !== '' &&
+      this.additionalInfo.trim() !== '';
 
     this.isSecondFormValid = Boolean(this.isSecondFormValid);
-    console.log('Page 2 Form Valid:', this.isSecondFormValid);
+  }
+
+  // Page 3 validation
+  validateThirdPageFields(): void {
+    this.isThirdFormValid =
+      this.workExperience.trim() !== '' &&
+      this.education.trim() !== '' &&
+      this.passedCourses.trim() !== '' &&
+      this.techSkills.trim() !== '';
+  }
+
+  // Go Further
+  goToSecondPage(): void {
+    if (this.isFirstFormValid) {
+      this.isPage1Completed = true;
+      this.isPage2Completed = false;
+      this.isPage3Completed = false;
+      this.progressNumber = 50;
+    }
   }
 
   goToThirdPage(): void {
     if (this.isSecondFormValid) {
       this.isPage2Completed = true;
+      this.isPage3Completed = false;
       this.progressNumber = 75;
     }
   }
 
-  // Page 3 validation
-  validateThirdPageFields(): void {
-    // this.isThirdFormValid =
-    //   this.job.trim() !== '' &&
-    //   this.additionalField2.trim() !== '';
-
-    // this.isThirdFormValidPage3 = Boolean(this.isThirdFormValid);
-    // console.log('Page 3 Form Valid:', this.isThirdFormValid);
+  goToFourthPage(): void {
+    if (this.isThirdFormValid) {
+      this.isPage3Completed = true;
+      this.progressNumber = 100;
+    }
   }
 
+  // Go Back
+  goBackToFirstPage(): void {
+    this.isPage1Completed = false;
+    this.isPage2Completed = false;
+    this.isPage3Completed = false;
+    this.progressNumber = 25;
+  }
 
-    goToFourthPage(): void {
-      if (this.isThirdFormValid) {
-        this.isPage3Completed = true;
-        this.progressNumber = 100;
-      }
-    }
+  goBackToSecondPage(): void {
+
+    this.isPage2Completed = false;
+    this.isPage3Completed = false;
+    this.progressNumber = 50;
+  }
+
+  goBackToThirdPage(): void {
+    this.isPage2Completed = false;
+    this.isPage3Completed = false;
+    this.progressNumber = 75;
+  }
+
+  // Add
+  addJob(): void {
+    console.log('Job added');
+  }
 }
