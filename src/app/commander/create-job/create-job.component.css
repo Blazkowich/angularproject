@@ -130,18 +130,17 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   width: 100%;
-  max-width: 400px;
 }
 
 .form-group label {
   font-weight: bold;
-  margin-bottom: 5px;
+  margin-bottom: 2px;
   display: block;
 }
 
@@ -150,24 +149,6 @@
   margin: 5px 0;
   color: #333;
 }
-
-.add-button {
-  width: 200px;
-  padding: 10px;
-  background-color: green;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  font-size: 16px;
-  cursor: pointer;
-  display: block;
-  margin: 20px auto;
-}
-
-.add-button:hover {
-  background-color: darkgreen;
-}
-
 
 /* =============================
    Next Button Section
@@ -214,6 +195,43 @@
     top: 88%;
     left: 50%;
     transform: translateX(-50%);
+}
+
+.back-button-final {
+  width: 100px;
+  height: 50px;
+  background-color: grey;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  position: fixed;
+  top: 90%;
+  left: 75%;
+  transform: translateX(-50%);
+}
+
+.add-button {
+  width: 150px;
+  height: 50px;
+  background-color: #282949;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  cursor: pointer;
+  position: fixed;
+  top: 90%;
+  left: 10%;
+}
+
+.add-button:hover {
+  background-color: #282949;
 }
 
 /* =============================

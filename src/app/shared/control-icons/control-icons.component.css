@@ -3,11 +3,14 @@
 ============================= */
 
 .control-icons {
+  position: sticky; /* Makes it sticky relative to its parent container */
+  top: 0; /* Sticks it to the top of its container */
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 40px;
   transform: translate(0%, 50%);
+  z-index: 1000; /* Ensures it's on top of other elements */
 }
 
 .control-icons .icon-text {

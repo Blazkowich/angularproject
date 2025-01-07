@@ -102,14 +102,15 @@ export class CreateJobComponent {
   }
 
   goBackToSecondPage(): void {
-
+    this.isPage1Completed = true;
     this.isPage2Completed = false;
     this.isPage3Completed = false;
     this.progressNumber = 50;
   }
 
   goBackToThirdPage(): void {
-    this.isPage2Completed = false;
+    this.isPage1Completed = true;
+    this.isPage2Completed = true;
     this.isPage3Completed = false;
     this.progressNumber = 75;
   }

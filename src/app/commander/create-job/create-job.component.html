@@ -1,4 +1,4 @@
-<control-icons></control-icons>
+<control-icons style="display: block;"></control-icons>
 
 <div class="w3-container">
   <div class="w3-light-grey w3-tiny progress-container">
@@ -86,7 +86,7 @@
 
   <button class="back-button" (click)="goBackToSecondPage()">Back</button>
 
-  <button class="next-button" [class.active]="isThirdFormValid" [disabled]="!isThirdFormValid" (click)="goToThirdPage()">Next</button>
+  <button class="next-button" [class.active]="isThirdFormValid" [disabled]="!isThirdFormValid" (click)="goToFourthPage()">Next</button>
 </div>
 
 <!-- Page 4 Fields -->
@@ -134,5 +134,5 @@
   </div>
 
   <button class="add-button" (click)="addJob()">Add</button>
-  <button class="back-button" (click)="goBackToThirdPage()">Back</button>
+  <button class="back-button-final" (click)="goBackToThirdPage()">Back</button>
 </div>
