@@ -1,0 +1,19 @@
+.img-guy {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.img-guy img {
+  width: 150px;
+  height: auto;
+  transform: scale(1) translateY(-100px);
+  transform-origin: center;
+}
