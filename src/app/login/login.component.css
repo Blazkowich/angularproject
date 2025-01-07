@@ -1,6 +1,4 @@
-/* =============================
-   Color Override Section
-============================= */
+/* ============================= Color Override Section ============================= */
 :host {
   display: flex;
   background-color: white;
@@ -9,10 +7,7 @@
   z-index: 9999;
 }
 
-/* =============================
-   Login Pic Section
-============================= */
-
+/* ============================= Login Pic Section ============================= */
 .img-on {
   display: flex;
   justify-content: center;
@@ -35,10 +30,7 @@
   transform: none;
 }
 
-/* =============================
-   Login Header Section
-============================= */
-
+/* ============================= Login Header Section ============================= */
 .login-header-text {
   font-size: 1.5vh;
   color: #000000;
@@ -72,10 +64,7 @@
   color: #3EC99C;
 }
 
-/* =============================
-   Login Input Section
-============================= */
-
+/* ============================= Login Input Section ============================= */
 .login-input {
   display: flex;
   flex-direction: column;
@@ -99,10 +88,7 @@ input[type=text], input[type=password], select {
   z-index: 1;
 }
 
-/* =============================
-   Forgot Password Section
-============================= */
-
+/* ============================= Forgot Password Section ============================= */
 .forgot {
   font-size: 1.7vh;
   color: #6B4EFF;
@@ -122,10 +108,7 @@ input[type=text], input[type=password], select {
   text-decoration: none;
 }
 
-/* =============================
-   Login Button Section
-============================= */
-
+/* ============================= Login Button Section ============================= */
 .login-button {
   width: 300px;
   height: 50px;
@@ -149,10 +132,7 @@ input[type=text], input[type=password], select {
   opacity: 0.9;
 }
 
-/* =============================
-   Window Size Tranform Section
-============================= */
-
+/* ============================= Window Size Transform Section ============================= */
 @media (max-width: 400px) {
   .img-on img {
     width: 8vh;
@@ -162,7 +142,7 @@ input[type=text], input[type=password], select {
 
   .login-header-text {
     left: 55%;
-    top: 9%;
+    top: 10%;
     font-size: 2.5vh;
   }
 
