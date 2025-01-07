@@ -1,24 +1,31 @@
 <control-icons style="display: block;"></control-icons>
 
-<div class="no-jobs-message"  *ngIf="jobs.length === 0">
-  <h2>You don't have open jobs</h2>
-  <h3>הגדירו תפקיד שצריך לאייש ואנחנו נפרסם אותו</h3>
-  <h3>למתנדבים.</h3>
-  <h3>כאשר יוגשו מועמדויות לתפקיד תוכל לראות אותן פה.</h3>
+<div *ngIf="jobs.length === 0">
+  <div class="no-jobs-message">
+    <h2>You don't have open jobs</h2>
+    <h3>הגדירו תפקיד שצריך לאייש ואנחנו נפרסם אותו</h3>
+    <h3>למתנדבים.</h3>
+    <h3>כאשר יוגשו מועמדויות לתפקיד תוכל לראות אותן פה.</h3>
+  </div>
+  <div>
+    <button class="create-button">Create Job</button>
+  </div>
 </div>
-
 <div class="job-box-container">
   <div class="job-box" *ngFor="let job of jobs">
     <div class="job-box-content">
-      <img src="/assets/circle.svg" alt="circle">
+      <div class="circle-container">
+        <img src="/assets/circle.svg" alt="circle">
+        <span class="circle-text">0/1 אוישו</span>
+      </div>
       <h4>{{ job.jobName }}</h4>
+      <h5>0 Candidates | 0 Suitable</h5>
     </div>
   </div>
 </div>
 
-<div>
-  <button class="create-button">Create Job</button>
-</div>
+
+
 
 <div class="img-guy-main-component">
   <image-component></image-component>

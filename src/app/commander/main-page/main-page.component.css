@@ -1,7 +1,6 @@
 /* =============================
    Job Box Styles
 ============================= */
-
 .job-box-container {
   position: relative;
   padding-top: 100px;
@@ -9,7 +8,7 @@
 
 .job-box {
   width: 320px;
-  height: 90px;
+  height: 70px;
   background-color: #5B7BFF;
   display: flex;
   align-items: center;
@@ -23,23 +22,40 @@
   align-items: center;
 }
 
+.circle-container {
+  position: relative;
+}
+
 .job-box-content img {
   width: 70px;
-  height: 60px;
+  height: 70px;
   border-radius: 50%;
-  margin-right: 19px;
+}
+
+.circle-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-30%, -50%);
+  color: rgb(0, 0, 0);
+  font-size: 0.7rem;
 }
 
 .job-box-content h4 {
   color: rgb(0, 0, 0);
   margin: 0;
   font-size: 1.2rem;
+  font-weight: bold;
   position: absolute;
   top: 0;
   right: 0;
   padding: 10px;
 }
 
+.job-box-content h5 {
+  font-size: 1rem;
+  margin: 0px 0px -20px 20px;
+}
 
 /* =============================
    No Job Section
