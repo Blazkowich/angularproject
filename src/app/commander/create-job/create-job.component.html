@@ -2,46 +2,72 @@
 
 <div class="w3-container">
   <div class="w3-light-grey w3-tiny progress-container">
-    <div class="w3-container w3-green progress-bar" style="width:25%">25%</div>
+    <div class="w3-container w3-green progress-bar" [style.width]="progressNumber + '%'">{{progressNumber}}%</div>
   </div>
 </div>
 
+<!-- Page 1 Fields -->
 <div class="create-job-input-1">
+  <input type="text" [(ngModel)]="jobName" placeholder="Job Name" (input)="validateFirstPageFields()" />
 
-  <input type="text" placeholder="Job Name">
-
-  <select id="job_category" name="Job Category">
-    <option value="" disabled selected hidden>Select an job category</option>
-    <option value="">A</option>
-    <option value="">B</option>
-    <option value="">C</option>
+  <select [(ngModel)]="jobCategory" (change)="validateFirstPageFields()">
+    <option value="" disabled selected hidden>Select a job category</option>
+    <option value="A">A</option>
+    <option value="B">B</option>
+    <option value="C">C</option>
   </select>
 
-  <select id="unit" name="Unit">
-    <option value="" disabled selected hidden>Select an unit</option>
-    <option value="">A</option>
-    <option value="">B</option>
-    <option value="">C</option>
+  <select [(ngModel)]="unit" (change)="validateFirstPageFields()">
+    <option value="" disabled selected hidden>Select a unit</option>
+    <option value="A">A</option>
+    <option value="B">B</option>
+    <option value="C">C</option>
   </select>
 
-  <select id="address" name="address">
+  <select [(ngModel)]="address" (change)="validateFirstPageFields()">
     <option value="" disabled selected hidden>Select an address</option>
     <option value="A">A</option>
     <option value="B">B</option>
     <option value="C">C</option>
   </select>
 
-  <input type="number" placeholder="amount of positions">
+  <input type="number" [(ngModel)]="positions" placeholder="Amount of positions" (input)="validateFirstPageFields()" />
 
   <div class="checkbox-container">
     <label>
-      <input type="checkbox" name="OpenBase">
+      <input type="checkbox" [(ngModel)]="openBase" (change)="validateFirstPageFields()" />
       Open Base
     </label>
     <label>
-      <input type="checkbox" name="ClosedBase">
+      <input type="checkbox" [(ngModel)]="closedBase" (change)="validateFirstPageFields()" />
       Closed Base
     </label>
   </div>
 
+  <button class="next-button" [class.active]="isFirstFormValid" [disabled]="!isFirstFormValid">Next</button>
+
+  <button class="next-button" [ngClass]="{'active': isFirstFormValid}" [disabled]="!isFirstFormValid">Next</button>
 </div>
+<!-- Page 2 Fields -->
+<div class="create-job-input-2" *ngIf="isPage1Completed">
+  <input type="text" [(ngModel)]="address" placeholder="Address" (input)="validateSecondPageFields()" />
+  <div class="checkbox-container">
+    <label>
+      <input type="checkbox" [(ngModel)]="openBase" (change)="validateSecondPageFields()" />
+      Open Base
+    </label>
+    <label>
+      <input type="checkbox" [(ngModel)]="closedBase" (change)="validateSecondPageFields()" />
+      Closed Base
+    </label>
+  </div>
+  <button class="next-button" [class.active]="isSecondFormValid" [disabled]="!isSecondFormValid" (click)="goToThirdPage()">Next</button>
+</div>
+
+<!-- Page 3 Fields -->
+<!-- <div class="create-job-input-3" *ngIf="isPage2Completed">
+  <input type="text" [(ngModel)]="additionalField1" placeholder="Additional Field 1" (input)="validateThirdPageFields()" />
+  <input type="text" [(ngModel)]="additionalField2" placeholder="Additional Field 2" (input)="validateThirdPageFields()" />
+
+  <button class="next-button" [class.active]="isThirdFormValid" [disabled]="!isThirdFormValid" (click)="goToFourthPage()">Next</button>
+</div> -->

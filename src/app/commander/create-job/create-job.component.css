@@ -60,6 +60,34 @@ input[type=text], input[type=password], input[type=number], select {
 ============================= */
 
 /* =============================
+   Next Button Section
+============================= */
+
+.next-button {
+  width: 200px;
+  height: 50px;
+  background-color: grey;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  cursor: not-allowed;
+  position: fixed;
+  top: 90%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.next-button.active {
+  background-color: #446BF2;
+  cursor: pointer;
+}
+
+/* =============================
    Window Size Tranform Section
 ============================= */
 
