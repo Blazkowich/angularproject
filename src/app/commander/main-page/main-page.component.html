@@ -25,7 +25,9 @@
   <div class="row justify-content-center">
     <div class="col-12 col-md-10 col-lg-8">
       <div class="job-box-container">
-        <div *ngFor="let job of jobs" class="job-box mb-3 position-relative">
+        <div *ngFor="let job of jobs"
+             class="job-box mb-3 position-relative cursor-pointer"
+             [routerLink]="'/job-details/' + job.id">
           <div class="d-flex align-items-center w-100 p-2">
             <!-- Circle with Text -->
             <div class="position-relative circle-wrapper">

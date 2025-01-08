@@ -5,6 +5,7 @@ import { ImageComponent } from "../../shared/image/image.component";
 import { ControlIconsComponent } from "../../shared/control-icons/control-icons.component";
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'commander-main-page',
@@ -13,7 +14,8 @@ import { CommonModule } from '@angular/common';
     ImageComponent,
     ControlIconsComponent,
     FormsModule,
-    CommonModule
+    CommonModule,
+    RouterModule
   ],
   templateUrl: './main-page.component.html',
   styleUrls: ['./main-page.component.css']
@@ -21,17 +23,20 @@ import { CommonModule } from '@angular/common';
 export class MainPageComponent implements OnInit {
   jobs: Job[] = [];
 
-  constructor(private jobService: JobService) {}
+  constructor(private jobService: JobService, private router: Router) {}
 
   ngOnInit(): void {
     this.jobService.getJobs().subscribe({
       next: (jobs: Job[]) => {
       this.jobs = jobs;
-      console.log('Jobs fetched');
       },
       error: (error) => {
       console.error('Error fetching jobs', error);
       }
     });
+  }
+
+  navigateToJob(jobId: string) {
+    this.router.navigate(['/job-details', jobId]);
   }
 }

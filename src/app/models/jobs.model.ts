@@ -1,4 +1,5 @@
 export interface Job {
+  id: string;
   jobName: string;
   jobCategory: string;
   unit: string;
@@ -14,4 +15,7 @@ export interface Job {
   techSkills: string;
   workExperience: string;
   passedCourses: string;
+  candidateCount: number;
+  status: string;
+  department: string;
 }

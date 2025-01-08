@@ -9,7 +9,7 @@
               <h1 class="h5 mb-0">დიზაინერი UX</h1>
               <p class="small mb-0">დანაყოფი</p>
             </div>
-            <i class="bi bi-chevron-right" style="margin-top: 50px;"></i>
+            <i class="bi bi-chevron-right" style="margin-top: 50px;" (click)="goBack()"></i>
           </div>
         </div>
       </div>
@@ -41,11 +41,11 @@
         <div class="row mb-4">
           <div class="col-6 d-flex align-items-center gap-2">
             <i class="bi bi-geo-alt text-secondary"></i>
-            <span class="text-secondary">თბილისი</span>
+            <span class="text-secondary">{{ job?.address }}</span>
           </div>
           <div class="col-6 text-end d-flex align-items-center justify-content-end gap-2">
             <i class="bi bi-people text-secondary"></i>
-            <span class="text-secondary">რაოდ: 2</span>
+            <span class="text-secondary">რაოდ: {{ job?.candidateCount }}</span>
           </div>
         </div>
 
@@ -54,7 +54,7 @@
           <div class="col-12 col-md-6 d-flex align-items-center gap-2 mb-3">
             <img src="/assets/edit.svg" alt="edit icon" (click)="openJobPopup()">
             <span class="text-secondary">job status:</span>
-            <span class="text-success">open</span>
+            <span class="text-success">{{ job?.status }}</span>
           </div>
           <div class="col-12 col-md-6 text-md-end">
             <a href="#" class="text-primary text-decoration-none">

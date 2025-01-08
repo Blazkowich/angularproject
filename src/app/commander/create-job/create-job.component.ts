@@ -13,6 +13,7 @@ import { Job } from '../../models/jobs.model';
 })
 export class CreateJobComponent {
   job: Job = {
+    id: '',
     jobName: '',
     jobCategory: '',
     unit: '',
@@ -27,7 +28,10 @@ export class CreateJobComponent {
     education: '',
     techSkills: '',
     workExperience: '',
-    passedCourses: ''
+    passedCourses: '',
+    candidateCount: 0,
+    status: '',
+    department: ''
   };
 
   progressNumber: number = 25;
