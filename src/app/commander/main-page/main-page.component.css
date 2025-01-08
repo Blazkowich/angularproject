@@ -10,7 +10,7 @@
 
 .job-box {
   background-color: #5B7BFF;
-  border-radius: 5px;
+  border-radius: 25px;
   min-height: 70px;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
