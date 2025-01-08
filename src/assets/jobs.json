@@ -1,0 +1,36 @@
+[
+  {
+    "jobName": "Software Engineer",
+    "jobCategory": "Engineering",
+    "unit": "Development",
+    "address": "1234 Main St, City, Country",
+    "positions": 2,
+    "openBase": true,
+    "closedBase": false,
+    "jobDescription": "Develop software applications and systems.",
+    "additionalInfo": "Experience with Angular and Node.js is a plus.",
+    "commonQuestions": "What are your strengths?",
+    "commonAnswers": "I am a quick learner and enjoy problem-solving.",
+    "education": "Bachelor's degree in Computer Science",
+    "techSkills": "JavaScript, TypeScript, Node.js, Angular",
+    "workExperience": "2+ years of experience in software development",
+    "passedCourses": "Advanced JavaScript, Full Stack Development"
+  },
+  {
+    "jobName": "UX Designer",
+    "jobCategory": "Design",
+    "unit": "Creative",
+    "address": "5678 Elm St, City, Country",
+    "positions": 1,
+    "openBase": true,
+    "closedBase": false,
+    "jobDescription": "Design user interfaces and experiences.",
+    "additionalInfo": "Experience with Adobe XD is a plus.",
+    "commonQuestions": "How do you approach user-centered design?",
+    "commonAnswers": "I focus on the user needs and iterate based on feedback.",
+    "education": "Bachelor's degree in Graphic Design",
+    "techSkills": "Figma, Sketch, Adobe XD, Wireframing",
+    "workExperience": "3+ years of experience in UX design",
+    "passedCourses": "User Experience Design, Interaction Design"
+  }
+]

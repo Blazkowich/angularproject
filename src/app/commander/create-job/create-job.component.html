@@ -22,13 +22,13 @@
       <form class="d-flex flex-column gap-3">
         <input type="text"
                class="form-control form-control-lg"
-               [(ngModel)]="jobName"
+               [(ngModel)]="job.jobName"
                placeholder="Job Name"
                (input)="validateFirstPageFields()"
                name="jobName">
 
         <select class="form-select form-select-lg"
-                [(ngModel)]="jobCategory"
+                [(ngModel)]="job.jobCategory"
                 (change)="validateFirstPageFields()"
                 name="jobCategory">
           <option value="" disabled selected>Select a job category</option>
@@ -38,7 +38,7 @@
         </select>
 
         <select class="form-select form-select-lg"
-                [(ngModel)]="unit"
+                [(ngModel)]="job.unit"
                 (change)="validateFirstPageFields()"
                 name="unit">
           <option value="" disabled selected>Select a unit</option>
@@ -48,7 +48,7 @@
         </select>
 
         <select class="form-select form-select-lg"
-                [(ngModel)]="address"
+                [(ngModel)]="job.address"
                 (change)="validateFirstPageFields()"
                 name="address">
           <option value="" disabled selected>Select an address</option>
@@ -59,7 +59,7 @@
 
         <input type="number"
                class="form-control form-control-lg"
-               [(ngModel)]="positions"
+               [(ngModel)]="job.positions"
                placeholder="Amount of positions"
                (input)="validateFirstPageFields()"
                name="positions">
@@ -68,7 +68,7 @@
           <div class="form-check">
             <input type="checkbox"
                    class="form-check-input"
-                   [(ngModel)]="openBase"
+                   [(ngModel)]="job.openBase"
                    (change)="validateFirstPageFields()"
                    name="openBase"
                    id="openBase">
@@ -77,7 +77,7 @@
           <div class="form-check">
             <input type="checkbox"
                    class="form-check-input"
-                   [(ngModel)]="closedBase"
+                   [(ngModel)]="job.closedBase"
                    (change)="validateFirstPageFields()"
                    name="closedBase"
                    id="closedBase">
@@ -98,7 +98,7 @@
           <label class="form-label h6">Job Description</label>
           <textarea class="form-control"
                     rows="4"
-                    [(ngModel)]="jobDescription"
+                    [(ngModel)]="job.jobDescription"
                     placeholder="Write Job Description"
                     (input)="validateSecondPageFields()"
                     name="jobDescription"></textarea>
@@ -108,7 +108,7 @@
           <label class="form-label h6">Additional Information</label>
           <textarea class="form-control"
                     rows="4"
-                    [(ngModel)]="additionalInfo"
+                    [(ngModel)]="job.additionalInfo"
                     placeholder="Additional Information"
                     (input)="validateSecondPageFields()"
                     name="additionalInfo"></textarea>
@@ -118,12 +118,12 @@
           <label class="form-label h6">Common Questions and Answers</label>
           <input type="text"
                  class="form-control mb-2"
-                 [(ngModel)]="commonQuestions"
+                 [(ngModel)]="job.commonQuestions"
                  placeholder="Common Questions"
                  name="commonQuestions">
           <input type="text"
                  class="form-control"
-                 [(ngModel)]="commonAnswers"
+                 [(ngModel)]="job.commonAnswers"
                  placeholder="Common Answers"
                  name="commonAnswers">
         </div>
@@ -139,13 +139,13 @@
       <form class="d-flex flex-column gap-3">
         <input type="text"
                class="form-control form-control-lg"
-               [(ngModel)]="workExperience"
+               [(ngModel)]="job.workExperience"
                placeholder="Work Experience"
                (input)="validateThirdPageFields()"
                name="workExperience">
 
         <select class="form-select form-select-lg"
-                [(ngModel)]="education"
+                [(ngModel)]="job.education"
                 (change)="validateThirdPageFields()"
                 name="education">
           <option value="" disabled selected>Education</option>
@@ -156,13 +156,13 @@
 
         <input type="text"
                class="form-control form-control-lg"
-               [(ngModel)]="passedCourses"
+               [(ngModel)]="job.passedCourses"
                placeholder="Passed Courses"
                (input)="validateThirdPageFields()"
                name="passedCourses">
 
         <select class="form-select form-select-lg"
-                [(ngModel)]="techSkills"
+                [(ngModel)]="job.techSkills"
                 (change)="validateThirdPageFields()"
                 name="techSkills">
           <option value="" disabled selected>Tech Skills</option>
@@ -186,15 +186,15 @@
             <div class="row">
               <div class="col-md-4">
                 <p class="fw-bold mb-1">Job Name:</p>
-                <p>{{ jobName }}</p>
+                <p>{{ job.jobName }}</p>
               </div>
               <div class="col-md-4">
                 <p class="fw-bold mb-1">Job Category:</p>
-                <p>{{ jobCategory }}</p>
+                <p>{{ job.jobCategory }}</p>
               </div>
               <div class="col-md-4">
                 <p class="fw-bold mb-1">Vacant Positions:</p>
-                <p>{{ positions }}</p>
+                <p>{{ job.positions }}</p>
               </div>
             </div>
           </div>
@@ -202,19 +202,19 @@
           <div class="mb-4">
             <h5 class="card-title mb-3">Job Details</h5>
             <p class="fw-bold mb-1">Job Description:</p>
-            <p class="mb-3">{{ jobDescription }}</p>
+            <p class="mb-3">{{ job.jobDescription }}</p>
 
             <p class="fw-bold mb-1">Work Experience:</p>
-            <p class="mb-3">{{ workExperience }}</p>
+            <p class="mb-3">{{ job.workExperience }}</p>
 
             <p class="fw-bold mb-1">Education:</p>
-            <p class="mb-3">{{ education }}</p>
+            <p class="mb-3">{{ job.education }}</p>
 
             <p class="fw-bold mb-1">Passed Courses:</p>
-            <p class="mb-3">{{ passedCourses }}</p>
+            <p class="mb-3">{{ job.passedCourses }}</p>
 
             <p class="fw-bold mb-1">Tech Experience:</p>
-            <p>{{ techSkills }}</p>
+            <p>{{ job.techSkills }}</p>
           </div>
         </div>
       </div>
