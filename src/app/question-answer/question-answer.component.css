@@ -1,7 +1,3 @@
-/* =============================
-   Header Text Section
-============================= */
-
 .header-text {
   padding: 50px;
   font-size: 15px;
@@ -22,116 +18,19 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* =============================
-   Second Text Section
-============================= */
 
-.secondary-text {
-  font-size: 13px;
-  color: #000000;
-  margin-bottom: 0px;
-  text-align: center;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  transform: translateY(50px);
-}
-
-.secondary-text h1, .secondary-text h2 {
-  margin: 0;
-  padding: 0;
+.secondary-text h2, .third-text h2 {
+  font-family: Arial, Helvetica, sans-serif;
   font-weight: 200;
-  letter-spacing: 1px;
-  margin-left: 20px;
+}
+
+.fourth-text h2, .fourth-text h3 {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* =============================
-   Third Text Section
-============================= */
-
-.third-text {
-  font-size: 13px;
-  color: #000000;
-  margin-bottom: 0px;
-  text-align: center;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: nowrap;
-  transform: translateY(70px);
-}
-
-.third-text h1, .third-text h2 {
-  margin: 0;
-  padding: 0;
-  font-weight: bold;
-  letter-spacing: 0.5px;
-  margin-left: 20px;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-/* =============================
-   Fourth Text Section
-============================= */
-
-.fourth-text {
-  font-size: 13px;
-  color: #000000;
-  margin-bottom: 0px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: nowrap;
-  transform: translateY(90px);
-}
-
-.fourth-text h2 {
-  margin: 0;
-  padding: 0;
-  font-weight: bold;
-  letter-spacing: 1px;
-  margin-left: 20px;
-  font-family: Arial, Helvetica, sans-serif;
-}
-.fourth-text h3 {
-  margin: 10;
-  padding: 0;
-  font-weight: 200;
-  letter-spacing: 1px;
-  margin-left: 20px;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-/* =============================
-   Button Section
-============================= */
-
-.button {
-  width: 100px;
-  height: 23px;
-  background-color: #446BF2;
-  color: white;
-  border: none;
-  border-radius: 15px;
-  font-size: 18px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  cursor: pointer;
+button.btn {
   position: fixed;
-  top: 90%;
+  bottom: 5%;
   left: 50%;
   transform: translateX(-50%);
 }
-
-.button:hover {
-  opacity: 0.9;
-}
-
-

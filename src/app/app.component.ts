@@ -4,11 +4,12 @@ import { CreateJobComponent } from "./commander/create-job/create-job.component"
 import { LoginComponent } from "./login/login.component";
 import { QuestionAnswerComponent } from "./question-answer/question-answer.component";
 import { ControlIconsComponent } from "./shared/control-icons/control-icons.component";
+import { ImageComponent } from "./shared/image/image.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [MainPageComponent, CreateJobComponent, LoginComponent, QuestionAnswerComponent, ControlIconsComponent],
+  imports: [MainPageComponent, CreateJobComponent, LoginComponent, QuestionAnswerComponent, ControlIconsComponent, ImageComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

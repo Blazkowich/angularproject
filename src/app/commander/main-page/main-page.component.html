@@ -1,29 +1,53 @@
+<!-- Control Icons Component -->
 <control-icons style="display: block;"></control-icons>
 
-<div *ngIf="jobs.length === 0">
-  <div class="no-jobs-message">
-    <h2>You don't have open jobs</h2>
-    <h3>הגדירו תפקיד שצריך לאייש ואנחנו נפרסם אותו</h3>
-    <h3>למתנדבים.</h3>
-    <h3>כאשר יוגשו מועמדויות לתפקיד תוכל לראות אותן פה.</h3>
-  </div>
-  <div>
-    <button class="create-button">Create Job</button>
-  </div>
-</div>
-<div class="job-box-container">
-  <div class="job-box" *ngFor="let job of jobs">
-    <div class="job-box-content">
-      <div class="circle-container">
-        <img src="/assets/circle.svg" alt="circle">
-        <span class="circle-text">0/1 אוישו</span>
+<!-- No Jobs Message -->
+<div *ngIf="jobs.length === 0" class="container mt-5">
+  <div class="row">
+    <div class="col-12 text-center mb-5">
+      <h2 class="fw-bold mb-3">You don't have open jobs</h2>
+      <h3 class="mb-2">הגדירו תפקיד שצריך לאייש ואנחנו נפרסם אותו</h3>
+      <h3 class="mb-2">למתנדבים.</h3>
+      <h3 class="mb-4">כאשר יוגשו מועמדויות לתפקיד תוכל לראות אותן פה.</h3>
+
+      <!-- Create Button -->
+      <div class="d-flex justify-content-center">
+        <button class="btn btn-dark rounded-pill px-5 py-3 create-btn">
+          Create Job
+        </button>
       </div>
-      <h4>{{ job.jobName }}</h4>
-      <h5>0 Candidates | 0 Suitable</h5>
     </div>
   </div>
 </div>
 
-<div class="img-guy-main-component">
+<!-- Job Listings -->
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-10 col-lg-8">
+      <div class="job-box-container">
+        <div *ngFor="let job of jobs" class="job-box mb-3 position-relative">
+          <div class="d-flex align-items-center w-100 p-2">
+            <!-- Circle with Text -->
+            <div class="position-relative circle-wrapper">
+              <img src="/assets/circle.svg" alt="circle" class="rounded-circle">
+              <span class="position-absolute top-50 start-50 translate-middle circle-text">
+                0/1 אוישו
+              </span>
+            </div>
+
+            <!-- Job Details -->
+            <div class="ms-3 d-flex flex-column flex-grow-1">
+              <h4 class="mb-1">{{ job.jobName }}</h4>
+              <h5 class="mb-0">0 Candidates | 0 Suitable</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Background Image Component -->
+<div class="position-fixed bottom-0 start-0 w-100">
   <image-component></image-component>
 </div>

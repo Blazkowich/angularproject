@@ -68,6 +68,17 @@ export class CreateJobComponent {
       this.techSkills.trim() !== '';
   }
 
+  // Navigation method to handle moving to the next page
+  goToNextPage(): void {
+    if (!this.isPage1Completed) {
+      this.goToSecondPage();
+    } else if (!this.isPage2Completed) {
+      this.goToThirdPage();
+    } else if (!this.isPage3Completed) {
+      this.goToFourthPage();
+    }
+  }
+
   // Go Further
   goToSecondPage(): void {
     if (this.isFirstFormValid) {
