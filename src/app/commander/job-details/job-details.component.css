@@ -9,14 +9,16 @@ nav {
 
   .nav {
     flex-wrap: nowrap;
-    gap: 0;
+    gap: 2px;
   }
 
   .nav-item {
-    margin-right: -15px;
+    font-size: 10px !important;
+    padding: 0 2px;
+    width: auto;
   }
 
   .nav-link {
-    font-size: 14px;
+    font-size: 10px !important;
   }
 }
