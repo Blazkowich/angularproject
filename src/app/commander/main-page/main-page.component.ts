@@ -1,3 +1,4 @@
+import { CandidateService } from './../../services/candidates.service';
 import { Component, OnInit } from '@angular/core';
 import { Job } from '../../models/jobs.model';
 import { JobService } from '../../services/jobs.service';
@@ -6,6 +7,7 @@ import { ControlIconsComponent } from "../../shared/control-icons/control-icons.
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
+import { Candidate } from '../../models/candidates.model';
 
 @Component({
   selector: 'commander-main-page',
@@ -22,11 +24,21 @@ import { Router, RouterModule } from '@angular/router';
 })
 export class MainPageComponent implements OnInit {
   jobs: Job[] = [];
+  candidates: Candidate[] = [];
+  allCandidates: Candidate[] = [];
+  currentFilter: 'preferred' | 'rejected' | 'neutral' | 'all' = 'all';
+  allCandidatesCount: number = 0;
+  rejectedCandidatesCount: number = 0;
+  preferredCandidatesCount: number = 0;
 
-  constructor(private jobService: JobService, private router: Router) {}
+  constructor(
+    private candidateService: CandidateService,
+    private jobService: JobService,
+    private router: Router) {}
 
   ngOnInit(): void {
     this.loadJobs();
+    this.loadCandidates();
   }
 
   private loadJobs(): void {
@@ -39,6 +51,30 @@ export class MainPageComponent implements OnInit {
         alert('Failed to load jobs. Please try again later.');
       }
     });
+  }
+
+  private loadCandidates(): void {
+    this.candidateService.getCandidates().subscribe({
+      next: (candidates: Candidate[]) => {
+        this.allCandidates = candidates;
+        this.allCandidatesCount = candidates.length;
+        this.rejectedCandidatesCount = candidates.filter(candidate => candidate.status === 'rejected').length;
+        this.preferredCandidatesCount = candidates.filter(candidate => candidate.status === 'preferred').length;
+        this.applyFilter();
+      },
+      error: (error) => {
+        console.error('Error loading candidates:', error);
+        alert('Failed to load candidates. Please try again later.');
+      }
+    });
+  }
+
+  private applyFilter(): void {
+    if (this.currentFilter === 'all') {
+      this.candidates = this.allCandidates;
+    } else {
+      this.candidates = this.allCandidates.filter(candidate => candidate.status === this.currentFilter);
+    }
   }
 
   isJobOpen(job: Job): boolean {
