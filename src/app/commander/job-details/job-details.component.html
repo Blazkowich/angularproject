@@ -6,8 +6,8 @@
         <div class="col-12 text-center">
           <div class="d-flex justify-content-center align-items-center">
             <div class="me-4" style="margin-top: 50px;">
-              <h1 class="h5 mb-0">დიზაინერი UX</h1>
-              <p class="small mb-0">დანაყოფი</p>
+              <h1 class="h5 mb-0">{{ job?.jobName }}</h1>
+              <p class="small mb-0">{{ job?.unit }}</p>
             </div>
             <i class="bi bi-chevron-right" style="margin-top: 50px;" (click)="goBack()"></i>
           </div>
@@ -21,13 +21,13 @@
   <div class="container">
     <ul class="nav nav-tabs justify-content-center d-flex align-items-center">
       <li class="nav-item">
-        <a class="nav-link active text-primary border-bottom border-primary border-3" href="#">მთავარი</a>
+        <a class="nav-link active text-primary border-bottom border-primary border-3" (click)="goBack()">მთავარი</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-secondary" href="#">კანდიდატები</a>
+        <a class="nav-link text-secondary" (click)="goToCandidates()">კანდიდატები</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-secondary" href="#">შესაფერისები</a>
+        <a class="nav-link text-secondary" (click)="gotToPreferableCandidates()">შესაფერისები</a>
       </li>
     </ul>
   </div>

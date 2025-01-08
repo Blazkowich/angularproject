@@ -56,4 +56,12 @@ export class JobDetailsComponent implements OnInit {
   goBack() {
     this.router.navigate(['/open-jobs']);
   }
+
+  goToCandidates() {
+    this.router.navigate(['/candidates']);
+  }
+
+  gotToPreferableCandidates() {
+    this.router.navigate(['/candidates/preferred']);
+  }
 }

@@ -5,6 +5,7 @@ import { JobDetailsComponent } from './commander/job-details/job-details.compone
 import { ClosedJobComponent } from './commander/closed-job/closed-job.component';
 import { MainGuard } from './auth/main-guard/main-guard.component';
 import { LoginComponent } from './login/login.component';
+import { CandidatesComponent } from './commander/candidates/candidates.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -13,5 +14,9 @@ export const routes: Routes = [
   { path: 'create-job', component: CreateJobComponent, canActivate: [MainGuard] },
   { path: 'job-details/:id', component: JobDetailsComponent, canActivate: [MainGuard] },
   { path: 'closed-jobs', component: ClosedJobComponent, canActivate: [MainGuard] },
+  { path: 'candidates', component: CandidatesComponent, canActivate: [MainGuard] },
+  { path: 'candidates/preferred', component: CandidatesComponent, canActivate: [MainGuard] },
+
   { path: '**', redirectTo: '/login' }
 ];
+//{ path: 'candidate-details/:id', component: CandidateDetailsComponent, canActivate: [MainGuard] },
