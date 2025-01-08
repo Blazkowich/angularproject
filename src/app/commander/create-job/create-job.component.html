@@ -234,6 +234,12 @@
           Back
         </button>
 
+        <button *ngIf="!isPage1Completed"
+        class="btn btn-secondary btn-lg px-5 rounded-pill"
+        (click)="goBack()">
+          Back
+        </button>
+
         <!-- Next Button -->
         <button *ngIf="!isPage3Completed"
                 class="btn btn-lg px-5 rounded-pill"

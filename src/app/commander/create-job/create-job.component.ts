@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 import { ControlIconsComponent } from "../../shared/control-icons/control-icons.component";
 import { FormsModule } from '@angular/forms';
@@ -35,6 +36,8 @@ export class CreateJobComponent {
   };
 
   progressNumber: number = 25;
+
+  constructor(private router: Router) {}
 
   // Flags for form validation and page transitions
   isFirstFormValid: boolean = false;
@@ -137,5 +140,9 @@ export class CreateJobComponent {
   // Add job
   addJob(): void {
     console.log('Job added', this.job);
+  }
+
+  goBack() {
+    this.router.navigate(['/open-jobs']);
   }
 }

@@ -46,7 +46,7 @@ export class JobDetailsComponent implements OnInit {
   }
 
   isJobOpen(job: Job): boolean {
-    return job.status.toLowerCase() === 'open';
+    return job && job.status.toLowerCase() === 'open';
   }
 
   openJobPopup() {
@@ -54,6 +54,6 @@ export class JobDetailsComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['']);
+    this.router.navigate(['/open-jobs']);
   }
 }
