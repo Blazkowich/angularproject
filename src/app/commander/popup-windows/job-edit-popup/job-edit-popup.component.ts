@@ -1,15 +1,18 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { CloseJobPopupComponent } from '../close-job-popup/close-job-popup.component';
 
 @Component({
   selector: 'commander-job-edit-popup',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, CloseJobPopupComponent],
   templateUrl: './job-edit-popup.component.html',
-  styleUrl: './job-edit-popup.component.css'
+  styleUrls: ['./job-edit-popup.component.css']
 })
 export class JobEditPopupComponent {
+  @ViewChild(CloseJobPopupComponent) closeJobPopup!: CloseJobPopupComponent;
   isModalOpen = false;
+  isCloseJobPopupOpen = false;
 
   openPopup() {
     this.isModalOpen = true;
@@ -28,6 +31,11 @@ export class JobEditPopupComponent {
   }
 
   closeJob() {
-    console.log('Job is being closed');
+    this.isModalOpen = false;
+    this.isCloseJobPopupOpen = true;
+  }
+
+  closeCloseJobPopup() {
+    this.isCloseJobPopupOpen = false;
   }
 }

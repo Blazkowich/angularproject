@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
-import { JobEditPopupComponent } from '../job-edit-popup/job-edit-popup.component';
+import { JobEditPopupComponent } from '../popup-windows/job-edit-popup/job-edit-popup.component';
+import { CloseJobPopupComponent } from "../popup-windows/close-job-popup/close-job-popup.component";
 
 @Component({
   selector: 'commander-job-details',
@@ -10,6 +11,7 @@ import { JobEditPopupComponent } from '../job-edit-popup/job-edit-popup.componen
 })
 export class JobDetailsComponent {
   @ViewChild(JobEditPopupComponent) popup!: JobEditPopupComponent;
+  @ViewChild(CloseJobPopupComponent) closePopup!: CloseJobPopupComponent;
 
   openJobPopup() {
     this.popup.openPopup();

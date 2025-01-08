@@ -6,10 +6,12 @@
           <button class="btn transparent-btn mb-2" (click)="updateJob()">Update Job</button>
           <button class="btn transparent-btn mb-2" (click)="updateJobDetails()">Update Job Details</button>
           <button class="btn transparent-btn mb-2" (click)="closeJob()">Close Job</button>
-
         </div>
       </div>
       <button type="button" class="btn transparent-btn mb-2" (click)="closePopup()">Close</button>
     </div>
   </div>
 </div>
+
+<!-- Close Job Popup Component -->
+<commander-close-job-popup #popup [isModalOpen]="isCloseJobPopupOpen" (closePopup)="closeCloseJobPopup()"></commander-close-job-popup>
