@@ -1,12 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { JobEditPopupComponent } from '../job-edit-popup/job-edit-popup.component';
 
 @Component({
-  selector: 'app-job-details',
+  selector: 'commander-job-details',
   standalone: true,
-  imports: [],
+  imports: [JobEditPopupComponent],
   templateUrl: './job-details.component.html',
   styleUrl: './job-details.component.css'
 })
 export class JobDetailsComponent {
+  @ViewChild(JobEditPopupComponent) popup!: JobEditPopupComponent;
 
+  openJobPopup() {
+    this.popup.openPopup();
+  }
 }

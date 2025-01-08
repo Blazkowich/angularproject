@@ -1,0 +1,14 @@
+<div class="modal" tabindex="-1" role="dialog" [ngClass]="{'show': isModalOpen}" [ngStyle]="{'display': isModalOpen ? 'block' : 'none'}">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="d-flex flex-column align-items-center text-dark">
+          <button class="btn transparent-btn mb-2" (click)="updateJob()">Update Job</button>
+          <button class="btn transparent-btn mb-2" (click)="updateJobDetails()">Update Job Details</button>
+          <button class="btn transparent-btn mb-2" (click)="closeJob()">Close Job</button>
+          <button type="button" class="btn transparent-btn mb-2" (click)="closePopup()">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

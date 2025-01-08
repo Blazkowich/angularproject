@@ -52,7 +52,7 @@
        <!-- Job Status and Questions -->
         <div class="row">
           <div class="col-12 col-md-6 d-flex align-items-center gap-2 mb-3">
-            <img src="/assets/edit.svg" alt="edit icon">
+            <img src="/assets/edit.svg" alt="edit icon" (click)="openJobPopup()">
             <span class="text-secondary">job status:</span>
             <span class="text-success">open</span>
           </div>
@@ -66,3 +66,4 @@
     </div>
   </main>
 </div>
+<commander-job-edit-popup #popup></commander-job-edit-popup>
