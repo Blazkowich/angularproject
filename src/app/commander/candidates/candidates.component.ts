@@ -5,11 +5,12 @@ import { CandidateService } from '../../services/candidates.service';
 import { Candidate } from '../../models/candidates.model';
 import { filter } from 'rxjs';
 import { ImageComponent } from '../../shared/image/image.component';
+import { FilterPipe } from '../../shared/filterPipe/filter.pipe';
 
 @Component({
   selector: 'app-candidates',
   standalone: true,
-  imports: [CommonModule, RouterModule, ImageComponent],
+  imports: [CommonModule, RouterModule, ImageComponent, FilterPipe],
   templateUrl: './candidates.component.html',
   styleUrl: './candidates.component.css'
 })

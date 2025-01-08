@@ -55,7 +55,8 @@
     <div class="row justify-content-center">
       <div class="col-12 col-md-10 col-lg-8">
         <div class="candidate-box-container">
-          <div *ngFor="let candidate of candidates"
+          <h3 *ngIf="isCandidatesActive">Candidates To Review</h3>
+          <div *ngFor="let candidate of candidates | filter: ['preferred', 'neutral']"
               class="candidate-box mb-3 position-relative cursor-pointer"
               [routerLink]="'/candidate-details/' + candidate.id">
             <div class="d-flex align-items-center w-100 p-2">
@@ -72,6 +73,24 @@
               </div>
             </div>
           </div>
+          <h3 *ngIf="isCandidatesActive">Rejected</h3>
+          <div *ngFor="let candidate of candidates | filter: ['rejected']"
+          class="candidate-box mb-3 position-relative cursor-pointer"
+          [routerLink]="'/candidate-details/' + candidate.id">
+          <div class="d-flex align-items-center w-100 p-2">
+            <div class="profile-image-container">
+              <img [src]="candidate.imageUrl"
+                  alt="Profile picture"
+                  class="profile-image"
+                  onerror="this.src='assets/on.svg'">
+            </div>
+            <div class="me-3 d-flex flex-column flex-grow-1 text-end">
+              <h4 class="mb-1">{{ candidate.fullName }}</h4>
+              <h5 class="mb-0">{{ candidate.age }}</h5>
+              <h5 class="mb-0">{{ candidate.status }}</h5>
+            </div>
+          </div>
+        </div>
         </div>
       </div>
     </div>
