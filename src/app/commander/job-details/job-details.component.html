@@ -50,15 +50,17 @@
         </div>
 
        <!-- Job Status and Questions -->
-        <div class="row">
-          <div class="col-12 col-md-6 d-flex align-items-center gap-2 mb-3">
-            <img src="/assets/edit.svg" alt="edit icon" (click)="openJobPopup()">
-            <span class="text-secondary">job status:</span>
-            <span class="text-success">{{ job?.status }}</span>
-          </div>
+       <div class="row">
+        <div class="col-12 col-md-6 d-flex align-items-center gap-2 mb-3">
+          <img src="/assets/edit.svg" alt="edit icon" (click)="openJobPopup()">
+          <span class="text-secondary">Job status:</span>
+          <span [ngClass]="isJobOpen(job!) ? 'text-success' : 'text-brown'">
+            {{ job?.status }}
+          </span>
+        </div>
           <div class="col-12 col-md-6 text-md-end">
             <a href="#" class="text-primary text-decoration-none">
-              questions and answers
+              Questions and answers
             </a>
           </div>
         </div>

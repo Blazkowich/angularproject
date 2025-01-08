@@ -45,6 +45,10 @@ export class JobDetailsComponent implements OnInit {
     });
   }
 
+  isJobOpen(job: Job): boolean {
+    return job.status.toLowerCase() === 'open';
+  }
+
   openJobPopup() {
     this.popup.openPopup();
   }

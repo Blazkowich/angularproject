@@ -26,14 +26,23 @@ export class MainPageComponent implements OnInit {
   constructor(private jobService: JobService, private router: Router) {}
 
   ngOnInit(): void {
+    this.loadJobs();
+  }
+
+  private loadJobs(): void {
     this.jobService.getJobs().subscribe({
       next: (jobs: Job[]) => {
-      this.jobs = jobs;
+        this.jobs = jobs.filter(job => this.isJobOpen(job));
       },
       error: (error) => {
-      console.error('Error fetching jobs', error);
+        console.error('Error loading jobs:', error);
+        alert('Failed to load jobs. Please try again later.');
       }
     });
+  }
+
+  isJobOpen(job: Job): boolean {
+    return job.status.toLowerCase() === 'open';
   }
 
   navigateToJob(jobId: string) {
