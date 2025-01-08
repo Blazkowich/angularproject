@@ -1,47 +1,49 @@
-/* =============================
-   Icon Button Section
-============================= */
-
-.control-icons {
-  position: sticky; /* Makes it sticky relative to its parent container */
-  top: 0; /* Sticks it to the top of its container */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 40px;
-  transform: translate(0%, 50%);
-  z-index: 1000; /* Ensures it's on top of other elements */
-}
-
-.control-icons .icon-text {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.icon-btn {
   background: none;
   border: none;
-  cursor: pointer;
-  padding: 10px;
   transition: transform 0.2s ease-in-out;
+  text-decoration: none;
 }
 
-.control-icons .icon-text:hover {
+.icon-btn:hover {
   transform: scale(1.1);
 }
 
-.control-icons img {
+.icon-btn:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.icon-img {
   width: 48px;
   height: auto;
 }
 
-.control-icons h4 {
-  margin-top: 10px;
-  font-size: 1.1rem;
-  font-weight: 200;
-  text-align: center;
-  color: white;
-  font-family: Arial, Helvetica, sans-serif;
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .gap-5 {
+    gap: 1.5rem !important;
+  }
+
+  .icon-img {
+    width: 46px;
+  }
+
+  h4 {
+    font-size: 0.9rem;
+  }
 }
 
-.control-icons button:focus {
-  outline: none;
+@media (max-width: 400px) {
+  .gap-5 {
+    gap: 2rem !important;
+  }
+
+  .icon-img {
+    width: 42px;
+  }
+
+  h4 {
+    font-size: 1rem;
+  }
 }
