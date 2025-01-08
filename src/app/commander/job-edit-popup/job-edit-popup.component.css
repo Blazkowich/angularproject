@@ -13,7 +13,7 @@
 
 .modal.show {
   opacity: 1;
-  transform: translateY(50px);
+  transform: translateY(70px);
 }
 
 .modal-dialog {
@@ -24,10 +24,11 @@
 }
 
 .modal-content {
-  background-color: rgba(255, 255, 255, 0);
+  background-color: rgba(211, 211, 211, 0.089);
   padding: 15px;
   color: black;
   border: none;
+  border-radius: 15px;
 }
 
 .modal-body {
@@ -41,7 +42,7 @@
 .transparent-btn {
   background-color: transparent;
   color: black;
-  border: 1px solid black;
+  border: 1px solid gray;
   width: 100%;
 }
 
@@ -52,5 +53,8 @@
 @media (max-width: 400px) {
   .modal.show {
     transform: translateY(290px);
+  }
+  .modal-content {
+    background-color: lightgray;
   }
 }
