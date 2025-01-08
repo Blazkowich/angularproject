@@ -1,0 +1,22 @@
+nav {
+  margin-top: 80px;
+}
+
+@media (max-width: 400px) {
+  nav {
+    margin-top: 60px;
+  }
+
+  .nav {
+    flex-wrap: nowrap;
+    gap: 0;
+  }
+
+  .nav-item {
+    margin-right: -15px;
+  }
+
+  .nav-link {
+    font-size: 14px;
+  }
+}
