@@ -106,7 +106,7 @@
           <h3 *ngIf="isPreferableActive">Preferrable Candidates</h3>
           <div *ngFor="let candidate of candidates | filter: ['preferred']"
               class="candidate-box mb-3 position-relative cursor-pointer"
-              [routerLink]="'/candidate-details/' + candidate.id">
+              [routerLink]="'/candidate-profile/' + candidate.id">
             <div class="d-flex align-items-center w-100 p-2">
               <div class="profile-image-container">
                 <img [src]="candidate.imageUrl"
@@ -117,7 +117,7 @@
               <div class="me-3 d-flex flex-column flex-grow-1 text-end">
                 <h4 class="mb-1">{{ candidate.fullName }}</h4>
                 <h5 class="mb-0">{{ candidate.age }}</h5>
-                <h5 class="mb-0" style="color: #446BF2">Contact</h5>
+                <h5 class="button-like-text mb-0" [routerLink]="'/interview-summary/' + candidate.id">Contact</h5>
               </div>
               <i class="bi bi-chevron-left chevron-icon"></i>
             </div>

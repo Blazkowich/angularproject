@@ -8,6 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { CandidatesComponent } from './commander/candidate/candidates/candidates.component';
 import { CandidatesDetailsComponent } from './commander/candidate/candidates-details/candidates-details.component';
 import { CandidateProfileComponent } from './commander/candidate/candidate-profile/candidate-profile.component';
+import { InterviewSummaryComponent } from './commander/interview-summary/interview-summary.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -20,6 +21,7 @@ export const routes: Routes = [
   { path: 'candidates/preferred', component: CandidatesComponent, canActivate: [MainGuard] },
   { path: 'candidate-details/:id', component: CandidatesDetailsComponent, canActivate: [MainGuard] },
   { path: 'candidate-profile/:id', component: CandidateProfileComponent, canActivate: [MainGuard]},
+  { path: 'interview-summary/:id', component: InterviewSummaryComponent, canActivate: [MainGuard]},
 
   { path: '**', redirectTo: '/login' }
 ];

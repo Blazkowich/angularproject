@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CandidateProfileComponent } from "./commander/candidate/candidate-profile/candidate-profile.component";
+import { InterviewSummaryComponent } from "./commander/interview-summary/interview-summary.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterModule, CandidateProfileComponent],
+  imports: [RouterModule, CandidateProfileComponent, InterviewSummaryComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

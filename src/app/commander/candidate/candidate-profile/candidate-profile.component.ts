@@ -3,7 +3,8 @@ import { Subscription } from 'rxjs';
 import { Candidate } from '../../../models/candidates.model';
 import { CandidateService } from '../../../services/candidates.service';
 import { ActivatedRoute } from '@angular/router';
-import { CommonModule, Location } from '@angular/common';
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-candidate-profile',
@@ -19,7 +20,7 @@ export class CandidateProfileComponent implements OnInit, OnDestroy {
   constructor(
     private candidateService: CandidateService,
     private route: ActivatedRoute,
-    private location: Location)
+    private router: Router)
   {}
 
   ngOnInit(): void {
@@ -43,7 +44,7 @@ export class CandidateProfileComponent implements OnInit, OnDestroy {
   }
 
   goBack() {
-    this.location.back();
+    this.router.navigate(['/candidates']);
   }
 
   ngOnDestroy(): void {
