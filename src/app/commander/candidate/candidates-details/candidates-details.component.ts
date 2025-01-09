@@ -2,8 +2,8 @@ import { CandidateService } from '../../../services/candidates.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Candidate } from '../../../models/candidates.model';
 import { Subscription } from 'rxjs';
-import { ActivatedRoute, RouterModule } from '@angular/router';
-import { CommonModule, Location } from '@angular/common';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { Job } from '../../../models/jobs.model';
 import { JobService } from '../../../services/jobs.service';
 
@@ -17,6 +17,7 @@ import { JobService } from '../../../services/jobs.service';
 export class CandidatesDetailsComponent implements OnInit, OnDestroy{
   candidate: Candidate | undefined;
   job: Job | undefined;
+  jobId: string = '';
   candidateSub: Subscription | undefined;
   jobSub: Subscription | undefined;
 
@@ -24,11 +25,11 @@ export class CandidatesDetailsComponent implements OnInit, OnDestroy{
     private candidateService: CandidateService,
     private jobService: JobService,
     private route: ActivatedRoute,
-    private location: Location) {}
+    private router: Router) {}
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
-    const jobId = localStorage.getItem('jobId');
+    this.jobId = localStorage.getItem('jobId')!;
     localStorage.setItem('candidateId', id!);
     if (id) {
       this.candidateSub = this.candidateService.getCandidateById(id).subscribe({
@@ -40,8 +41,8 @@ export class CandidatesDetailsComponent implements OnInit, OnDestroy{
       console.log('Candidate ID not found');
     }
 
-    if (jobId) {
-      this.jobSub = this.jobService.getJobById(jobId).subscribe({
+    if (this.jobId) {
+      this.jobSub = this.jobService.getJobById(this.jobId).subscribe({
         next: job => {
           this.job = job;
         },
@@ -61,7 +62,7 @@ export class CandidatesDetailsComponent implements OnInit, OnDestroy{
   }
 
   goBack() {
-    this.location.back();
+    this.router.navigate([`/job-details/${this.jobId}`]);
   }
 
   onAgree() {

@@ -56,7 +56,7 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
   }
 
   goBack() {
-    this.location.back();
+    this.router.navigate(['/open-jobs']);
   }
 
   goToCandidates() {

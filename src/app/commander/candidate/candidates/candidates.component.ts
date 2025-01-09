@@ -6,6 +6,7 @@ import { Candidate } from '../../../models/candidates.model';
 import { filter } from 'rxjs';
 import { ImageComponent } from '../../../shared/image/image.component';
 import { FilterPipe } from '../../../shared/filterPipe/filter.pipe';
+import { Job } from '../../../models/jobs.model';
 
 @Component({
   selector: 'app-candidates',
@@ -16,8 +17,9 @@ import { FilterPipe } from '../../../shared/filterPipe/filter.pipe';
 })
 export class CandidatesComponent implements OnInit {
   candidates: Candidate[] = [];
+  jobId: string = '';
   allCandidates: Candidate[] = [];
-  currentFilter: 'preferred' | 'rejected' | 'neutral' | 'all' = 'all';
+  currentFilter: 'preferred' | 'rejected' | 'pending' | 'all' = 'all';
   isMainActive: boolean = false;
   isCandidatesActive: boolean = false;
   isPreferableActive: boolean = false;
@@ -41,6 +43,7 @@ export class CandidatesComponent implements OnInit {
   ngOnInit(): void {
     this.loadCandidates();
     this.checkFilter();
+    this.jobId = localStorage.getItem('jobId')!;
   }
 
   private loadCandidates(): void {
@@ -57,12 +60,15 @@ export class CandidatesComponent implements OnInit {
   }
 
   private applyFilter(): void {
-    if (this.currentFilter === 'all') {
-      this.candidates = this.allCandidates;
+    if (this.isPreferableActive) {
+      this.candidates = this.allCandidates.filter(candidate => candidate.status === 'preferred');
+    } else if (this.isCandidatesActive) {
+      this.candidates = this.allCandidates.filter(candidate => candidate.status === 'pending' || candidate.status === 'rejected');
     } else {
-      this.candidates = this.allCandidates.filter(candidate => candidate.status === this.currentFilter);
+      this.candidates = this.allCandidates;
     }
   }
+
 
   private checkFilter(): void {
     this.route.url.subscribe(url => {
@@ -78,7 +84,7 @@ export class CandidatesComponent implements OnInit {
   }
 
   goBack() {
-    this.location.back();
+    this.router.navigate([`/job-details/${this.jobId}`]);
   }
 
   goToCandidates() {
