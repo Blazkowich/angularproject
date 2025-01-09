@@ -59,10 +59,10 @@
         </div>
         <!-- Agree and Reject buttons in one row -->
         <div class="d-flex justify-content-center mt-4">
-          <button class="btn-image agree-btn" (click)="onAgree()">
+          <button class="btn-image agree-btn" (click)="onCandidateAgree()">
             <img src="assets/images/agree.svg" alt="Agree" class="button-image">
           </button>
-          <button class="btn-image reject-btn ml-3" (click)="onReject()">
+          <button class="btn-image reject-btn ml-3" (click)="onCandidateReject()">
             <img src="assets/images/reject.svg" alt="Reject" class="button-image">
           </button>
         </div>
@@ -70,3 +70,8 @@
     </div>
   </div>
 </div>
+<app-approve-reject-popup
+  *ngIf="showPopup"
+  [isApproved]="isApproved"
+  (close)="closeCandidatePopup()">
+</app-approve-reject-popup>

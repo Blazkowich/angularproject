@@ -6,11 +6,12 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Job } from '../../../models/jobs.model';
 import { JobService } from '../../../services/jobs.service';
+import { ApproveRejectPopupComponent } from '../../popup-windows/approve-reject-popup/approve-reject-popup.component';
 
 @Component({
   selector: 'app-candidates-details',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, ApproveRejectPopupComponent],
   templateUrl: './candidates-details.component.html',
   styleUrl: './candidates-details.component.css'
 })
@@ -20,6 +21,8 @@ export class CandidatesDetailsComponent implements OnInit, OnDestroy{
   jobId: string = '';
   candidateSub: Subscription | undefined;
   jobSub: Subscription | undefined;
+  showPopup = false;
+  isApproved = true;
 
   constructor(
     private candidateService: CandidateService,
@@ -55,6 +58,22 @@ export class CandidatesDetailsComponent implements OnInit, OnDestroy{
     }
   }
 
+  onCandidateAgree() {
+    this.isApproved = true;
+    this.showPopup = true;
+    console.log("Agree");
+  }
+
+  onCandidateReject() {
+    this.isApproved = false;
+    this.showPopup = true;
+    console.log("Reject");
+  }
+
+  closeCandidatePopup() {
+    this.showPopup = false;
+  }
+
   getCandidate(id: string): void {
     this.candidateService.getCandidateById(id).subscribe({
       next: candidate => this.candidate = candidate
@@ -63,14 +82,6 @@ export class CandidatesDetailsComponent implements OnInit, OnDestroy{
 
   goBack() {
     this.router.navigate([`/job-details/${this.jobId}`]);
-  }
-
-  onAgree() {
-    console.log("Agree");
-  }
-
-  onReject() {
-    console.log("Reject");
   }
 
   ngOnDestroy(): void {
