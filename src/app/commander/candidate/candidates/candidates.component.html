@@ -56,7 +56,7 @@
       <div class="col-12 col-md-10 col-lg-8">
         <div class="candidate-box-container">
           <h3 *ngIf="isCandidatesActive">Candidates To Review</h3>
-          <div *ngFor="let candidate of candidates | filter: ['preferred', 'neutral']"
+          <div *ngFor="let candidate of candidates | filter: ['preferred', 'pending']"
               class="candidate-box mb-3 position-relative cursor-pointer"
               [routerLink]="'/candidate-details/' + candidate.id">
             <div class="d-flex align-items-center w-100 p-2">
