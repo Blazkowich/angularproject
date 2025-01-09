@@ -55,6 +55,15 @@
             </div>
           </div>
         </div>
+        <!-- Agree and Reject buttons in one row -->
+        <div class="d-flex justify-content-center mt-4">
+          <button class="btn-image agree-btn" (click)="onAgree()">
+            <img src="assets/agree.svg" alt="Agree" class="button-image">
+          </button>
+          <button class="btn-image reject-btn ml-3" (click)="onReject()">
+            <img src="assets/reject.svg" alt="Reject" class="button-image">
+          </button>
+        </div>
       </div>
     </div>
   </div>

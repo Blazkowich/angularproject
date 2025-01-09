@@ -1,5 +1,5 @@
 .container {
-  margin-top: -20px;
+  margin-top: -10px;
 }
 
 .header-content {
@@ -66,6 +66,38 @@ main {
   margin-left: auto;
   width: 80%;
   text-align: right;
+}
+
+/* Styling for the image buttons */
+.btn-image {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.button-image {
+  width: 30px;
+  height: 30px;
+}
+
+.agree-btn {
+  background-color: rgba(0, 128, 0, 0.500);
+  border-radius: 50px;
+  padding: 10px;
+  position: relative;
+  top: -15px;
+}
+
+.reject-btn {
+  background-color: rgba(255, 0, 0, 0.500);
+  border-radius: 50px;
+  padding: 10px;
+  position: relative;
+  top: -15px;
+}
+
+.ml-3 {
+  margin-left: 5rem;
 }
 
 .info-row {

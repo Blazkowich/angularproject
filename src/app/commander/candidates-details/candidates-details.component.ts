@@ -63,6 +63,14 @@ export class CandidatesDetailsComponent implements OnInit, OnDestroy{
     this.location.back();
   }
 
+  onAgree() {
+    console.log("Agree");
+  }
+
+  onReject() {
+    console.log("Reject");
+  }
+
   ngOnDestroy(): void {
     if (this.candidateSub) {
       this.candidateSub.unsubscribe();
