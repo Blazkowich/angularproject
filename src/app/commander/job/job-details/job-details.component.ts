@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { JobEditPopupComponent } from '../popup-windows/job-edit-popup/job-edit-popup.component';
-import { CloseJobPopupComponent } from "../popup-windows/close-job-popup/close-job-popup.component";
-import { JobService } from '../../services/jobs.service';
+import { JobEditPopupComponent } from '../../popup-windows/job-edit-popup/job-edit-popup.component';
+import { CloseJobPopupComponent } from "../../popup-windows/close-job-popup/close-job-popup.component";
+import { JobService } from '../../../services/jobs.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Job } from '../../models/jobs.model';
+import { Job } from '../../../models/jobs.model';
 import { CommonModule, Location } from '@angular/common';
 import { Subscription } from 'rxjs';
 

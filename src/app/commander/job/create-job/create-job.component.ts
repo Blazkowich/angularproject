@@ -1,9 +1,9 @@
 import { Router } from '@angular/router';
 import { Component } from '@angular/core';
-import { ControlIconsComponent } from "../../shared/control-icons/control-icons.component";
+import { ControlIconsComponent } from "../../../shared/control-icons/control-icons.component";
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Job } from '../../models/jobs.model';
+import { Job } from '../../../models/jobs.model';
 
 @Component({
   selector: 'commander-create-job',

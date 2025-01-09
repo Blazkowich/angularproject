@@ -10,6 +10,9 @@ body {
   align-items: center;
 }
 
+.icons {
+  filter: invert(1);
+}
 .container {
   background-color: rgb(255, 255, 255);
   padding: 20px;
@@ -37,6 +40,23 @@ body {
   height: 80px;
 }
 
+.profile-image-container {
+  width: 150px;
+  height: 150px;
+  position: absolute;
+  left: 50%;
+  z-index: 2;
+}
+
+.profile-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 .btn-primary {
   background-color: #0d6efd;
   border-color: #0d6efd;
@@ -57,5 +77,13 @@ body {
   .rounded-circle {
     width: 60px;
     height: 60px;
+  }
+
+  .profile-image-container {
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    left: 70%;
+    z-index: 2;
   }
 }

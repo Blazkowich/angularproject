@@ -1,11 +1,11 @@
 import { CommonModule, Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router, RouterModule } from '@angular/router';
-import { CandidateService } from '../../services/candidates.service';
-import { Candidate } from '../../models/candidates.model';
+import { CandidateService } from '../../../services/candidates.service';
+import { Candidate } from '../../../models/candidates.model';
 import { filter } from 'rxjs';
-import { ImageComponent } from '../../shared/image/image.component';
-import { FilterPipe } from '../../shared/filterPipe/filter.pipe';
+import { ImageComponent } from '../../../shared/image/image.component';
+import { FilterPipe } from '../../../shared/filterPipe/filter.pipe';
 
 @Component({
   selector: 'app-candidates',

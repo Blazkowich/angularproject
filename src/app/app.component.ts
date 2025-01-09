@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { CandidateProfileComponent } from "./commander/candidate-profile/candidate-profile.component";
+import { CandidateProfileComponent } from "./commander/candidate/candidate-profile/candidate-profile.component";
 
 @Component({
   selector: 'app-root',

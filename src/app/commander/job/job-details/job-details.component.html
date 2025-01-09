@@ -9,7 +9,7 @@
               <h1 class="h5 mb-0">{{ job?.jobName }}</h1>
               <p class="small mb-0">{{ job?.unit }}</p>
             </div>
-            <img src="assets/back.svg" alt="Back" style="margin-top: 50px; width: 30px; height: 30px; filter: brightness(0) invert(1);" (click)="goBack()">
+            <img src="assets/images/back.svg" alt="Back" style="margin-top: 50px; width: 30px; height: 30px; filter: brightness(0) invert(1);" (click)="goBack()">
           </div>
         </div>
       </div>
@@ -52,7 +52,7 @@
        <!-- Job Status and Questions -->
        <div class="row">
         <div class="col-12 col-md-6 d-flex align-items-center gap-2 mb-3">
-          <img src="/assets/edit.svg" alt="edit icon" (click)="openJobPopup()">
+          <img src="/assets/images/edit.svg" alt="edit icon" (click)="openJobPopup()">
           <span class="text-secondary">Job status:</span>
           <span [ngClass]="isJobOpen(job!) ? 'text-success' : 'text-brown'">
             {{ job?.status }}

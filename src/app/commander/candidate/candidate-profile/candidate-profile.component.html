@@ -4,27 +4,33 @@
       <!-- Header with Profile -->
       <div class="d-flex justify-content-between align-items-start mb-4">
         <div>
-          <h2 class="mb-0">יונתן כהן</h2>
-          <small class="text-muted">316223789</small>
+          <h2 class="mb-0">{{ candidate?.fullName }}</h2>
+          <small class="text-muted">{{ candidate?.idNumber }}</small>
         </div>
         <div class="rounded-circle overflow-hidden">
-          <img src="https://images.generated.photos/tBc0lLQ_oGxkzUtUaN6kDhkNsupKp3IDaSSePjb8v6I/rs:fit:256:256/czM6Ly9pY29uczgu/Z3Bob3Rvcy1wcm9k/LnBob3Rvcy92M18w/NDE2NzU3LmpwZw.jpg" alt="Profile" class="w-100 h-100 object-fit-cover">
+          <div class="profile-image-container">
+            <img [src]="candidate?.imageUrl"
+                 alt="Profile picture"
+                 class="profile-image"
+                 onerror="this.src='assets/images/on.svg'"
+                 (click)="goBack()">
+          </div>
         </div>
       </div>
 
       <!-- Personal Info -->
       <div class="mb-4">
         <div class="d-flex align-items-center mb-2">
-          <i class="bi bi-calendar me-2"></i>
-          <span>20.05.2006 (18)</span>
+          <img src="assets/images/cake.svg" alt="Cake" class="me-2 icons" style="width: 20px; height: 20px;">
+          <span>{{ candidate?.dateOfBirth }} ({{ candidate?.age }})</span>
         </div>
         <div class="d-flex align-items-center mb-2">
-          <i class="bi bi-gender-male me-2"></i>
-          <span>זכר</span>
+          <img src="assets/images/unisex.svg" alt="Gender" class="me-2 icons" style="width: 20px; height: 20px;">
+          <span>{{ candidate?.gender }}</span>
         </div>
         <div class="d-flex align-items-center mb-2">
-          <span class="me-2">RE</span>
-          <span>פרופיל 21</span>
+          <img src="assets/images/workprofile.svg" alt="Profile" class="me-2" style="width: 20px; height: 20px;">
+          <span>{{ candidate?.profile }}</span>
         </div>
       </div>
 
@@ -32,15 +38,15 @@
       <div class="mb-4">
         <div class="d-flex align-items-center mb-2">
           <i class="bi bi-telephone me-2"></i>
-          <span>052-6816668</span>
+          <span>{{ candidate?.phone }}</span>
         </div>
         <div class="d-flex align-items-center mb-2">
           <i class="bi bi-envelope me-2"></i>
-          <span>{{ 'Jonatancohen@gmail.com' }}</span>
+          <span>{{ candidate?.email }}</span>
         </div>
         <div class="d-flex align-items-center mb-2">
           <i class="bi bi-house me-2"></i>
-          <span>שלמה המלך 20, אילת</span>
+          <span>{{ candidate?.address }}</span>
         </div>
       </div>
 
@@ -50,7 +56,7 @@
           <div class="card-body py-2 px-3">
             <div class="d-flex justify-content-between">
               <span>ניסיון תעסוקתי</span>
-              <span>צ'ק פוינט בודק תוכנה</span>
+              <span>{{ candidate?.experience }}</span>
             </div>
           </div>
         </div>
@@ -58,7 +64,7 @@
           <div class="card-body py-2 px-3">
             <div class="d-flex justify-content-between">
               <span>השכלה</span>
-              <span>תיכונית</span>
+              <span>{{ candidate?.education }}</span>
             </div>
           </div>
         </div>
@@ -66,7 +72,7 @@
           <div class="card-body py-2 px-3">
             <div class="d-flex justify-content-between">
               <span>הכשרות וקורסים</span>
-              <span>קורס אוטומציה QA FIGMA, קורס בודק</span>
+              <span>{{ candidate?.courses }}</span>
             </div>
           </div>
         </div>
@@ -74,7 +80,7 @@
           <div class="card-body py-2 px-3">
             <div class="d-flex justify-content-between">
               <span>תחומי עניין</span>
-              <span>לשחק כדורגל, תיכנות, חדר כושר</span>
+              <span>{{ candidate?.interests }}</span>
             </div>
           </div>
         </div>
@@ -84,7 +90,7 @@
       <div class="mb-4">
         <h6 class="mb-2">תקציר אישי</h6>
         <p class="text-muted">
-          בן 18, בוגר תת מב 2 ההורים, יש לי 2 אחיות ואני הבכור, משפחה מפלח מאוד עובדי במקצועות המחשב ואשמח להתמודד לתפקיד
+          {{ candidate?.personalSummary }}
         </p>
       </div>
 
@@ -96,7 +102,7 @@
         </h6>
         <div class="d-flex align-items-center text-primary">
           <i class="bi bi-file-text me-2"></i>
-          <span>קורות חיים - יונתן כהן</span>
+          <span>קורות חיים - {{ candidate?.fullName }}</span>
         </div>
       </div>
 

@@ -8,7 +8,7 @@ import { Candidate } from '../models/candidates.model';
   providedIn: 'root',
 })
 export class CandidateService {
-  private candidatesUrl = '/assets/candidates.json';
+  private candidatesUrl = '/assets/data/candidates.json';
 
   constructor(private http: HttpClient) {}
 

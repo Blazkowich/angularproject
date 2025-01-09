@@ -1,11 +1,11 @@
-import { CandidateService } from './../../services/candidates.service';
+import { CandidateService } from '../../../services/candidates.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Candidate } from '../../models/candidates.model';
+import { Candidate } from '../../../models/candidates.model';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CommonModule, Location } from '@angular/common';
-import { Job } from '../../models/jobs.model';
-import { JobService } from '../../services/jobs.service';
+import { Job } from '../../../models/jobs.model';
+import { JobService } from '../../../services/jobs.service';
 
 @Component({
   selector: 'app-candidates-details',
@@ -29,6 +29,7 @@ export class CandidatesDetailsComponent implements OnInit, OnDestroy{
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     const jobId = localStorage.getItem('jobId');
+    localStorage.setItem('candidateId', id!);
     if (id) {
       this.candidateSub = this.candidateService.getCandidateById(id).subscribe({
         next: candidate => {
