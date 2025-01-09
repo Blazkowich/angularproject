@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { JobEditPopupComponent } from '../popup-windows/job-edit-popup/job-edit-popup.component';
 import { CloseJobPopupComponent } from "../popup-windows/close-job-popup/close-job-popup.component";
 import { JobService } from '../../services/jobs.service';
@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './job-details.component.html',
   styleUrl: './job-details.component.css'
 })
-export class JobDetailsComponent implements OnInit {
+export class JobDetailsComponent implements OnInit, OnDestroy {
   job: Job | undefined;
   jobSub: Subscription | undefined;
   @ViewChild(JobEditPopupComponent) popup!: JobEditPopupComponent;
@@ -30,6 +30,7 @@ export class JobDetailsComponent implements OnInit {
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
+      localStorage.setItem('jobId', id);
       this.jobSub = this.jobService.getJobById(id).subscribe({
         next: job => {
           this.job = job;
@@ -64,5 +65,11 @@ export class JobDetailsComponent implements OnInit {
 
   gotToPreferableCandidates() {
     this.router.navigate(['/candidates/preferred']);
+  }
+
+  ngOnDestroy(): void {
+    if (this.jobSub) {
+      this.jobSub.unsubscribe();
+    }
   }
 }
