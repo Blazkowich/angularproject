@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router, RouterModule } from '@angular/router';
 import { CandidateService } from '../../services/candidates.service';
@@ -25,7 +25,8 @@ export class CandidatesComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private candidateService: CandidateService
+    private candidateService: CandidateService,
+    private location: Location
   ) {
     router.events.pipe(
       filter(event => event instanceof NavigationEnd)
@@ -77,7 +78,7 @@ export class CandidatesComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['/open-jobs']);
+    this.location.back();
   }
 
   goToCandidates() {

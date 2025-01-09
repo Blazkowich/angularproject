@@ -4,7 +4,7 @@ import { CloseJobPopupComponent } from "../popup-windows/close-job-popup/close-j
 import { JobService } from '../../services/jobs.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Job } from '../../models/jobs.model';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -23,7 +23,8 @@ export class JobDetailsComponent implements OnInit {
   constructor(
     private jobService: JobService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -54,7 +55,7 @@ export class JobDetailsComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['/open-jobs']);
+    this.location.back();
   }
 
   goToCandidates() {
