@@ -1,1 +1,61 @@
-<p>candidates-details works!</p>
+<div class="min-vh-100">
+  <!-- Header -->
+  <header class="text-white py-4">
+    <div class="container">
+      <div class="header-content">
+        <div class="profile-image-container">
+          <img [src]="candidate?.imageUrl"
+               alt="Profile picture"
+               class="profile-image"
+               onerror="this.src='assets/on.svg'">
+        </div>
+        <div class="user-info">
+          <h1 class="h5 mb-0">{{ candidate?.fullName }}</h1>
+          <p class="small mb-0">{{ candidate?.age }}</p>
+        </div>
+        <button class="back-button" (click)="goBack()">
+          <img src="assets/back.svg" alt="Back">
+        </button>
+      </div>
+    </div>
+  </header>
+<!-- Candidate Info Card -->
+  <div class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-8 col-lg-6">
+        <div class="text-center mb-3">
+          <h5 class="mb-2">Candidate</h5>
+          <p class="text-muted">{{ "Job Name" }}</p>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <div class="mb-4">
+              <div class="info-rows">
+                <div class="info-row">
+                  <p class="fw-bold mb-1">Work Experience</p>
+                  <p>{{ "Work Experience" }}</p>
+                </div>
+                <div class="info-row">
+                  <p class="fw-bold mb-1">Education</p>
+                  <p>{{ "Education" }}</p>
+                </div>
+                <div class="info-row">
+                  <p class="fw-bold mb-1">Courses</p>
+                  <p>{{ "Courses" }}</p>
+                </div>
+                <div class="info-row">
+                  <p class="fw-bold mb-1">Programming Languages</p>
+                  <p>{{ "Programming Languages" }}</p>
+                </div>
+                <div class="info-row">
+                  <p class="fw-bold mb-1">Additional Info</p>
+                  <p>{{ "Additional Info" }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
