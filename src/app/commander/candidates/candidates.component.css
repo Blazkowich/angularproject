@@ -31,7 +31,6 @@ nav {
   min-height: 70px;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
-  /* Removed z-index */
   overflow: hidden;
 }
 
@@ -47,6 +46,11 @@ nav {
 
 .candidate-box .ms-3 {
   text-align: right;
+}
+
+.chevron-icon {
+  margin-left: 10px;
+  font-size: 1.5rem;
 }
 
 @keyframes moveText {
@@ -96,7 +100,7 @@ h5 {
 
 /* Background image */
 .position-fixed {
-  z-index: -1; /* Background image behind all content */
+  z-index: -1;
 }
 
 @media (max-width: 400px) {
