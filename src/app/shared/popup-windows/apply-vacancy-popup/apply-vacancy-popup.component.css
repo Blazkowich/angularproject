@@ -51,15 +51,31 @@
 
 .apply-button {
   background-color: #6c5ce7;
-  border: none;
   color: white;
-  padding: 12px;
-  border-radius: 4px;
-  width: 100%;
-  font-weight: 500;
-  transition: background-color 0.15s ease-in-out;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .apply-button:hover {
-  background-color: #5f4dd0;
+  background-color: #5b4cc4;
+}
+
+.cancel-button {
+  background-color: red;
+  color: white;
+}
+
+.cancel-button:hover {
+  background-color: darkred;
+}
+
+@media (max-width: 400px) {
+  .modal-backdrop{
+    transform: translateY(5%);
+  }
 }

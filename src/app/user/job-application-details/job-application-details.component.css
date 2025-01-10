@@ -73,6 +73,14 @@ h6 {
   border-color: #5b4cc4;
 }
 
+.back-button {
+  margin-top: -60px;
+  width: 30px;
+  height: 30px;
+  filter: brightness(0) invert(1);
+  cursor: pointer;
+}
+
 @media (max-width: 400px) {
   .a {
     font-size: 16px;

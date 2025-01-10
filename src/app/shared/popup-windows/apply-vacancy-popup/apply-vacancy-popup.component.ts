@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './apply-vacancy-popup.component.css'
 })
 export class ApplyVacancyPopupComponent {
+  @Output() applied = new EventEmitter<boolean>();
   isVisible = false;
   fileName = '';
   additionalInfo = '';
@@ -34,10 +35,7 @@ export class ApplyVacancyPopupComponent {
   }
 
   onSubmit() {
-    console.log('Form submitted:', {
-      resume: this.fileName,
-      additionalInfo: this.additionalInfo
-    });
+    this.applied.emit(true);
     this.close();
   }
 }
