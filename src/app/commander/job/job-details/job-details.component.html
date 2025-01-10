@@ -52,7 +52,7 @@
        <!-- Job Status and Questions -->
        <div class="row">
         <div class="col-12 col-md-6 d-flex align-items-center gap-2 mb-3">
-          <img class="cursor-pointer" src="/assets/images/edit.svg" alt="edit icon" (click)="openJobPopup()">
+          <img class="edit-button" src="/assets/images/edit.svg" alt="edit icon" (click)="openJobPopup()">
           <span class="text-secondary">Job status:</span>
           <span [ngClass]="isJobOpen(job!) ? 'text-success' : 'text-brown'">
             {{ job?.status }}

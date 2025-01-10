@@ -6,8 +6,9 @@ nav {
   color: brown;
 }
 
-.cursor-pointer {
+.edit-button {
   cursor: pointer;
+  min-width: 20px;
 }
 
 @media (max-width: 400px) {

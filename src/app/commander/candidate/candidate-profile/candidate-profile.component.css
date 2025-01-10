@@ -1,5 +1,5 @@
 body {
-  direction: rtl;  /* Right-to-left text direction for Hebrew style */
+  direction: rtl;
   background-color: white;
   background-size: cover;
   background-position: center;
@@ -8,7 +8,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: right;  /* Align text to the right */
+  text-align: right;
 }
 
 .icons {
@@ -22,21 +22,21 @@ body {
   max-width: 100%;
   width: 100%;
   overflow: auto;
-  text-align: right;  /* Align text to the right */
+  text-align: right;
 }
 
 .card {
   border-radius: 15px;
   border: 1px solid #e0e0e0;
   background-color: white;
-  text-align: right;  /* Align text to the right */
+  text-align: right;
 }
 
 .card-body {
   padding: 2rem;
   border: none;
   box-shadow: none;
-  text-align: right;  /* Align text to the right */
+  text-align: right;
 }
 
 .rounded-circle {
