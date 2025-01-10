@@ -1,0 +1,45 @@
+<div class="modal-backdrop" *ngIf="isVisible" (click)="close()">
+  <div class="custom-modal" (click)="$event.stopPropagation()">
+    <div class="text-center">
+      <h2 class="mb-3">Applying for a position</h2>
+      <button type="button" class="close" (click)="close()">
+        <img src="/assets/images/close.svg" alt="Close" />
+      </button>
+      <h3 class="h4 mb-2">UX Designer</h3>
+      <p class="text-muted mb-4">Technological unit</p>
+    </div>
+
+    <form (ngSubmit)="onSubmit()">
+      <div class="mb-4">
+        <p class="mb-2">Before submitting your application, it is recommended to attach a resume.</p>
+        <div class="upload-box" (click)="fileInput.click()">
+          <span>{{ fileName || 'Uploading a resume' }}</span>
+          <i class="bi bi-upload ms-auto"></i>
+          <input
+            #fileInput
+            type="file"
+            (change)="onFileSelected($event)"
+            accept=".pdf,.doc,.docx"
+            class="d-none"
+          >
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label for="additionalInfo" class="form-label">Anything else to tell about yourself?</label>
+        <textarea
+          id="additionalInfo"
+          class="form-control"
+          rows="4"
+          [(ngModel)]="additionalInfo"
+          name="additionalInfo"
+          placeholder="Anything else you didn't mention? You can write here"
+        ></textarea>
+      </div>
+
+      <button type="submit" class="apply-button">
+        Apply
+      </button>
+    </form>
+  </div>
+</div>

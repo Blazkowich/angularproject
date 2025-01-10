@@ -1,4 +1,4 @@
-import { JobService } from './../../../services/jobs.service';
+import { JobService } from '../../../services/jobs.service';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CloseJobPopupComponent } from '../close-job-popup/close-job-popup.component';
