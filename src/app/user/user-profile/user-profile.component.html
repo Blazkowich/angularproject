@@ -1,0 +1,103 @@
+<div class="container py-4" style="font-family: 'Heebo', sans-serif;">
+  <div class="card shadow-sm">
+    <div class="card-body p-4">
+      <!-- Header with Profile -->
+      <div class="d-flex justify-content-between align-items-start mb-4">
+        <div class="name-and-id">
+          <h2 class="mb-0">{{ candidate.fullName }}</h2>
+          <small class="text-muted">{{ candidate.idNumber }}</small>
+        </div>
+        <div class="rounded-circle overflow-hidden">
+          <div class="profile-image-container">
+            <img class="cursor-pointer"
+                 [src]="candidate.imageUrl"
+                 alt="Profile picture"
+                 class="profile-image"
+                 onerror="this.src='assets/images/on.svg'"
+                 (click)="goBack()">
+          </div>
+        </div>
+      </div>
+
+      <!-- Personal Info -->
+      <div class="mb-4">
+        <div class="d-flex align-items-center justify-content-end mb-2">
+          <input [(ngModel)]="candidate.dateOfBirth" class="form-control" placeholder="Date of Birth">
+          <img src="assets/images/cake.svg" alt="Cake" class="ms-2 icons" style="width: 20px; height: 20px;">
+        </div>
+        <div class="d-flex align-items-center justify-content-end mb-2">
+          <input [(ngModel)]="candidate.gender" class="form-control" placeholder="Gender">
+          <img src="assets/images/unisex.svg" alt="Gender" class="ms-2 icons" style="width: 20px; height: 20px;">
+        </div>
+        <div class="d-flex align-items-center justify-content-end mb-2">
+          <input [(ngModel)]="candidate.profile" class="form-control" placeholder="Profile">
+          <img src="assets/images/workprofile.svg" alt="Profile" class="ms-2" style="width: 20px; height: 20px;">
+        </div>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="mb-4">
+        <div class="d-flex align-items-center justify-content-end mb-2">
+          <input [(ngModel)]="candidate.phone" class="form-control" placeholder="Phone">
+          <i class="bi bi-telephone ms-2"></i>
+        </div>
+        <div class="d-flex align-items-center justify-content-end mb-2">
+          <input [(ngModel)]="candidate.email" class="form-control" placeholder="Email">
+          <i class="bi bi-envelope ms-2"></i>
+        </div>
+        <div class="d-flex align-items-center justify-content-end mb-2">
+          <input [(ngModel)]="candidate.address" class="form-control" placeholder="Address">
+          <i class="bi bi-house ms-2"></i>
+        </div>
+      </div>
+
+      <!-- Categories -->
+      <div class="mb-4">
+        <div class="card mb-2">
+          <div class="card-body py-2 px-3">
+            <div class="d-flex justify-content-between">
+              <input [(ngModel)]="candidate.experience" class="form-control" placeholder="Experience">
+              <span>ניסיון תעסוקתי</span>
+            </div>
+          </div>
+        </div>
+        <div class="card mb-2">
+          <div class="card-body py-2 px-3">
+            <div class="d-flex justify-content-between">
+              <input [(ngModel)]="candidate.education" class="form-control" placeholder="Education">
+              <span>השכלה</span>
+            </div>
+          </div>
+        </div>
+        <div class="card mb-2">
+          <div class="card-body py-2 px-3">
+            <div class="d-flex justify-content-between">
+              <input [(ngModel)]="candidate.courses" class="form-control" placeholder="Courses">
+              <span>הכשרות וקורסים</span>
+            </div>
+          </div>
+        </div>
+        <div class="card mb-2">
+          <div class="card-body py-2 px-3">
+            <div class="d-flex justify-content-between">
+              <input [(ngModel)]="candidate.interests" class="form-control" placeholder="Interests">
+              <span>תחומי עניין</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Personal Description -->
+      <div class="mb-4">
+        <textarea [(ngModel)]="candidate.personalSummary" class="form-control" rows="3" placeholder="Personal Summary"></textarea>
+        <h6 class="mb-2">תקציר אישי</h6>
+      </div>
+
+      <!-- Save Button -->
+      <div class="text-center">
+        <button class="btn btn-primary px-5" (click)="saveProfile()">שמור</button>
+        <button class="btn btn-secondary px-5" (click)="goBack()">back</button>
+      </div>
+    </div>
+  </div>
+</div>

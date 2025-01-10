@@ -43,6 +43,10 @@ export class CandidateService {
     });
   }
 
+  updateCandidate(candidate: Candidate): Observable<Candidate> {
+    return this.http.put<Candidate>(`/api/candidates/${candidate.id}`, candidate);
+  }
+
   private calculateAge(dateOfBirth: string): number {
     const birthDate = new Date(dateOfBirth);
     const today = new Date();
