@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { ApplyVacancyPopupComponent } from '../../commander/popup-windows/apply-vacancy-popup/apply-vacancy-popup.component';
+import { ApplyVacancyPopupComponent } from '../../shared/popup-windows/apply-vacancy-popup/apply-vacancy-popup.component';
 
 @Component({
   selector: 'app-job-application-details',
