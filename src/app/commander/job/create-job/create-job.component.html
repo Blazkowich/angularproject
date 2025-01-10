@@ -227,10 +227,47 @@
   <div class="row justify-content-center">
     <div class="col-12 col-md-8 col-lg-6">
       <div class="d-flex justify-content-between mt-4 mb-5 px-3">
+        <!-- First Page Next Button -->
+        <button *ngIf="!isPage1Completed"
+        class="btn btn-lg px-5 rounded-pill"
+        [class.btn-primary]="isFirstFormValid"
+        [class.btn-secondary]="!isFirstFormValid"
+        [disabled]="!isFirstFormValid"
+        (click)="goToSecondPage()">
+          Next
+        </button>
+
+        <!-- Secon Page Next Button -->
+        <button *ngIf="isPage1Completed && !isPage2Completed"
+        class="btn btn-lg px-5 rounded-pill"
+        [class.btn-primary]="isSecondFormValid"
+        [class.btn-secondary]="!isSecondFormValid"
+        [disabled]="!isSecondFormValid"
+        (click)="goToThirdPage()">
+          Next
+        </button>
+
+        <!-- Third Page Next Button -->
+        <button *ngIf="isPage2Completed && !isPage3Completed"
+                class="btn btn-lg px-5 rounded-pill"
+                [class.btn-primary]="isThirdFormValid"
+                [class.btn-secondary]="!isThirdFormValid"
+                [disabled]="!isThirdFormValid"
+                (click)="goToFourthPage()">
+          Next
+        </button>
+
+        <!-- Add Button -->
+        <button *ngIf="isPage3Completed"
+                class="btn btn-success btn-lg px-5 rounded-pill"
+                (click)="addJob()">
+          Add
+        </button>
+
         <!-- Back Button -->
         <button *ngIf="isPage1Completed"
-                class="btn btn-secondary btn-lg px-5 rounded-pill"
-                (click)="goBackToFirstPage()">
+        class="btn btn-secondary btn-lg px-5 rounded-pill"
+        (click)="goBackToFirstPage()">
           Back
         </button>
 
@@ -238,23 +275,6 @@
         class="btn btn-secondary btn-lg px-5 rounded-pill"
         (click)="goBack()">
           Back
-        </button>
-
-        <!-- Next Button -->
-        <button *ngIf="!isPage3Completed"
-                class="btn btn-lg px-5 rounded-pill"
-                [class.btn-primary]="isFirstFormValid || isSecondFormValid || isThirdFormValid"
-                [class.btn-secondary]="!(isFirstFormValid || isSecondFormValid || isThirdFormValid)"
-                [disabled]="!(isFirstFormValid || isSecondFormValid || isThirdFormValid)"
-                (click)="goToNextPage()">
-          Next
-        </button>
-
-        <!-- Add Button -->
-        <button *ngIf="isPage3Completed"
-                class="btn btn-dark btn-lg px-5 rounded-pill"
-                (click)="addJob()">
-          Add
         </button>
       </div>
     </div>

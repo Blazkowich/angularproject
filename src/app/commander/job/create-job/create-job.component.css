@@ -31,4 +31,22 @@
     padding-left: 10px;
     padding-right: 10px;
   }
+
+  @media (max-width: 400px) {
+    .container {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+
+    .d-flex button {
+      margin-right: 5px;
+      width: 100%;
+    }
+
+    .d-flex {
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
+
 }
