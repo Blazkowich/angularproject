@@ -14,6 +14,8 @@ export interface Candidate {
   courses: string;
   interests: string;
   personalSummary: string;
-  status: 'preferred' | 'rejected' | 'pending';
+  jobStatuses: {
+    [jobId: string]: 'preferred' | 'rejected' | 'pending';
+  };
   imageUrl: string;
 }

@@ -81,7 +81,7 @@ export class CandidatesDetailsComponent implements OnInit, OnDestroy{
   }
 
   goBack() {
-    this.router.navigate([`/job-details/${this.jobId}`]);
+    this.router.navigate([`/job-details/${this.jobId}/candidates`]);
   }
 
   ngOnDestroy(): void {

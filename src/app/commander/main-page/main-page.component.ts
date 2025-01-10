@@ -26,7 +26,7 @@ export class MainPageComponent implements OnInit {
   jobs: Job[] = [];
   candidates: Candidate[] = [];
   allCandidates: Candidate[] = [];
-  currentFilter: 'preferred' | 'rejected' | 'neutral' | 'all' = 'all';
+  currentFilter: 'preferred' | 'rejected' | 'pending' | 'all' = 'all';
   allCandidatesCount: number = 0;
   rejectedCandidatesCount: number = 0;
   preferredCandidatesCount: number = 0;
@@ -57,9 +57,7 @@ export class MainPageComponent implements OnInit {
     this.candidateService.getCandidates().subscribe({
       next: (candidates: Candidate[]) => {
         this.allCandidates = candidates;
-        this.allCandidatesCount = candidates.length;
-        this.rejectedCandidatesCount = candidates.filter(candidate => candidate.status === 'rejected').length;
-        this.preferredCandidatesCount = candidates.filter(candidate => candidate.status === 'preferred').length;
+        this.calculateTotalCounts();
         this.applyFilter();
       },
       error: (error) => {
@@ -69,11 +67,38 @@ export class MainPageComponent implements OnInit {
     });
   }
 
+  private calculateTotalCounts(): void {
+    // Count unique candidates across all jobs
+    const uniqueCandidates = new Set(this.allCandidates.map(c => c.id));
+    this.allCandidatesCount = uniqueCandidates.size;
+
+    // Count candidates with 'rejected' status in any job
+    const rejectedCandidates = new Set(
+      this.allCandidates
+        .filter(candidate =>
+          Object.values(candidate.jobStatuses || {}).includes('rejected'))
+        .map(c => c.id)
+    );
+    this.rejectedCandidatesCount = rejectedCandidates.size;
+
+    // Count candidates with 'preferred' status in any job
+    const preferredCandidates = new Set(
+      this.allCandidates
+        .filter(candidate =>
+          Object.values(candidate.jobStatuses || {}).includes('preferred'))
+        .map(c => c.id)
+    );
+    this.preferredCandidatesCount = preferredCandidates.size;
+  }
+
   private applyFilter(): void {
     if (this.currentFilter === 'all') {
       this.candidates = this.allCandidates;
     } else {
-      this.candidates = this.allCandidates.filter(candidate => candidate.status === this.currentFilter);
+      this.candidates = this.allCandidates.filter(candidate => {
+        const filterStatus = this.currentFilter as 'preferred' | 'rejected' | 'pending';
+        return Object.values(candidate.jobStatuses || {}).includes(filterStatus);
+      });
     }
   }
 

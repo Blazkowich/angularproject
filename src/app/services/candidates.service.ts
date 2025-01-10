@@ -27,4 +27,15 @@ export class CandidateService {
       })
     );
   }
+
+  updateCandidateStatus(
+    candidateId: string,
+    jobId: string,
+    status: 'preferred' | 'rejected' | 'pending'
+  ): Observable<any> {
+    return this.http.patch(`/api/candidates/${candidateId}/status`, {
+      jobId,
+      status
+    });
+  }
 }

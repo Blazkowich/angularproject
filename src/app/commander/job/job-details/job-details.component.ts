@@ -17,21 +17,21 @@ import { Subscription } from 'rxjs';
 export class JobDetailsComponent implements OnInit, OnDestroy {
   job: Job | undefined;
   jobSub: Subscription | undefined;
+  jobId: string = '';
   @ViewChild(JobEditPopupComponent) popup!: JobEditPopupComponent;
   @ViewChild(CloseJobPopupComponent) closePopup!: CloseJobPopupComponent;
 
   constructor(
     private jobService: JobService,
     private route: ActivatedRoute,
-    private router: Router,
-    private location: Location
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      localStorage.setItem('jobId', id);
-      this.jobSub = this.jobService.getJobById(id).subscribe({
+    this.jobId = this.route.snapshot.paramMap.get('id')!;
+    if (this.jobId) {
+      localStorage.setItem('jobId', this.jobId);
+      this.jobSub = this.jobService.getJobById(this.jobId).subscribe({
         next: job => {
           this.job = job;
         }
@@ -60,11 +60,11 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
   }
 
   goToCandidates() {
-    this.router.navigate(['/candidates']);
+    this.router.navigate([`/job-details/${this.jobId}/candidates`]);
   }
 
   gotToPreferableCandidates() {
-    this.router.navigate(['/candidates/preferred']);
+    this.router.navigate([`/job-details/${this.jobId}/candidates/preferred`]);
   }
 
   ngOnDestroy(): void {

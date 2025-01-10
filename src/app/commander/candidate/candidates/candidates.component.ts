@@ -6,7 +6,6 @@ import { Candidate } from '../../../models/candidates.model';
 import { filter } from 'rxjs';
 import { ImageComponent } from '../../../shared/image/image.component';
 import { FilterPipe } from '../../../shared/filterPipe/filter.pipe';
-import { Job } from '../../../models/jobs.model';
 
 @Component({
   selector: 'app-candidates',
@@ -28,22 +27,21 @@ export class CandidatesComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private candidateService: CandidateService,
-    private location: Location
   ) {
     router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe(() => {
       const currentUrl = router.url;
       this.isMainActive = currentUrl === '/' || /\/job-details(\/\d+)?$/.test(currentUrl);
-      this.isCandidatesActive = currentUrl === '/candidates';
-      this.isPreferableActive = currentUrl === '/candidates/preferred';
+      this.isCandidatesActive = /\/job-details\/\d+\/candidates$/.test(currentUrl);
+      this.isPreferableActive = /\/job-details\/\d+\/candidates\/preferred$/.test(currentUrl);
     });
   }
 
   ngOnInit(): void {
+    this.jobId = localStorage.getItem('jobId')!;
     this.loadCandidates();
     this.checkFilter();
-    this.jobId = localStorage.getItem('jobId')!;
   }
 
   private loadCandidates(): void {
@@ -60,15 +58,17 @@ export class CandidatesComponent implements OnInit {
   }
 
   private applyFilter(): void {
-    if (this.isPreferableActive) {
-      this.candidates = this.allCandidates.filter(candidate => candidate.status === 'preferred');
-    } else if (this.isCandidatesActive) {
-      this.candidates = this.allCandidates.filter(candidate => candidate.status === 'pending' || candidate.status === 'rejected');
-    } else {
-      this.candidates = this.allCandidates;
+    if (this.jobId) {
+      if (this.isPreferableActive) {
+        this.candidates = this.allCandidates.filter(candidate => candidate.jobStatuses[this.jobId] === 'preferred');
+      } else if (this.isCandidatesActive) {
+        this.candidates = this.allCandidates.filter(candidate =>
+          candidate.jobStatuses[this.jobId] === 'pending' || candidate.jobStatuses[this.jobId] === 'rejected');
+      } else {
+        this.candidates = this.allCandidates;
+      }
     }
   }
-
 
   private checkFilter(): void {
     this.route.url.subscribe(url => {
@@ -88,24 +88,24 @@ export class CandidatesComponent implements OnInit {
   }
 
   goToCandidates() {
-    this.router.navigate(['/candidates']);
+    this.router.navigate([`/job-details/${this.jobId}/candidates`]);
   }
 
   gotToPreferableCandidates() {
-    this.router.navigate(['/candidates/preferred']);
-  }
-
-  goToRejectedCandidates() {
-    this.router.navigate(['/candidates/rejected']);
+    this.router.navigate([`/job-details/${this.jobId}/candidates/preferred`]);
   }
 
   // For the Candidates section
   shouldShowCandidatesText(): boolean {
-    return this.candidates.length === 0;
+    const pendingCandidates = this.candidates.filter(c => c.jobStatuses[this.jobId] === 'pending');
+    const result = pendingCandidates.length === 0;
+    return result;
   }
 
   // For the Preferable Candidates section
   shouldShowPreferableText(): boolean {
-    return this.candidates.length === 0 || this.candidates.every(c => c.status !== 'preferred');
+    const preferredCandidates = this.candidates.filter(c => c.jobStatuses[this.jobId] === 'preferred');
+    const result = preferredCandidates.length === 0;
+    return result;
   }
 }

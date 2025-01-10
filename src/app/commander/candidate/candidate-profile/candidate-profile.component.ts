@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 export class CandidateProfileComponent implements OnInit, OnDestroy {
   candidate: Candidate | undefined;
   candidateSub: Subscription | undefined;
+  jobId: string | undefined;
 
   constructor(
     private candidateService: CandidateService,
@@ -25,6 +26,7 @@ export class CandidateProfileComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
+    this.jobId = localStorage.getItem('jobId')!;
     console.log(id);
     if (id) {
       this.candidateSub = this.candidateService.getCandidateById(id).subscribe({
@@ -44,7 +46,7 @@ export class CandidateProfileComponent implements OnInit, OnDestroy {
   }
 
   goBack() {
-    this.router.navigate(['/candidates']);
+    this.router.navigate([`/job-details/${this.jobId}/candidates`]);
   }
 
   ngOnDestroy(): void {
