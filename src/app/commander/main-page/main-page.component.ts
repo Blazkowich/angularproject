@@ -29,8 +29,8 @@ export class MainPageComponent implements OnInit {
   currentFilter: 'preferred' | 'rejected' | 'pending' | 'all' = 'all';
   allCandidatesCount: number = 0;
 
-  // Store preferred and rejected counts for each job
-  jobCandidatesCount: { [jobId: string]: { preferred: number; rejected: number } } = {};
+  // Store preferred, rejected, and total counts for each job
+  jobCandidatesCount: { [jobId: string]: { preferred: number; rejected: number; total: number } } = {};
 
   constructor(
     private candidateService: CandidateService,
@@ -72,7 +72,7 @@ export class MainPageComponent implements OnInit {
   private initializeJobCandidatesCount(): void {
     // Initialize job-specific counts for each job
     this.jobs.forEach(job => {
-      this.jobCandidatesCount[job.id] = { preferred: 0, rejected: 0 };
+      this.jobCandidatesCount[job.id] = { preferred: 0, rejected: 0, total: 0 };
     });
   }
 
@@ -81,12 +81,17 @@ export class MainPageComponent implements OnInit {
     this.jobs.forEach(job => {
       this.jobCandidatesCount[job.id].preferred = 0;
       this.jobCandidatesCount[job.id].rejected = 0;
+      this.jobCandidatesCount[job.id].total = 0;
     });
 
     // Loop through candidates and update job-specific counts
     this.allCandidates.forEach(candidate => {
       Object.entries(candidate.jobStatuses || {}).forEach(([jobId, status]) => {
         if (this.jobCandidatesCount[jobId]) {
+          // Increment the total count for the job
+          this.jobCandidatesCount[jobId].total++;
+
+          // Increment the counts for preferred and rejected statuses
           if (status === 'preferred') {
             this.jobCandidatesCount[jobId].preferred++;
           } else if (status === 'rejected') {
@@ -119,5 +124,15 @@ export class MainPageComponent implements OnInit {
   getPreferredAndRejectedCountForJob(jobId: string): string {
     const counts = this.jobCandidatesCount[jobId];
     return `${counts.preferred}/${counts.rejected}`;
+  }
+
+  getPreferredCountForJob(jobId: string): string {
+    const counts = this.jobCandidatesCount[jobId];
+    return `${counts.preferred}`;
+  }
+
+  getTotalCandidatesCountForJob(jobId: string): string {
+    const counts = this.jobCandidatesCount[jobId];
+    return `${counts.total}`;
   }
 }
