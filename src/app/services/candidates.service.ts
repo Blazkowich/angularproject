@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { Candidate } from '../models/candidates.model';
 
-
 @Injectable({
   providedIn: 'root',
 })
@@ -23,6 +22,11 @@ export class CandidateService {
         if (!candidate) {
           throw new Error(`candidate with id ${id} not found`);
         }
+
+        if (candidate.dateOfBirth) {
+          candidate.age = this.calculateAge(candidate.dateOfBirth);
+        }
+
         return candidate;
       })
     );
@@ -37,5 +41,18 @@ export class CandidateService {
       jobId,
       status
     });
+  }
+
+  private calculateAge(dateOfBirth: string): number {
+    const birthDate = new Date(dateOfBirth);
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
+
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+
+    return age;
   }
 }
