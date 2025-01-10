@@ -1,6 +1,6 @@
 <div class="container" style="min-width: 100%;">
   <!-- Search Section -->
-  <div class="search-section position-relative mb-4">
+  <div class="search-section position-relative mb-4 d-flex align-items-center">
     <input
       type="text"
       class="form-control search-input"
@@ -8,10 +8,10 @@
       [(ngModel)]="searchQuery">
     <i class="bi bi-search position-absolute"
        style="left: 15px; top: 50%; transform: translateY(-50%);"></i>
+    <!-- Profile Picture outside search bar but on the right -->
     <img
       [src]="candidate?.imageUrl"
-      class="avatar position-absolute"
-      style="right: 15px; top: 50%; transform: translateY(-50%);"
+      class="avatar ms-3"
       onerror="this.src='assets/images/on.svg'"
       alt="Profile Image"
       [routerLink]="'/user-profile/' + candidate?.id">
