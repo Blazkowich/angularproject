@@ -17,7 +17,6 @@ export class UpdateJobPopupComponent {
   @Output() jobUpdated = new EventEmitter<Job>();
 
   onSubmit() {
-    console.log('Job details updated:', this.job);
     this.jobUpdated.emit(this.job);
     this.closePopupEvent.emit();
   }

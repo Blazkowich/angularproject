@@ -55,10 +55,6 @@ export class JobEditPopupComponent implements OnInit {
     this.isModalOpen = false;
   }
 
-  updateJobDetails() {
-    console.log('Job details are being updated');
-  }
-
   closeJob() {
     this.isModalOpen = false;
     this.isCloseJobPopupOpen = true;
