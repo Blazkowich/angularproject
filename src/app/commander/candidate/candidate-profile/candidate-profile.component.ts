@@ -27,7 +27,6 @@ export class CandidateProfileComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     this.jobId = localStorage.getItem('jobId')!;
-    console.log(id);
     if (id) {
       this.candidateSub = this.candidateService.getCandidateById(id).subscribe({
         next: candidate => {
