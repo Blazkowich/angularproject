@@ -1,12 +1,28 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Job } from '../../../models/jobs.model';
 
 @Component({
   selector: 'app-update-job-popup',
   standalone: true,
-  imports: [],
+  imports: [FormsModule, CommonModule],
   templateUrl: './update-job-popup.component.html',
-  styleUrl: './update-job-popup.component.css'
+  styleUrls: ['./update-job-popup.component.css']
 })
 export class UpdateJobPopupComponent {
+  @Input() job!: Job;
+  @Input() isModalOpen: boolean = false;
+  @Output() closePopupEvent = new EventEmitter<void>();
+  @Output() jobUpdated = new EventEmitter<Job>();
 
+  onSubmit() {
+    console.log('Job details updated:', this.job);
+    this.jobUpdated.emit(this.job);
+    this.closePopupEvent.emit();
+  }
+
+  close() {
+    this.closePopupEvent.emit();
+  }
 }
