@@ -47,10 +47,6 @@ export class JobEditPopupComponent implements OnInit {
     this.isModalOpen = false;
   }
 
-  updateJob() {
-    console.log(`Updating job ${this.currentJobId} to status: ${this.jobStatus}`);
-  }
-
   updateJobDetails() {
     console.log('Job details are being updated');
   }

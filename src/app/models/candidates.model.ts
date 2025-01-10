@@ -12,6 +12,7 @@ export interface Candidate {
   experience: string;
   education: string;
   courses: string;
+  languages: string;
   interests: string;
   personalSummary: string;
   jobStatuses: {

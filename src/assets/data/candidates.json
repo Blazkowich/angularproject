@@ -12,7 +12,8 @@
     "address": "123 Main St, New York",
     "experience": "5 years in software development",
     "education": "Bachelor's in Computer Science",
-    "courses": "Angular, JavaScript, React",
+    "courses": "",
+    "languages": "Angular, JavaScript, React",
     "interests": "Coding, Traveling, Music",
     "personalSummary": "Passionate about coding and solving complex problems. Looking to contribute to innovative projects.",
     "jobStatuses": {
@@ -36,6 +37,7 @@
     "experience": "8 years in product management",
     "education": "Master's in Business Administration",
     "courses": "Project Management, Agile Methodology",
+    "languages": "Python, Java, SQL",
     "interests": "Reading, Yoga, Cooking",
     "personalSummary": "Driven product manager with a focus on delivering impactful products to users. Looking for new opportunities.",
     "jobStatuses": {
@@ -59,6 +61,7 @@
     "experience": "15 years in software development",
     "education": "Bachelor's in Software Engineering",
     "courses": "C#, .NET, Azure",
+    "languages": "C#, .NET, JavaScript",
     "interests": "Technology, Gaming, Hiking",
     "personalSummary": "Experienced developer with a passion for building high-performance systems and mentoring junior developers.",
     "jobStatuses": {
@@ -82,6 +85,7 @@
     "experience": "3 years in UX design",
     "education": "Bachelor's in Graphic Design",
     "courses": "Figma, Sketch, User Research",
+    "languages": "HTML, CSS, JavaScript",
     "interests": "Design, Photography, Art",
     "personalSummary": "Creative and passionate UX designer looking to create user-centered designs. Always eager to learn and grow.",
     "jobStatuses": {
@@ -105,6 +109,7 @@
     "experience": "5 years in data analysis",
     "education": "Master's in Data Science",
     "courses": "SQL, Python, Tableau",
+    "languages": "Python, R, SQL",
     "interests": "Data Science, Basketball, Traveling",
     "personalSummary": "Data analyst with strong skills in statistics and machine learning. Looking to work with a forward-thinking company.",
     "jobStatuses": {
