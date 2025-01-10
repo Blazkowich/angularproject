@@ -6,6 +6,9 @@ nav {
   color: brown;
 }
 
+.cursor-pointer {
+  cursor: pointer;
+}
 
 @media (max-width: 400px) {
   nav {

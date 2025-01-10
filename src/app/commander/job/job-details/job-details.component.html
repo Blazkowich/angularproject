@@ -21,13 +21,13 @@
   <div class="container">
     <ul class="nav nav-tabs justify-content-center d-flex align-items-center">
       <li class="nav-item">
-        <a class="nav-link active text-primary border-bottom border-primary border-3" (click)="goBack()">მთავარი</a>
+        <a class="nav-link active text-primary border-bottom border-primary border-3 cursor-pointer" (click)="goBack()">მთავარი</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-secondary" (click)="goToCandidates()">კანდიდატები</a>
+        <a class="nav-link text-secondary cursor-pointer" (click)="goToCandidates()">კანდიდატები</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-secondary" (click)="gotToPreferableCandidates()">შესაფერისები</a>
+        <a class="nav-link text-secondary cursor-pointer" (click)="gotToPreferableCandidates()">შესაფერისები</a>
       </li>
     </ul>
   </div>
@@ -52,7 +52,7 @@
        <!-- Job Status and Questions -->
        <div class="row">
         <div class="col-12 col-md-6 d-flex align-items-center gap-2 mb-3">
-          <img src="/assets/images/edit.svg" alt="edit icon" (click)="openJobPopup()">
+          <img class="cursor-pointer" src="/assets/images/edit.svg" alt="edit icon" (click)="openJobPopup()">
           <span class="text-secondary">Job status:</span>
           <span [ngClass]="isJobOpen(job!) ? 'text-success' : 'text-brown'">
             {{ job?.status }}
