@@ -28,8 +28,9 @@ export class MainPageComponent implements OnInit {
   allCandidates: Candidate[] = [];
   currentFilter: 'preferred' | 'rejected' | 'pending' | 'all' = 'all';
   allCandidatesCount: number = 0;
-  rejectedCandidatesCount: number = 0;
-  preferredCandidatesCount: number = 0;
+
+  // Store preferred and rejected counts for each job
+  jobCandidatesCount: { [jobId: string]: { preferred: number; rejected: number } } = {};
 
   constructor(
     private candidateService: CandidateService,
@@ -45,6 +46,7 @@ export class MainPageComponent implements OnInit {
     this.jobService.getJobs().subscribe({
       next: (jobs: Job[]) => {
         this.jobs = jobs.filter(job => this.isJobOpen(job));
+        this.initializeJobCandidatesCount();
       },
       error: (error) => {
         console.error('Error loading jobs:', error);
@@ -57,7 +59,7 @@ export class MainPageComponent implements OnInit {
     this.candidateService.getCandidates().subscribe({
       next: (candidates: Candidate[]) => {
         this.allCandidates = candidates;
-        this.calculateTotalCounts();
+        this.calculateJobSpecificCounts();
         this.applyFilter();
       },
       error: (error) => {
@@ -67,28 +69,32 @@ export class MainPageComponent implements OnInit {
     });
   }
 
-  private calculateTotalCounts(): void {
-    // Count unique candidates across all jobs
-    const uniqueCandidates = new Set(this.allCandidates.map(c => c.id));
-    this.allCandidatesCount = uniqueCandidates.size;
+  private initializeJobCandidatesCount(): void {
+    // Initialize job-specific counts for each job
+    this.jobs.forEach(job => {
+      this.jobCandidatesCount[job.id] = { preferred: 0, rejected: 0 };
+    });
+  }
 
-    // Count candidates with 'rejected' status in any job
-    const rejectedCandidates = new Set(
-      this.allCandidates
-        .filter(candidate =>
-          Object.values(candidate.jobStatuses || {}).includes('rejected'))
-        .map(c => c.id)
-    );
-    this.rejectedCandidatesCount = rejectedCandidates.size;
+  private calculateJobSpecificCounts(): void {
+    // Reset counts before recalculating
+    this.jobs.forEach(job => {
+      this.jobCandidatesCount[job.id].preferred = 0;
+      this.jobCandidatesCount[job.id].rejected = 0;
+    });
 
-    // Count candidates with 'preferred' status in any job
-    const preferredCandidates = new Set(
-      this.allCandidates
-        .filter(candidate =>
-          Object.values(candidate.jobStatuses || {}).includes('preferred'))
-        .map(c => c.id)
-    );
-    this.preferredCandidatesCount = preferredCandidates.size;
+    // Loop through candidates and update job-specific counts
+    this.allCandidates.forEach(candidate => {
+      Object.entries(candidate.jobStatuses || {}).forEach(([jobId, status]) => {
+        if (this.jobCandidatesCount[jobId]) {
+          if (status === 'preferred') {
+            this.jobCandidatesCount[jobId].preferred++;
+          } else if (status === 'rejected') {
+            this.jobCandidatesCount[jobId].rejected++;
+          }
+        }
+      });
+    });
   }
 
   private applyFilter(): void {
@@ -108,5 +114,10 @@ export class MainPageComponent implements OnInit {
 
   navigateToJob(jobId: string) {
     this.router.navigate(['/job-details', jobId]);
+  }
+
+  getPreferredAndRejectedCountForJob(jobId: string): string {
+    const counts = this.jobCandidatesCount[jobId];
+    return `${counts.preferred}/${counts.rejected}`;
   }
 }

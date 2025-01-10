@@ -33,14 +33,14 @@
             <div class="position-relative circle-wrapper">
               <img src="/assets/images/circle.svg" alt="circle" class="rounded-circle">
               <span class="position-absolute top-50 start-50 translate-middle circle-text move-left-circle-counter">
-                0/{{rejectedCandidatesCount}} <br> <span class="move-left-circle-text">אוישו</span>
+                {{ getPreferredAndRejectedCountForJob(job.id) }} <br> <span class="move-left-circle-text">אוישו</span>
               </span>
             </div>
 
             <!-- Job Details -->
             <div class="ms-3 d-flex flex-column flex-grow-1">
               <h4 class="mb-1">{{ job.jobName }}</h4>
-              <h5 class="mb-0">{{ allCandidatesCount }} Candidates | {{ preferredCandidatesCount }} Suitable</h5>
+              <h5 class="mb-0">{{ allCandidatesCount }} Candidates | {{ getPreferredAndRejectedCountForJob(job.id) }} Suitable</h5>
             </div>
           </div>
         </div>
