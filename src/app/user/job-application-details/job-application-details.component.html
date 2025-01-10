@@ -4,16 +4,27 @@
 </div>
 <div class="card rounded-4">
   <div class="card-body p-4 text-right">
+    <!-- Navigation Links -->
     <div class="d-flex justify-content-center align-items-center mb-3 text-center">
-      <a href="#" class="text-primary text-decoration-none fw-bold">
+      <a
+        href="javascript:void(0)"
+        class="fw-bold"
+        [class.active]="activeTab === 'jobRequirements'"
+        (click)="switchTab('jobRequirements')">
         Job<br>Requirements
       </a>
       <span class="mx-2 fw-bold divider">|</span>
-      <a href="#" class="text-primary text-decoration-none fw-bold">
+      <a
+        href="javascript:void(0)"
+        class="fw-bold"
+        [class.active]="activeTab === 'faq'"
+        (click)="switchTab('faq')">
         Frequently<br>Asked Questions
       </a>
     </div>
-    <div>
+
+    <!-- Job Requirements Content -->
+    <div [ngClass]="{'fade-in': activeTab === 'jobRequirements'}" *ngIf="activeTab === 'jobRequirements'">
       <h5 class="mb-3">Job Description</h5>
       <p>Hardworking guy</p>
 
@@ -44,6 +55,50 @@
 
       <div class="text-center">
         <button class="btn btn-primary px-4 rounded-pill" (click)="openPopup()">Apply</button>
+      </div>
+    </div>
+
+    <!-- Frequently Asked Questions Content -->
+    <div [ngClass]="{'fade-in': activeTab === 'faq'}" *ngIf="activeTab === 'faq'">
+      <div class="mb-3">
+        <h6>Is prior experience in UX design necessary?</h6>
+        <p>
+          Advantage if you have a basic background in design or design software,
+          we are looking for creativity and the ability to learn quickly.
+        </p>
+      </div>
+
+      <div class="mb-3">
+        <h6>What are the requirements for the role?</h6>
+        <p>
+          Basic understanding of user experience and a desire to learn.
+          Ability to work in a team and communicate well with others.
+          A creative approach and problem-solving mindset.
+        </p>
+      </div>
+
+      <div class="mb-3">
+        <h6>Will I receive training in the role?</h6>
+        <p>
+          Yes, you will receive training, mentoring, and professional guidance
+          that will help you acquire the knowledge and skills required for the role.
+        </p>
+      </div>
+
+      <div class="mb-3">
+        <h6>What does a day in this role look like?</h6>
+        <p>
+          Working on screen design for applications or websites, collaborating with
+          developers and product managers, and collecting feedback from users.
+        </p>
+      </div>
+
+      <div class="mb-3">
+        <h6>What are the challenges expected in the role?</h6>
+        <p>
+          Quick learning of design principles and interfaces, and the ability to balance
+          user requirements with the requirements of the technical team.
+        </p>
       </div>
     </div>
   </div>

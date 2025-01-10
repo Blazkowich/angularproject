@@ -1,27 +1,15 @@
-.card {
-  margin: 1rem auto;
-  max-width: 800px;
-  background-color: white;
-  border: none;
-
-}
-
-.card-body {
-  text-align: right;
-}
-
-.d-flex {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
 a {
   font-weight: bold;
   font-size: 1rem;
   text-align: center;
   margin: -10px 10px 0 10px;
+  color: black;
+  transition: color 0.5s ease;
+  text-decoration: none;
+}
+
+a.active {
+  color: #6c5ce7;
 }
 
 .divider {
@@ -30,7 +18,23 @@ a {
   font-size: 1.2rem;
 }
 
+.d-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+.card-body {
+  text-align: right;
+  transition: all 0.5s ease;
+}
+
+.card {
+  margin: 1rem auto;
+  max-width: 800px;
+  background-color: white;
+  border: none;
+}
 
 .card-header,
 .d-flex {
@@ -54,6 +58,10 @@ h2, h5, h6 {
   font-weight: 500;
 }
 
+h6 {
+  font-weight: bold;
+}
+
 .btn-primary {
   background-color: #6c5ce7;
   border-color: #6c5ce7;
@@ -68,5 +76,21 @@ h2, h5, h6 {
 @media (max-width: 400px) {
   .a {
     font-size: 16px;
+  }
+}
+
+/* Fade-in Transition */
+.fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
