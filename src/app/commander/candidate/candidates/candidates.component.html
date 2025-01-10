@@ -64,7 +64,8 @@
                 <img [src]="candidate.imageUrl"
                     alt="Profile picture"
                     class="profile-image"
-                    onerror="this.src='assets/images/on.svg'">
+                    onerror="this.src='assets/images/on.svg'"
+                    [routerLink]="'/candidate-profile/' + candidate.id">
               </div>
               <div class="me-3 d-flex flex-column flex-grow-1 text-end">
                 <h4 class="mb-1">{{ candidate.fullName }}</h4>
@@ -83,7 +84,8 @@
                 <img [src]="candidate.imageUrl"
                     alt="Profile picture"
                     class="profile-image"
-                    onerror="this.src='assets/images/on.svg'">
+                    onerror="this.src='assets/images/on.svg'"
+                    [routerLink]="'/candidate-profile/' + candidate.id">
               </div>
               <div class="me-3 d-flex flex-column flex-grow-1 text-end">
                 <h4 class="mb-1">{{ candidate.fullName }}</h4>
@@ -106,13 +108,14 @@
           <h3 *ngIf="isPreferableActive">Preferrable Candidates</h3>
           <div *ngFor="let candidate of candidates | filter: ['preferred']"
               class="candidate-box mb-3 position-relative cursor-pointer"
-              [routerLink]="'/candidate-profile/' + candidate.id">
+              [routerLink]="'/candidate-details/' + candidate.id">
             <div class="d-flex align-items-center w-100 p-2">
               <div class="profile-image-container">
                 <img [src]="candidate.imageUrl"
                     alt="Profile picture"
                     class="profile-image"
-                    onerror="this.src='assets/images/on.svg'">
+                    onerror="this.src='assets/images/on.svg'"
+                    [routerLink]="'/candidate-profile/' + candidate.id">
               </div>
               <div class="me-3 d-flex flex-column flex-grow-1 text-end">
                 <h4 class="mb-1">{{ candidate.fullName }}</h4>
