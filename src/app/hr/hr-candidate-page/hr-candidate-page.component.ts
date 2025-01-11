@@ -17,8 +17,10 @@ import { HrBottomNavigationComponent } from '../../shared/hr-bottom-navigation/h
 })
 export class HrCandidatePageComponent {
  searchQuery = '';
-  candidate: Candidate | undefined;
+  currentCandidate: Candidate | undefined;
   jobs: Job[] = [];
+  candidates: Candidate[] = [];
+  jobId: string | undefined;
 
   constructor(
     private candidateService: CandidateService,
@@ -26,9 +28,20 @@ export class HrCandidatePageComponent {
 
   ngOnInit(): void {
     document.documentElement.style.setProperty('--background-color', 'white');
+
+    this.jobId = localStorage.getItem('jobId')!;
+    this.candidateService.getCandidates().subscribe({
+      next: (candidates: Candidate[]) => {
+        this.candidates = candidates;
+      },
+      error: (error) => {
+        console.error('Error loading user:', error);
+      }
+    });
+
     this.candidateService.getCandidateById("2").subscribe({
       next: (candidate: Candidate) => {
-        this.candidate = candidate;
+        this.currentCandidate = candidate;
       },
       error: (error) => {
         console.error('Error loading user:', error);
@@ -47,5 +60,9 @@ export class HrCandidatePageComponent {
 
   selectJob(jobId: string): void {
     localStorage.setItem('jobId', jobId);
+  }
+
+  selectCandidate(candidateId: string): void {
+    localStorage.setItem('candidateId', candidateId);
   }
 }

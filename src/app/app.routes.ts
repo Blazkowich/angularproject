@@ -32,6 +32,7 @@ export const routes: Routes = [
   { path: 'job-application-details/:id', component: JobApplicationDetailsComponent},
   { path: 'job-roles', component:HrMainPageComponent},
   { path: 'candidates-list', component:HrCandidatePageComponent },
+  { path: 'job-roles/:id/candidate-list', component:HrCandidatePageComponent },
 
   { path: '**', redirectTo: '/login' }
 ];
