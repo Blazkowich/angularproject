@@ -1,53 +1,61 @@
 <div class="container" style="min-width: 100%;">
   <!-- Search Section -->
   <div class="search-section position-fixed d-flex align-items-center" style="top: 0; left: 0; right: 0; background-color: white; padding: 10px 20px; z-index: 999;">
-   <input
-     type="text"
-     class="form-control search-input"
-     style="direction: rtl;"
-     placeholder="Search for a role"
-     [(ngModel)]="searchQuery">
-   <i class="bi bi-search position-absolute"
-      style="right: 100px; top: 55%; transform: translateY(-50%);"></i>
-   <!-- Profile Picture outside search bar but on the right -->
-   <img
-     [src]="currentCandidate?.imageUrl"
-     class="avatar ms-3"
-     onerror="this.src='assets/images/on.svg'"
-     alt="Profile Image"
-     [routerLink]="'/job-roles'"> <!--???????? Does we need to change this ??????-->
- </div>
+    <input
+      type="text"
+      class="form-control search-input"
+      style="direction: rtl;"
+      placeholder="Search for a role"
+      [(ngModel)]="searchQuery">
+    <i class="bi bi-search position-absolute"
+       style="right: 100px; top: 55%; transform: translateY(-50%);"></i>
+    <img
+      [src]="currentCandidate?.imageUrl"
+      class="avatar ms-3"
+      onerror="this.src='assets/images/on.svg'"
+      alt="Profile Image"
+      [routerLink]="'/job-roles'">
+  </div>
 
- <!-- Filter Section -->
- <div class="filter-section">
-   <button class="btn btn-outline-secondary filter-button d-flex align-items-center gap-2">
-     <i class="bi bi-chevron-down"></i>
-     Filter by name
-   </button>
- </div>
+  <!-- Filter Section -->
+  <div class="filter-section">
+    <button class="btn btn-outline-secondary filter-button d-flex align-items-center gap-2">
+      <i class="bi bi-chevron-down"></i>
+      Filter by name
+    </button>
+  </div>
 
- <!-- Title -->
- <h1 class="h3 mb-4 text-black role-title">Role database</h1>
+  <!-- Title -->
+  <h1 class="h3 mb-4 text-black role-title">Role database</h1>
 
- <!-- Role List -->
- <div class="role-list mb-5">
-  <div *ngFor="let candidate of candidates" class="card role-card mb-3 shadow-lg border-custom">
-    <div class="card-body" [routerLink]="'/job-application-details/' + jobId" (click)="selectJob(jobId!)">
-      <i class="bi bi-chevron-left chevron-icon me-3"></i>
-      <div class="flex-grow-1">
-        <h6 class="card-title mb-1">{{ candidate?.fullName }}</h6>
-        <small class="text-muted">{{ candidate?.phone }}</small>
+  <!-- Role List -->
+  <div class="role-list mb-5">
+    <div *ngFor="let candidate of candidates" class="card role-card mb-3 shadow-lg border-custom">
+      <div class="card-body" [routerLink]="'/job-application-details/' + jobId" (click)="selectJob(jobId!)">
+        <!-- Conditional rendering for chevron or status button -->
+        <ng-container *ngIf="!isJobSpecificList; else statusButton">
+          <i class="bi bi-chevron-left chevron-icon me-3"></i>
+        </ng-container>
+        <ng-template #statusButton>
+          <button [class]="getStatusButton(candidate).class">
+            {{ getStatusButton(candidate).text }}
+          </button>
+        </ng-template>
+
+        <div class="flex-grow-1">
+          <h6 class="card-title mb-1">{{ candidate?.fullName }}</h6>
+          <small class="text-muted">{{ candidate?.phone }}</small>
+        </div>
+        <img
+          [src]="candidate?.imageUrl"
+          class="avatar ms-3"
+          onerror="this.src='assets/images/on.svg'"
+          alt="Profile Image"
+          [routerLink]="'/job-roles'">
       </div>
-      <img
-        [src]="candidate?.imageUrl"
-        class="avatar ms-3"
-        onerror="this.src='assets/images/on.svg'"
-        alt="Profile Image"
-        [routerLink]="'/job-roles'">
     </div>
   </div>
+
+  <!-- Bottom Navigation -->
+  <app-hr-bottom-navigation></app-hr-bottom-navigation>
 </div>
-
-
- <!-- Bottom Navigation -->
-<app-hr-bottom-navigation></app-hr-bottom-navigation>

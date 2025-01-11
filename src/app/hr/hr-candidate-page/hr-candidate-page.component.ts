@@ -1,12 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { Candidate } from '../../models/candidates.model';
 import { Job } from '../../models/jobs.model';
 import { CandidateService } from '../../services/candidates.service';
 import { JobService } from '../../services/jobs.service';
 import { HrBottomNavigationComponent } from '../../shared/hr-bottom-navigation/hr-bottom-navigation.component';
+import { filter } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-hr-candidate-page',
@@ -15,21 +17,36 @@ import { HrBottomNavigationComponent } from '../../shared/hr-bottom-navigation/h
   templateUrl: './hr-candidate-page.component.html',
   styleUrl: './hr-candidate-page.component.css'
 })
-export class HrCandidatePageComponent {
- searchQuery = '';
+export class HrCandidatePageComponent implements OnInit, OnDestroy {
+  searchQuery = '';
   currentCandidate: Candidate | undefined;
   jobs: Job[] = [];
   candidates: Candidate[] = [];
   jobId: string | undefined;
+  isJobSpecificList = false;
+  private routerSubscription: Subscription;
 
   constructor(
     private candidateService: CandidateService,
-    private jobService: JobService) {}
+    private jobService: JobService,
+    private router: Router
+  ) {
+    this.routerSubscription = this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      const currentUrl = this.router.url;
+      this.isJobSpecificList = /\/job-roles\/\d+\/candidate-list$/.test(currentUrl);
+
+      if (this.isJobSpecificList) {
+        const matches = currentUrl.match(/\/job-roles\/(\d+)\/candidate-list/);
+        this.jobId = matches ? matches[1] : undefined;
+      }
+    });
+  }
 
   ngOnInit(): void {
     document.documentElement.style.setProperty('--background-color', 'white');
 
-    this.jobId = localStorage.getItem('jobId')!;
     this.candidateService.getCandidates().subscribe({
       next: (candidates: Candidate[]) => {
         this.candidates = candidates;
@@ -56,6 +73,43 @@ export class HrCandidatePageComponent {
         console.error('Error loading jobs:', jobsError);
       }
     });
+  }
+
+  ngOnDestroy() {
+    if (this.routerSubscription) {
+      this.routerSubscription.unsubscribe();
+    }
+  }
+
+  getStatusButton(candidate: Candidate): { text: string; class: string } {
+    if (!this.isJobSpecificList || !this.jobId) {
+      return { text: '', class: '' };
+    }
+
+    const status = candidate.jobStatuses?.[this.jobId]?.toLowerCase();
+
+    switch (status) {
+      case 'pending':
+        return {
+          text: 'Pending',
+          class: 'btn btn-outline-warning status-button'
+        };
+      case 'rejected':
+        return {
+          text: 'Rejected',
+          class: 'btn btn-outline-danger status-button'
+        };
+      case 'preferred':
+        return {
+          text: 'Preferred',
+          class: 'btn btn-outline-success status-button'
+        };
+      default:
+        return {
+          text: 'Job Placement',
+          class: 'btn btn-outline-primary status-button'
+        };
+    }
   }
 
   selectJob(jobId: string): void {

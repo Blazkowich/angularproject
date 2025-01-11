@@ -164,6 +164,56 @@ body {
   color: #0d6efd;
 }
 
+/* Add these styles to your existing CSS */
+.status-button {
+  font-size: 0.9rem;
+  padding: 8px 16px;
+  border-radius: 12px;
+  min-width: 80px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-warning {
+  color: #ffc107;
+  border-color: #ffc107;
+}
+
+.btn-outline-warning:hover {
+  color: white;
+  background-color: #ffc107;
+}
+
+.btn-outline-danger {
+  color: #dc3545;
+  border-color: #dc3545;
+}
+
+.btn-outline-danger:hover {
+  color: white;
+  background-color: #dc3545;
+}
+
+.btn-outline-success {
+  color: #28a745;
+  border-color: #28a745;
+}
+
+.btn-outline-success:hover {
+  color: white;
+  background-color: #28a745;
+}
+
+.btn-outline-primary {
+  color: #0d6efd;
+  border-color: #0d6efd;
+}
+
+.btn-outline-primary:hover {
+  color: white;
+  background-color: #0d6efd;
+}
+
 @media (max-width: 400px) {
   .filter-section {
     width: 100%;
