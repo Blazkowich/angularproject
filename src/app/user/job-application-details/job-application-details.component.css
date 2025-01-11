@@ -1,3 +1,7 @@
+.header {
+  background-color: var(--background-color);
+}
+
 a {
   font-weight: bold;
   font-size: 1rem;
@@ -39,6 +43,7 @@ a.active {
 .card-header,
 .d-flex {
   text-align: center;
+  z-index: 999;
 }
 
 .text-center {

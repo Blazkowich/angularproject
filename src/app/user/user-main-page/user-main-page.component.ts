@@ -6,6 +6,8 @@ import { Role } from '../../models/role.model';
 import { Candidate } from '../../models/candidates.model';
 import { RouterModule } from '@angular/router';
 import { BottomNavigationComponent } from "../../shared/bottom-navigation/bottom-navigation.component";
+import { JobService } from '../../services/jobs.service';
+import { Job } from '../../models/jobs.model';
 
 @Component({
   selector: 'app-user-main-page',
@@ -14,24 +16,14 @@ import { BottomNavigationComponent } from "../../shared/bottom-navigation/bottom
   templateUrl: './user-main-page.component.html',
   styleUrl: './user-main-page.component.css'
 })
-export class UserMainPageComponent implements OnInit{
+export class UserMainPageComponent implements OnInit {
   searchQuery = '';
   candidate: Candidate | undefined;
+  jobs: Job[] = [];
 
-  roles: Role[] = [
-    { title: 'UX Designer', unit: 'Technological unit' },
-    { title: 'Implements systems', unit: 'Technological unit' },
-    { title: 'TSA farm', unit: 'Technological unit' },
-    { title: 'Software tester', unit: 'Technological unit' },
-    { title: 'Non-commissioned officer Mashan', unit: 'Technological unit' },
-    { title: 'UX Designer', unit: 'Technological unit' },
-    { title: 'Implements systems', unit: 'Technological unit' },
-    { title: 'TSA farm', unit: 'Technological unit' },
-    { title: 'Software tester', unit: 'Technological unit' },
-    { title: 'Non-commissioned officer Mashan', unit: 'Technological unit' },
-  ];
-
-  constructor(private candidateService: CandidateService) {}
+  constructor(
+    private candidateService: CandidateService,
+    private jobService: JobService) {}
 
   ngOnInit(): void {
     document.documentElement.style.setProperty('--background-color', 'white');
@@ -43,5 +35,18 @@ export class UserMainPageComponent implements OnInit{
         console.error('Error loading user:', error);
       }
     });
+
+    this.jobService.getJobs().subscribe({
+      next: (jobs: Job[]) => {
+        this.jobs = jobs;
+      },
+      error: (jobsError) => {
+        console.error('Error loading jobs:', jobsError);
+      }
+    });
+  }
+
+  selectJob(jobId: string): void {
+    localStorage.setItem('jobId', jobId);
   }
 }

@@ -1,7 +1,10 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ApplyVacancyPopupComponent } from '../../shared/popup-windows/apply-vacancy-popup/apply-vacancy-popup.component';
 import { CancelVacancyPopupComponent } from '../../shared/popup-windows/cancel-vacancy-popup/cancel-vacancy-popup.component';
 import { CommonModule } from '@angular/common';
+import { JobService } from '../../services/jobs.service';
+import { Router } from '@angular/router';
+import { Job } from '../../models/jobs.model';
 
 @Component({
   selector: 'app-job-application-details',
@@ -10,13 +13,37 @@ import { CommonModule } from '@angular/common';
   templateUrl: './job-application-details.component.html',
   styleUrls: ['./job-application-details.component.css']
 })
-export class JobApplicationDetailsComponent {
+export class JobApplicationDetailsComponent implements OnInit {
   @ViewChild(ApplyVacancyPopupComponent) applyPopup!: ApplyVacancyPopupComponent;
   @ViewChild(CancelVacancyPopupComponent) cancelPopup!: CancelVacancyPopupComponent;
 
   activeTab: 'jobRequirements' | 'faq' = 'jobRequirements';
   isApplied = false;
   isCancelled = false;
+  job: Job | undefined;
+  jobId: string = '';
+
+  constructor(private jobService: JobService, private router: Router) {}
+
+  ngOnInit(): void {
+    document.documentElement.style.setProperty('--background-color', '#282949');
+
+    this.jobId = localStorage.getItem('jobId')!;
+    console.log(this.jobId);
+    if (this.jobId) {
+      this.jobService.getJobById(this.jobId).subscribe({
+        next: (job: Job) => {
+          this.job = job;
+          console.log(this.job);
+        },
+        error: (err) => {
+          console.error('Error fetching job details:', err);
+        }
+      });
+    } else {
+      console.error('No jobId found in localStorage.');
+    }
+  }
 
   switchTab(tab: 'jobRequirements' | 'faq') {
     this.activeTab = tab;
@@ -51,6 +78,6 @@ export class JobApplicationDetailsComponent {
   }
 
   goBack() {
-
+    this.router.navigate(['/roles']);
   }
 }

@@ -1,7 +1,7 @@
 <div class="card-header text-white text-center py-4 rounded-top-4">
   <img class="back-button" src="assets/images/back.svg" alt="Back" (click)="goBack()">
-  <h2 class="mb-0">UX Designer</h2>
-  <p class="mb-0">Technology Unit</p>
+  <h2 class="mb-0">{{ job?.jobName }}</h2>
+  <p class="mb-0">{{ job?.unit }}</p>
 </div>
 <div class="card rounded-4">
   <div class="card-body p-4 text-right">
@@ -27,31 +27,31 @@
     <!-- Job Requirements Content -->
     <div [ngClass]="{'fade-in': activeTab === 'jobRequirements'}" *ngIf="activeTab === 'jobRequirements'">
       <h5 class="mb-3">Job Description</h5>
-      <p>Hardworking guy</p>
+      <p>{{ job?.jobDescription }}</p>
 
       <div class="mb-3">
-        <p class="mb-1">It is important that they know</p>
-        <p>A lot of motivation</p>
+        <h6 class="mb-1">It is important that they know</h6>
+        <p>{{ job?.additionalInfo }}</p>
       </div>
 
       <div class="mb-3">
         <h6>Work experience</h6>
-        <p>Software testing course</p>
+        <p>{{ job?.workExperience }}</p>
       </div>
 
       <div class="mb-3">
         <h6>Education</h6>
-        <p>High school</p>
+        <p>{{ job?.education }}</p>
       </div>
 
       <div class="mb-3">
         <h6>Courses and certifications</h6>
-        <p>Software testing course</p>
+        <p>{{ job?.passedCourses }}</p>
       </div>
 
       <div class="mb-4">
         <h6>Software systems and languages</h6>
-        <p>JAVA</p>
+        <p>{{ job?.techSkills }}</p>
       </div>
 
       <div class="text-center">
