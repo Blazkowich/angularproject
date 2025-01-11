@@ -29,12 +29,10 @@ export class JobApplicationDetailsComponent implements OnInit {
     document.documentElement.style.setProperty('--background-color', '#282949');
 
     this.jobId = localStorage.getItem('jobId')!;
-    console.log(this.jobId);
     if (this.jobId) {
       this.jobService.getJobById(this.jobId).subscribe({
         next: (job: Job) => {
           this.job = job;
-          console.log(this.job);
         },
         error: (err) => {
           console.error('Error fetching job details:', err);

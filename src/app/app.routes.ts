@@ -12,6 +12,8 @@ import { InterviewSummaryComponent } from './commander/interview-summary/intervi
 import { UserMainPageComponent } from './user/user-main-page/user-main-page.component';
 import { UserProfileComponent } from './user/user-profile/user-profile.component';
 import { JobApplicationDetailsComponent } from './user/job-application-details/job-application-details.component';
+import { HrMainPageComponent } from './hr/hr-main-page/hr-main-page.component';
+import { HrCandidatePageComponent } from './hr/hr-candidate-page/hr-candidate-page.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -28,6 +30,8 @@ export const routes: Routes = [
   { path: 'roles', component:UserMainPageComponent},
   { path: 'personal-profile', component: UserProfileComponent },
   { path: 'job-application-details/:id', component: JobApplicationDetailsComponent},
+  { path: 'job-roles', component:HrMainPageComponent},
+  { path: 'candidates-list', component:HrCandidatePageComponent },
 
   { path: '**', redirectTo: '/login' }
 ];
