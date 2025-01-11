@@ -5,11 +5,12 @@ import { FormsModule } from '@angular/forms';
 import { Role } from '../../models/role.model';
 import { Candidate } from '../../models/candidates.model';
 import { RouterModule } from '@angular/router';
+import { BottomNavigationComponent } from "../../shared/bottom-navigation/bottom-navigation.component";
 
 @Component({
   selector: 'app-user-main-page',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule, BottomNavigationComponent],
   templateUrl: './user-main-page.component.html',
   styleUrl: './user-main-page.component.css'
 })

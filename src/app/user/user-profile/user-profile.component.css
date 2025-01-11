@@ -15,14 +15,6 @@ body {
   filter: invert(1);
 }
 
-.name-and-id {
-  position: absolute;
-  bottom: 20px;
-  left: 45%;
-  top: 5%;
-  text-align: center;
-}
-
 .container {
   background-color: rgb(255, 255, 255);
   padding: 20px;
@@ -76,6 +68,13 @@ body {
   transform: scale(1.1);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   cursor: pointer;
+}
+
+.name-and-id {
+  position: absolute;
+  text-align: center;
+  left: 40%;
+  transform: translate(0, 10%);
 }
 
 .btn-primary {

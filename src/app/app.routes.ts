@@ -10,6 +10,7 @@ import { CandidatesDetailsComponent } from './commander/candidate/candidates-det
 import { CandidateProfileComponent } from './commander/candidate/candidate-profile/candidate-profile.component';
 import { InterviewSummaryComponent } from './commander/interview-summary/interview-summary.component';
 import { UserMainPageComponent } from './user/user-main-page/user-main-page.component';
+import { UserProfileComponent } from './user/user-profile/user-profile.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -23,7 +24,8 @@ export const routes: Routes = [
   { path: 'candidate-details/:id', component: CandidatesDetailsComponent, canActivate: [MainGuard] },
   { path: 'candidate-profile/:id', component: CandidateProfileComponent, canActivate: [MainGuard]},
   { path: 'interview-summary/:id', component: InterviewSummaryComponent, canActivate: [MainGuard]},
-  { path: 'user-profile', component:UserMainPageComponent},
+  { path: 'roles', component:UserMainPageComponent},
+  { path: 'personal-profile', component: UserProfileComponent },
 
   { path: '**', redirectTo: '/login' }
 ];

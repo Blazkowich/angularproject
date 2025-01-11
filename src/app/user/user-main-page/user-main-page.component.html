@@ -15,7 +15,7 @@
      class="avatar ms-3"
      onerror="this.src='assets/images/on.svg'"
      alt="Profile Image"
-     [routerLink]="'/user-profile/' + candidate?.id">
+     [routerLink]="'/personal-profile'">
  </div>
 
  <!-- Filter Section -->
@@ -48,20 +48,4 @@
  </div>
 
  <!-- Bottom Navigation -->
-  <nav class="bottom-nav">
-    <div class="container d-flex justify-content-around py-2">
-      <a class="nav-item text-center">
-       <div class="nav-icon">
-         <i class="bi bi-person"></i>
-       </div>
-       <div class="nav-text">Personal profile</div>
-      </a>
-      <a class="nav-item text-center">
-          <div class="nav-icon">
-            <i class="bi bi-collection"></i>
-          </div>
-        <div class="nav-text">Role database</div>
-      </a>
-   </div>
- </nav>
-</div>
+  <app-bottom-navigation></app-bottom-navigation>

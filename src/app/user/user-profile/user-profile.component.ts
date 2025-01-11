@@ -5,11 +5,12 @@ import { CandidateService } from '../../services/candidates.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { BottomNavigationComponent } from '../../shared/bottom-navigation/bottom-navigation.component';
 
 @Component({
   selector: 'app-my-profile',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, BottomNavigationComponent],
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css']
 })
@@ -77,6 +78,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   }
 
   goBack() {
+    this.router.navigate(['/roles']);
   }
 
   ngOnDestroy(): void {
