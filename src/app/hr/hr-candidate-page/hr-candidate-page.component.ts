@@ -9,11 +9,17 @@ import { JobService } from '../../services/jobs.service';
 import { HrBottomNavigationComponent } from '../../shared/hr-bottom-navigation/hr-bottom-navigation.component';
 import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import { ApplyCandidatePopupComponent } from '../../shared/popup-windows/apply-candidate-popup/apply-candidate-popup.component';
 
 @Component({
   selector: 'app-hr-candidate-page',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, HrBottomNavigationComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterModule,
+    HrBottomNavigationComponent,
+    ApplyCandidatePopupComponent],
   templateUrl: './hr-candidate-page.component.html',
   styleUrl: './hr-candidate-page.component.css'
 })
@@ -24,6 +30,9 @@ export class HrCandidatePageComponent implements OnInit, OnDestroy {
   candidates: Candidate[] = [];
   jobId: string | undefined;
   isJobSpecificList = false;
+  isModalOpen = false;
+  selectedJobName: string | undefined;
+  selectedJobUnit: string | undefined;
   private routerSubscription: Subscription;
 
   constructor(
@@ -101,7 +110,7 @@ export class HrCandidatePageComponent implements OnInit, OnDestroy {
         };
       case 'preferred':
         return {
-          text: 'Preferred',
+          text: 'Assigned',
           class: 'btn btn-outline-success status-button'
         };
       default:
@@ -113,10 +122,24 @@ export class HrCandidatePageComponent implements OnInit, OnDestroy {
   }
 
   selectJob(jobId: string): void {
-    localStorage.setItem('jobId', jobId);
+    this.jobService.getJobById(jobId).subscribe({
+      next: (job: Job) => {
+        this.selectedJobName = job.jobName;
+        this.selectedJobUnit = job.unit;
+        this.isModalOpen = true;
+      },
+      error: (err) => {
+        console.error('Error fetching job details:', err);
+      }
+    });
   }
+
 
   selectCandidate(candidateId: string): void {
     localStorage.setItem('candidateId', candidateId);
+  }
+
+  closePopup(): void {
+    this.isModalOpen = false;
   }
 }

@@ -5,7 +5,7 @@
       type="text"
       class="form-control search-input"
       style="direction: rtl;"
-      placeholder="Search for a role"
+      placeholder="Search for a Soldier"
       [(ngModel)]="searchQuery">
     <i class="bi bi-search position-absolute"
        style="right: 100px; top: 55%; transform: translateY(-50%);"></i>
@@ -31,8 +31,7 @@
   <!-- Role List -->
   <div class="role-list mb-5">
     <div *ngFor="let candidate of candidates" class="card role-card mb-3 shadow-lg border-custom">
-      <div class="card-body" [routerLink]="'/job-application-details/' + jobId" (click)="selectJob(jobId!)">
-        <!-- Conditional rendering for chevron or status button -->
+      <div class="card-body" (click)="getStatusButton(candidate).text === 'Job Placement' ? selectJob(jobId!) : null">
         <ng-container *ngIf="!isJobSpecificList; else statusButton">
           <i class="bi bi-chevron-left chevron-icon me-3"></i>
         </ng-container>
@@ -56,6 +55,15 @@
     </div>
   </div>
 
+
   <!-- Bottom Navigation -->
   <app-hr-bottom-navigation></app-hr-bottom-navigation>
+
+  <!-- Apply Candidate Popup -->
+  <app-apply-candidate-popup
+    [isModalOpen]="isModalOpen"
+    [jobName]="selectedJobName"
+    [jobUnit]="selectedJobUnit"
+    (closePopup)="closePopup()">
+  </app-apply-candidate-popup>
 </div>
