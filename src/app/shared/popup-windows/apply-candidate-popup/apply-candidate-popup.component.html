@@ -1,17 +1,25 @@
 <div class="modal" tabindex="-1" role="dialog" [ngClass]="{'show': isModalOpen}" [ngStyle]="{'display': isModalOpen ? 'block' : 'none'}">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header" *ngIf="!isAccepted">
         <h5 class="modal-title text-center w-100">Congratulations!</h5>
       </div>
       <div class="modal-body text-center">
-        <h6 class="modal-subtitle">The soldier was found suitable for the position:</h6>
-        <h4>{{ jobName }}</h4>
-        <h5>{{ jobUnit }}</h5>
-        <h4 class="mt-4">Should I make a job placement?</h4>
-        <div class="d-flex justify-content-around mt-4">
-          <button class="btn btn-primary" (click)="accept()">Yes</button>
-          <button class="btn btn-secondary" (click)="closePopup.emit()">Back</button>
+        <div *ngIf="!isAccepted">
+          <h6 class="modal-subtitle">The soldier was found suitable for the position:</h6>
+          <h4>{{ jobName }}</h4>
+          <h5>{{ jobUnit }}</h5>
+          <h4 class="mt-4">Should I make a job placement?</h4>
+          <div class="d-flex justify-content-around mt-4">
+            <button class="btn btn-primary" (click)="accept()">Yes</button>
+            <button class="btn btn-secondary" (click)="closePopup.emit()">Back</button>
+          </div>
+        </div>
+
+        <div *ngIf="isAccepted">
+          <img src="assets/images/sendArrow.svg" alt="Send Arrow" class="modal-icon">
+          <h4>The soldier was successfully accepted.</h4>
+          <button class="btn btn-primary" (click)="closePopup.emit()">Close</button>
         </div>
       </div>
     </div>

@@ -22,6 +22,12 @@
   border: none;
 }
 
+.modal-icon {
+  width: 84px;
+  height: 84px;
+  margin-bottom: 1.5rem;
+}
+
 .modal-content {
   background-color: white;
   padding: 15px;

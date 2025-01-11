@@ -14,7 +14,9 @@ export class ApplyCandidatePopupComponent {
   @Input() jobUnit: string | undefined;
   @Output() closePopup = new EventEmitter<void>();
 
+  isAccepted: boolean = false;
+
   accept() {
-    this.closePopup.emit();
+    this.isAccepted = true;
   }
 }
