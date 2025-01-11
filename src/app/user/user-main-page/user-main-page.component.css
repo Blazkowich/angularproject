@@ -87,13 +87,14 @@
 }
 
 .filter-section {
+  direction: rtl;
   display: flex;
   gap: 3px;
   background-color: white;
   position: fixed;
   top: 80px;
   left: 0;
-  right: 0;
+  right: 50px;
   padding: 10px 20px;
   z-index: 999;
 }
@@ -116,6 +117,13 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+.role-title {
+  direction: rtl;
+  font-family: 'Heebo', sans-serif;
+  left: 0;
+  transform: translateX(-38.4%);
 }
 
 /* Main content wrapper */
@@ -165,4 +173,22 @@ body {
 .nav-item:hover .nav-icon,
 .nav-item:hover .nav-text {
   color: #0d6efd;
+}
+
+@media (max-width: 400px) {
+  .filter-section {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 10px;
+    background-color: white;
+  }
+  .filter-button{
+    font-size: 0.8rem;
+    transform: translateX(-50%);
+  }
+
+  .role-title {
+    transform: translateX(-2%);
+  }
 }
