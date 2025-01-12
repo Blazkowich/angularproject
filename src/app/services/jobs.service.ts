@@ -13,7 +13,7 @@ export class JobService {
   constructor(private http: HttpClient) {}
 
   getJobs(): Observable<Job[]> {
-    const accessToken = localStorage.getItem('access_token');
+    const accessToken = localStorage.getItem('authToken');
     if (!accessToken) {
       return throwError(() => new Error('Authorization token is missing'));
     }
