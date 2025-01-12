@@ -16,27 +16,20 @@ export class LoginComponent {
   password: string = '';
   errorMessage: string = '';
 
-  private readonly fakeUser = {
-    username: 'user',
-    password: 'user'
-  };
-
   constructor(private router: Router, private loginService: LoginService) {}
 
- /**
-   * Handles the login process.
-   */
   login(): void {
-    this.loginService.login(this.username, this.password).subscribe({
-      next: () => {
+    this.loginService.login(this.username, this.password).subscribe(
+      (response) => {
+        localStorage.setItem('authToken', response.access_token);
+        localStorage.setItem('role', response.role);
         console.log('Login successful');
-        this.errorMessage = '';
         this.router.navigate(['/open-jobs']);
       },
-      error: (err) => {
-        console.error('Login failed', err);
+      (error) => {
+        console.error('Login failed:', error);
         this.errorMessage = 'Invalid username or password';
-      },
-    });
+      }
+    );
   }
 }

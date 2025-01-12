@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { UserMainPageComponent } from "./user/user-main-page/user-main-page.component";
 
 @Component({
   selector: 'app-root',

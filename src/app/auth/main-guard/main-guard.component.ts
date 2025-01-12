@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
+import { LoginService } from '../../services/login.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MainGuard implements CanActivate {
-  constructor(private router: Router) {}
+
+  constructor(private router: Router, private loginService: LoginService) {}
 
   canActivate(): boolean {
     const isAuthenticated = this.isLoggedIn();
@@ -18,7 +20,7 @@ export class MainGuard implements CanActivate {
   }
 
   private isLoggedIn(): boolean {
-    const token = localStorage.getItem('authToken');
-    return token === 'fake-auth-token';
+    const token = this.loginService.getAuthToken();
+    return token !== null;
   }
 }

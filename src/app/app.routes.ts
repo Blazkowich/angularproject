@@ -28,13 +28,13 @@ export const routes: Routes = [
   { path: 'candidate-details/:id', component: CandidatesDetailsComponent, canActivate: [MainGuard] },
   { path: 'candidate-profile/:id', component: CandidateProfileComponent, canActivate: [MainGuard]},
   { path: 'interview-summary/:id', component: InterviewSummaryComponent, canActivate: [MainGuard]},
-  { path: 'roles', component:UserMainPageComponent},
-  { path: 'personal-profile', component: UserProfileComponent },
-  { path: 'job-application-details/:id', component: JobApplicationDetailsComponent},
-  { path: 'job-roles', component:HrMainPageComponent},
-  { path: 'candidates-list', component:HrCandidatePageComponent },
-  { path: 'job-roles/:id/candidate-list', component:HrCandidatePageComponent },
-  { path: 'job-requirements/:id', component:HrJobDetailsComponent},
+  { path: 'roles', component:UserMainPageComponent, canActivate: [MainGuard]},
+  { path: 'personal-profile', component: UserProfileComponent, canActivate: [MainGuard] },
+  { path: 'job-application-details/:id', component: JobApplicationDetailsComponent, canActivate: [MainGuard]},
+  { path: 'job-roles', component:HrMainPageComponent, canActivate: [MainGuard]},
+  { path: 'candidates-list', component:HrCandidatePageComponent, canActivate: [MainGuard] },
+  { path: 'job-roles/:id/candidate-list', component:HrCandidatePageComponent, canActivate: [MainGuard] },
+  { path: 'job-requirements/:id', component:HrJobDetailsComponent, canActivate: [MainGuard]},
 
   { path: '**', redirectTo: '/login' }
 ];
