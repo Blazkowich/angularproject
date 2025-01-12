@@ -14,6 +14,7 @@ import { UserProfileComponent } from './user/user-profile/user-profile.component
 import { JobApplicationDetailsComponent } from './user/job-application-details/job-application-details.component';
 import { HrMainPageComponent } from './hr/hr-main-page/hr-main-page.component';
 import { HrCandidatePageComponent } from './hr/hr-candidate-page/hr-candidate-page.component';
+import { HrJobDetailsComponent } from './hr/hr-job-details/hr-job-details.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -33,6 +34,7 @@ export const routes: Routes = [
   { path: 'job-roles', component:HrMainPageComponent},
   { path: 'candidates-list', component:HrCandidatePageComponent },
   { path: 'job-roles/:id/candidate-list', component:HrCandidatePageComponent },
+  { path: 'job-requirements/:id', component:HrJobDetailsComponent},
 
   { path: '**', redirectTo: '/login' }
 ];

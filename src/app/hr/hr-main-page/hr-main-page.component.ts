@@ -26,6 +26,7 @@ export class HrMainPageComponent implements OnInit {
 
   ngOnInit(): void {
     document.documentElement.style.setProperty('--background-color', 'white');
+
     this.candidateService.getCandidateById("2").subscribe({
       next: (candidate: Candidate) => {
         this.candidate = candidate;

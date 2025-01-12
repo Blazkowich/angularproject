@@ -1,0 +1,107 @@
+.header {
+  background-color: var(--background-color);
+}
+
+a {
+  font-weight: bold;
+  font-size: 1rem;
+  text-align: center;
+  margin: -10px 10px 0 10px;
+  color: black;
+  transition: color 0.5s ease;
+  text-decoration: none;
+}
+
+a.active {
+  color: #6c5ce7;
+}
+
+.divider {
+  line-height: 1;
+  vertical-align: middle;
+  font-size: 1.2rem;
+}
+
+.d-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-body {
+  text-align: right;
+  transition: all 0.5s ease;
+}
+
+.card {
+  margin: 1rem auto;
+  max-width: 800px;
+  background-color: white;
+  border: none;
+}
+
+.card-header,
+.d-flex {
+  text-align: center;
+  z-index: 999;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+span {
+  font-weight: bold;
+}
+
+.card-header {
+  margin: 3rem auto;
+  border-bottom: none;
+}
+
+h2, h5, h6 {
+  font-weight: 500;
+}
+
+h6 {
+  font-weight: bold;
+}
+
+.btn-primary {
+  width: 120px;
+}
+
+.btn-primary:hover {
+  background-color: #5b4cc4;
+  border-color: #5b4cc4;
+}
+
+.back-button {
+  margin-top: -60px;
+  width: 30px;
+  height: 30px;
+  filter: brightness(0) invert(1);
+  cursor: pointer;
+}
+
+@media (max-width: 400px) {
+  .a {
+    font-size: 16px;
+  }
+}
+
+/* Fade-in Transition */
+.fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
