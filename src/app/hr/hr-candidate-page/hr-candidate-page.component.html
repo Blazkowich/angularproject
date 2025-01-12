@@ -18,11 +18,21 @@
   </div>
 
   <!-- Filter Section -->
-  <div class="filter-section">
-    <button class="btn btn-outline-secondary filter-button d-flex align-items-center gap-2">
-      <i class="bi bi-chevron-down"></i>
-      Filter by name
-    </button>
+  <div class="filter-section d-flex align-items-center justify-content-between">
+    <div class="filter-right">
+      <button class="btn btn-outline-secondary filter-button d-flex align-items-center gap-2">
+        <i class="bi bi-chevron-down"></i>
+        Filter by name
+      </button>
+    </div>
+    <div class="filter-left">
+      <button
+        class="btn btn-primary d-flex align-items-center gap-2 add-candidate-btn"
+        (click)="openAddCandidatePopup()">
+        <i class="bi bi-plus"></i>
+        Add Candidate
+      </button>
+    </div>
   </div>
 
   <!-- Title -->
@@ -66,4 +76,9 @@
     [jobUnit]="selectedJobUnit"
     (closePopup)="closePopup()">
   </app-apply-candidate-popup>
+
+  <app-add-new-candidate-popup
+    *ngIf="isAddCandidateModalOpen"
+    (closePopup)="closeAddCandidatePopup()">
+  </app-add-new-candidate-popup>
 </div>

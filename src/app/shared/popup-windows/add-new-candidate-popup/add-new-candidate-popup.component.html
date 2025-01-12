@@ -1,0 +1,35 @@
+<div class="popup-container">
+  <div class="popup">
+    <div class="popup-header-container">
+      <h2 class="popup-header">Adding a new soldier</h2>
+      <button type="button" class="close" (click)="close()">
+        <img src="/assets/images/close.svg" alt="Close" />
+      </button>
+    </div>
+
+    <form (submit)="addSoldier($event)" class="popup-form" *ngIf="!message">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Soldier's name"
+        [(ngModel)]="soldierName"
+        name="soldierName"
+        required
+      />
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Enter ID"
+        [(ngModel)]="soldierId"
+        name="soldierId"
+        required
+      />
+      <button type="submit" class="btn btn-primary">Add</button>
+    </form>
+
+    <div *ngIf="message" class="popup-message">
+      <p>{{ message }}</p>
+      <button (click)="close()" class="btn btn-primary">Close</button>
+    </div>
+  </div>
+</div>

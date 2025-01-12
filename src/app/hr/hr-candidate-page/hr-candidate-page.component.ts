@@ -10,6 +10,7 @@ import { HrBottomNavigationComponent } from '../../shared/hr-bottom-navigation/h
 import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { ApplyCandidatePopupComponent } from '../../shared/popup-windows/apply-candidate-popup/apply-candidate-popup.component';
+import { AddNewCandidatePopupComponent } from '../../shared/popup-windows/add-new-candidate-popup/add-new-candidate-popup.component';
 
 @Component({
   selector: 'app-hr-candidate-page',
@@ -19,7 +20,9 @@ import { ApplyCandidatePopupComponent } from '../../shared/popup-windows/apply-c
     FormsModule,
     RouterModule,
     HrBottomNavigationComponent,
-    ApplyCandidatePopupComponent],
+    ApplyCandidatePopupComponent,
+    AddNewCandidatePopupComponent
+  ],
   templateUrl: './hr-candidate-page.component.html',
   styleUrl: './hr-candidate-page.component.css'
 })
@@ -31,6 +34,7 @@ export class HrCandidatePageComponent implements OnInit, OnDestroy {
   jobId: string | undefined;
   isJobSpecificList = false;
   isModalOpen = false;
+  isAddCandidateModalOpen = false;
   selectedJobName: string | undefined;
   selectedJobUnit: string | undefined;
   private routerSubscription: Subscription;
@@ -137,6 +141,26 @@ export class HrCandidatePageComponent implements OnInit, OnDestroy {
 
   selectCandidate(candidateId: string): void {
     localStorage.setItem('candidateId', candidateId);
+  }
+
+  openAddCandidatePopup(): void {
+    this.isAddCandidateModalOpen = true;
+  }
+
+  closeAddCandidatePopup(): void {
+    this.isAddCandidateModalOpen = false;
+    this.loadCandidates();
+  }
+
+  private loadCandidates(): void {
+    this.candidateService.getCandidates().subscribe({
+      next: (candidates: Candidate[]) => {
+        this.candidates = candidates;
+      },
+      error: (error) => {
+        console.error('Error loading candidates:', error);
+      }
+    });
   }
 
   closePopup(): void {

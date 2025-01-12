@@ -28,10 +28,8 @@ export class HrJobDetailsComponent implements OnInit {
   ngOnInit(): void {
     document.documentElement.style.setProperty('--background-color', '#282949');
 
-    // Retrieve jobId from localStorage
     this.jobId = localStorage.getItem('jobId')!;
 
-    // Fetch job details
     this.jobService.getJobById(this.jobId).subscribe({
       next: (job: Job) => {
         this.job = job;
@@ -44,12 +42,10 @@ export class HrJobDetailsComponent implements OnInit {
   }
 
   loadCandidates() {
-    // Fetch all candidates
     this.candidateService.getCandidates().subscribe({
       next: (candidates: Candidate[]) => {
         this.candidates = candidates;
 
-        // Filter candidates based on jobId and preferred status
         this.preferredCandidatesCount = this.candidates.filter(
           (candidate) =>
             candidate.jobStatuses &&
