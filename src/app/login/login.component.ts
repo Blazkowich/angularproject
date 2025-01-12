@@ -24,7 +24,16 @@ export class LoginComponent {
         localStorage.setItem('authToken', response.access_token);
         localStorage.setItem('role', response.role);
         console.log('Login successful');
-        this.router.navigate(['/open-jobs']);
+
+        // Role-based redirection
+        const userRole = response.role;
+        if (userRole === 'volunteer') {
+          this.router.navigate(['/roles']);
+        } else if (userRole === 'commander') {
+          this.router.navigate(['/open-jobs']);
+        } else if (userRole === 'hr') {
+          this.router.navigate(['/job-roles']);
+        }
       },
       (error) => {
         console.error('Login failed:', error);

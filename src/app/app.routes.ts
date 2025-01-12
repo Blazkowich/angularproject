@@ -19,22 +19,25 @@ import { HrJobDetailsComponent } from './hr/hr-job-details/hr-job-details.compon
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: 'open-jobs', component: MainPageComponent, canActivate: [MainGuard] },
-  { path: 'create-job', component: CreateJobComponent, canActivate: [MainGuard] },
-  { path: 'job-details/:id', component: JobDetailsComponent, canActivate: [MainGuard] },
-  { path: 'closed-jobs', component: ClosedJobComponent, canActivate: [MainGuard] },
-  { path: 'job-details/:id/candidates', component: CandidatesComponent, canActivate: [MainGuard] },
-  { path: 'job-details/:id/candidates/preferred', component: CandidatesComponent, canActivate: [MainGuard] },
-  { path: 'candidate-details/:id', component: CandidatesDetailsComponent, canActivate: [MainGuard] },
-  { path: 'candidate-profile/:id', component: CandidateProfileComponent, canActivate: [MainGuard]},
-  { path: 'interview-summary/:id', component: InterviewSummaryComponent, canActivate: [MainGuard]},
-  { path: 'roles', component:UserMainPageComponent, canActivate: [MainGuard]},
-  { path: 'personal-profile', component: UserProfileComponent, canActivate: [MainGuard] },
-  { path: 'job-application-details/:id', component: JobApplicationDetailsComponent, canActivate: [MainGuard]},
-  { path: 'job-roles', component:HrMainPageComponent, canActivate: [MainGuard]},
-  { path: 'candidates-list', component:HrCandidatePageComponent, canActivate: [MainGuard] },
-  { path: 'job-roles/:id/candidate-list', component:HrCandidatePageComponent, canActivate: [MainGuard] },
-  { path: 'job-requirements/:id', component:HrJobDetailsComponent, canActivate: [MainGuard]},
+  //Commander
+  { path: 'open-jobs', component: MainPageComponent, canActivate: [MainGuard], data: { role: 'commander' } },
+  { path: 'create-job', component: CreateJobComponent, canActivate: [MainGuard], data: { role: 'commander' } },
+  { path: 'job-details/:id', component: JobDetailsComponent, canActivate: [MainGuard], data: { role: 'commander' } },
+  { path: 'closed-jobs', component: ClosedJobComponent, canActivate: [MainGuard], data: { role: 'commander' } },
+  { path: 'job-details/:id/candidates', component: CandidatesComponent, canActivate: [MainGuard], data: { role: 'commander' } },
+  { path: 'job-details/:id/candidates/preferred', component: CandidatesComponent, canActivate: [MainGuard], data: { role: 'commander' } },
+  { path: 'candidate-details/:id', component: CandidatesDetailsComponent, canActivate: [MainGuard], data: { role: 'commander' } },
+  { path: 'candidate-profile/:id', component: CandidateProfileComponent, canActivate: [MainGuard], data: { role: 'commander' } },
+  { path: 'interview-summary/:id', component: InterviewSummaryComponent, canActivate: [MainGuard], data: { role: 'commander' } },
+  // Volunteer
+  { path: 'roles', component:UserMainPageComponent, canActivate: [MainGuard], data: { role: 'volunteer' } },
+  { path: 'personal-profile', component: UserProfileComponent, canActivate: [MainGuard], data: { role: 'volunteer' } },
+  { path: 'job-application-details/:id', component: JobApplicationDetailsComponent, canActivate: [MainGuard], data: { role: 'volunteer' } },
+  //HR
+  { path: 'job-roles', component:HrMainPageComponent, canActivate: [MainGuard], data: { role: 'hr' } },
+  { path: 'candidates-list', component:HrCandidatePageComponent, canActivate: [MainGuard], data: { role: 'hr' } },
+  { path: 'job-roles/:id/candidate-list', component:HrCandidatePageComponent, canActivate: [MainGuard], data: { role: 'hr' } },
+  { path: 'job-requirements/:id', component:HrJobDetailsComponent, canActivate: [MainGuard], data: { role: 'hr' } },
 
   { path: '**', redirectTo: '/login' }
 ];
