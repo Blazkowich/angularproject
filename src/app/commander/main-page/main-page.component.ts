@@ -138,4 +138,8 @@ export class MainPageComponent implements OnInit {
     const counts = this.jobCandidatesCount[jobId];
     return `${counts.total}`;
   }
+
+  createJob() {
+    this.router.navigate(['/create-job']);
+  }
 }

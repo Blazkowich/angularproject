@@ -91,5 +91,6 @@ h5 {
   .create-btn {
     width: 250px;
     font-size: 1rem;
+    z-index: 999;
   }
 }
