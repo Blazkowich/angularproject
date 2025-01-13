@@ -1,3 +1,5 @@
+import { JobMapper } from './../../utils/job-mapper';
+import { map } from 'rxjs';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ApplyVacancyPopupComponent } from '../../shared/popup-windows/apply-vacancy-popup/apply-vacancy-popup.component';
 import { CancelVacancyPopupComponent } from '../../shared/popup-windows/cancel-vacancy-popup/cancel-vacancy-popup.component';
@@ -32,7 +34,7 @@ export class JobApplicationDetailsComponent implements OnInit {
     if (this.jobId) {
       this.jobService.getJobById(this.jobId).subscribe({
         next: (job: Job) => {
-          this.job = job;
+          this.job = JobMapper.mapJobResponse(job);
         },
         error: (err) => {
           console.error('Error fetching job details:', err);

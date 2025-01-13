@@ -2,12 +2,12 @@ import { CandidateService } from './../../services/candidates.service';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Role } from '../../models/role.model';
 import { Candidate } from '../../models/candidates.model';
 import { RouterModule } from '@angular/router';
 import { BottomNavigationComponent } from "../../shared/bottom-navigation/bottom-navigation.component";
 import { JobService } from '../../services/jobs.service';
 import { Job } from '../../models/jobs.model';
+import { JobMapper } from '../../utils/job-mapper';
 
 @Component({
   selector: 'app-user-main-page',
@@ -37,8 +37,8 @@ export class UserMainPageComponent implements OnInit {
     });
 
     this.jobService.getJobs().subscribe({
-      next: (jobs: Job[]) => {
-        this.jobs = jobs;
+      next: (jobs: any[]) => {
+        this.jobs = jobs.map(job => JobMapper.mapJobResponse(job));
         //this.jobs = jobs.filter(job => job.status.toLowerCase() !== 'closed');
       },
       error: (jobsError) => {

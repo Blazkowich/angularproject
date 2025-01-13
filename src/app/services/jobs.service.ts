@@ -8,7 +8,12 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class JobService {
-  private jobsUrl = `${environment.baseUrl}/api/volunteer/jobs`;
+  private role = localStorage.getItem('userRole');
+  private jobsUrl =
+  this.role === 'volunteer' ? `${environment.baseUrl}/api/volunteer/jobs` :
+  this.role === 'commander' ? `${environment.baseUrl}/api/commander/jobs` :
+  this.role === 'hr' ? `${environment.baseUrl}/api/hr/jobs` :
+  (() => { throw new Error('Invalid role'); })();
 
   constructor(private http: HttpClient) {}
 

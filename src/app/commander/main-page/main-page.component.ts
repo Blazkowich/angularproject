@@ -1,3 +1,5 @@
+import { map } from 'rxjs';
+import { JobMapper } from './../../utils/job-mapper';
 import { CandidateService } from './../../services/candidates.service';
 import { Component, OnInit } from '@angular/core';
 import { Job } from '../../models/jobs.model';
@@ -45,7 +47,7 @@ export class MainPageComponent implements OnInit {
   private loadJobs(): void {
     this.jobService.getJobs().subscribe({
       next: (jobs: Job[]) => {
-        this.jobs = jobs;
+        this.jobs = jobs.map(j => JobMapper.mapJobResponse(j));
         // this.jobs = jobs.filter(job => this.isJobOpen(job));
         this.initializeJobCandidatesCount();
       },
