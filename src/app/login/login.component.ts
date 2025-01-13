@@ -21,10 +21,6 @@ export class LoginComponent {
   login(): void {
     this.loginService.login(this.username, this.password).subscribe(
       (response) => {
-        localStorage.setItem('authToken', response.access_token);
-        localStorage.setItem('role', response.role);
-        console.log('Login successful');
-
         // Role-based redirection
         const userRole = response.role;
         if (userRole === 'volunteer') {

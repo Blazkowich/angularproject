@@ -38,7 +38,8 @@ export class UserMainPageComponent implements OnInit {
 
     this.jobService.getJobs().subscribe({
       next: (jobs: Job[]) => {
-        this.jobs = jobs.filter(job => job.status.toLowerCase() !== 'closed');
+        this.jobs = jobs;
+        //this.jobs = jobs.filter(job => job.status.toLowerCase() !== 'closed');
       },
       error: (jobsError) => {
         console.error('Error loading jobs:', jobsError);

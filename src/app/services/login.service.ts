@@ -13,40 +13,32 @@ export class LoginService {
   constructor(private http: HttpClient) {}
 
   login(email: string, password: string): Observable<any> {
-    const url = `${this.baseUrl}/api/auth/login`;
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const body = { email, password };
-
-    return this.http.post<any>(url, body, { headers }).pipe(
-      tap((response) => {
-        if (this.isLocalStorageAvailable()) {
-          localStorage.setItem('authToken', response.access_token);
-          localStorage.setItem('userRole', response.role);
-        }
-      })
-    );
+    return this.http.post<any>(`${this.baseUrl}/api/auth/login`, { email, password })
+      .pipe(
+        tap(response => {
+          if (response?.access_token) {
+            localStorage.setItem('authToken', response.access_token);
+            localStorage.setItem('userRole', response.role);
+          }
+        })
+      );
   }
 
-  logout(): void {
-    if (this.isLocalStorageAvailable()) {
-      localStorage.removeItem('authToken');
-      localStorage.removeItem('userRole');
-    }
+  isAuthenticated(): boolean {
+    const token = localStorage.getItem('authToken');
+    return !!token;
   }
 
   getAuthToken(): string | null {
-    return this.isLocalStorageAvailable() ? localStorage.getItem('authToken') : null;
+    return localStorage.getItem('authToken');
   }
 
   getUserRole(): string | null {
-    return this.isLocalStorageAvailable() ? localStorage.getItem('userRole') : null;
+    return localStorage.getItem('userRole');
   }
 
-  private isLocalStorageAvailable(): boolean {
-    try {
-      return typeof localStorage !== 'undefined';
-    } catch (e) {
-      return false;
-    }
+  logout(): void {
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('userRole');
   }
 }

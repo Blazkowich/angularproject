@@ -45,7 +45,8 @@ export class MainPageComponent implements OnInit {
   private loadJobs(): void {
     this.jobService.getJobs().subscribe({
       next: (jobs: Job[]) => {
-        this.jobs = jobs.filter(job => this.isJobOpen(job));
+        this.jobs = jobs;
+        // this.jobs = jobs.filter(job => this.isJobOpen(job));
         this.initializeJobCandidatesCount();
       },
       error: (error) => {
