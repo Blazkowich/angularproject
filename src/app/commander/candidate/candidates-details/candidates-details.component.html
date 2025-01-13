@@ -4,7 +4,7 @@
     <div class="container">
       <div class="header-content">
         <div class="profile-image-container">
-          <a [routerLink]="['/candidate-profile', candidate?.id]">
+          <a (click)="goToCandidateProfile(candidate?.id!)">
             <img [src]="candidate?.imageUrl"
                  alt="Profile picture"
                  class="profile-image"

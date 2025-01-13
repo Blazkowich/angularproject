@@ -84,6 +84,10 @@ export class CandidatesDetailsComponent implements OnInit, OnDestroy{
     this.router.navigate([`/job-details/${this.jobId}/candidates`]);
   }
 
+  goToCandidateProfile(candidateId: string) {
+    this.router.navigate([`/candidate-profile/${candidateId}`]);
+  }
+
   ngOnDestroy(): void {
     if (this.candidateSub) {
       this.candidateSub.unsubscribe();

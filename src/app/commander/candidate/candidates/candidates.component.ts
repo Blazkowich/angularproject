@@ -95,6 +95,18 @@ export class CandidatesComponent implements OnInit {
     this.router.navigate([`/job-details/${this.jobId}/candidates/preferred`]);
   }
 
+  contactCandidate(candidateId: string) {
+    this.router.navigate([`/interview-summary/${candidateId}`]);
+  }
+
+  goToCandidateProfile(candidateId: string) {
+    this.router.navigate([`/candidate-profile/${candidateId}`]);
+  }
+
+  goToCandidateDetails(candidateId: string) {
+    this.router.navigate([`/candidate-details/${candidateId}`]);
+  }
+
   // For the Candidates section
   shouldShowCandidatesText(): boolean {
     const pendingCandidates = this.candidates.filter(c => c.jobStatuses[this.jobId] === 'pending');
