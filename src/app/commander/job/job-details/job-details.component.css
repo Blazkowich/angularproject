@@ -11,6 +11,10 @@ nav {
   min-width: 20px;
 }
 
+.cursor-pointer {
+  cursor: pointer;
+}
+
 @media (max-width: 400px) {
   nav {
     margin-top: 60px;
