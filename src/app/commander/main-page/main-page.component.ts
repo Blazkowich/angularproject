@@ -31,7 +31,6 @@ export class MainPageComponent implements OnInit {
   currentFilter: 'preferred' | 'rejected' | 'pending' | 'all' = 'all';
   allCandidatesCount: number = 0;
 
-  // Store preferred, rejected, and total counts for each job
   jobCandidatesCount: { [jobId: string]: { preferred: number; rejected: number; total: number } } = {};
 
   constructor(
@@ -41,102 +40,75 @@ export class MainPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadJobs();
-    this.loadCandidates();
   }
 
   private loadJobs(): void {
-    this.jobService.getJobs().subscribe({
-      next: (jobs: Job[]) => {
-        this.jobs = jobs.map(j => JobMapper.mapJobResponse(j));
-        // this.jobs = jobs.filter(job => this.isJobOpen(job));
-        this.initializeJobCandidatesCount();
-      },
-      error: (error) => {
-        console.error('Error loading jobs:', error);
-        alert('Failed to load jobs. Please try again later.');
-      }
-    });
-  }
-
-  private loadCandidates(): void {
-    this.candidateService.getCandidates().subscribe({
-      next: (candidates: Candidate[]) => {
-        this.allCandidates = candidates;
-        this.calculateJobSpecificCounts();
-        this.applyFilter();
-      },
-      error: (error) => {
-        console.error('Error loading candidates:', error);
-        alert('Failed to load candidates. Please try again later.');
-      }
-    });
-  }
+  this.jobService.getJobs().subscribe({
+    next: (jobs: Job[]) => {
+      this.jobs = jobs.filter(j => this.isJobOpen(j)).map((job) => JobMapper.mapJobResponse(job));
+      this.initializeJobCandidatesCount();
+      this.loadApplicationsForJobs();
+    },
+    error: (error) => {
+      console.error('Error loading jobs:', error);
+      alert('Failed to load jobs. Please try again later.');
+    },
+  });
+}
 
   private initializeJobCandidatesCount(): void {
-    // Initialize job-specific counts for each job
-    this.jobs.forEach(job => {
+    this.jobs.forEach((job) => {
       this.jobCandidatesCount[job.id] = { preferred: 0, rejected: 0, total: 0 };
     });
   }
 
-  private calculateJobSpecificCounts(): void {
-    // Reset counts before recalculating
-    this.jobs.forEach(job => {
-      this.jobCandidatesCount[job.id].preferred = 0;
-      this.jobCandidatesCount[job.id].rejected = 0;
-      this.jobCandidatesCount[job.id].total = 0;
-    });
-
-    // Loop through candidates and update job-specific counts
-    this.allCandidates.forEach(candidate => {
-      Object.entries(candidate.jobStatuses || {}).forEach(([jobId, status]) => {
-        if (this.jobCandidatesCount[jobId]) {
-          // Increment the total count for the job
-          this.jobCandidatesCount[jobId].total++;
-
-          // Increment the counts for preferred and rejected statuses
-          if (status === 'preferred') {
-            this.jobCandidatesCount[jobId].preferred++;
-          } else if (status === 'rejected') {
-            this.jobCandidatesCount[jobId].rejected++;
-          }
-        }
+  private loadApplicationsForJobs(): void {
+    this.jobs.forEach((job) => {
+      this.jobService.getJobApplications(job.id).subscribe({
+        next: (applications) => {
+          this.updateJobCandidatesCount(job.id, applications);
+        },
+        error: (error) => {
+          console.error(`Error loading applications for job ${job.id}:`, error);
+        },
       });
     });
   }
 
-  private applyFilter(): void {
-    if (this.currentFilter === 'all') {
-      this.candidates = this.allCandidates;
-    } else {
-      this.candidates = this.allCandidates.filter(candidate => {
-        const filterStatus = this.currentFilter as 'preferred' | 'rejected' | 'pending';
-        return Object.values(candidate.jobStatuses || {}).includes(filterStatus);
-      });
-    }
-  }
-
-  isJobOpen(job: Job): boolean {
-    return job.status.toLowerCase() === 'open';
-  }
-
-  navigateToJob(jobId: string) {
-    this.router.navigate(['/job-details', jobId]);
+  private updateJobCandidatesCount(jobId: string, applications: any[]): void {
+    const counts = { preferred: 0, rejected: 0, total: 0 };
+    applications.forEach((application) => {
+      counts.total++;
+      if (application.status === 'preferred') {
+        counts.preferred++;
+      } else if (application.status === 'rejected') {
+        counts.rejected++;
+      }
+    });
+    this.jobCandidatesCount[jobId] = counts;
   }
 
   getPreferredAndRejectedCountForJob(jobId: string): string {
-    const counts = this.jobCandidatesCount[jobId];
+    const counts = this.jobCandidatesCount[jobId] || { preferred: 0, rejected: 0 };
     return `${counts.preferred}/${counts.rejected}`;
   }
 
   getPreferredCountForJob(jobId: string): string {
-    const counts = this.jobCandidatesCount[jobId];
+    const counts = this.jobCandidatesCount[jobId] || { preferred: 0 };
     return `${counts.preferred}`;
   }
 
   getTotalCandidatesCountForJob(jobId: string): string {
-    const counts = this.jobCandidatesCount[jobId];
+    const counts = this.jobCandidatesCount[jobId] || { total: 0 };
     return `${counts.total}`;
+  }
+
+  isJobOpen(job: Job): boolean {
+    return job.status === 'OPEN';
+  }
+
+  navigateToJob(jobId: string) {
+    this.router.navigate(['/job-details', jobId]);
   }
 
   createJob() {

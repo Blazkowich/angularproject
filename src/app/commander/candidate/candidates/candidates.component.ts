@@ -45,7 +45,7 @@ export class CandidatesComponent implements OnInit {
   }
 
   private loadCandidates(): void {
-    this.candidateService.getCandidates().subscribe({
+    this.candidateService.getCandidatesForJob(this.jobId).subscribe({
       next: (candidates: Candidate[]) => {
         this.allCandidates = candidates;
         this.applyFilter();

@@ -37,4 +37,14 @@ export class JobService {
       })
     );
   }
+
+  getJobApplications(jobId: string): Observable<any[]> {
+    const url = `${environment.baseUrl}/api/commander/jobs/${jobId}/applications`;
+    return this.http.get<any[]>(url).pipe(
+      catchError((error) => {
+        console.error(`Error fetching applications for job ${jobId}:`, error);
+        return throwError(() => error);
+      })
+    );
+  }
 }

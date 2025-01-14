@@ -2,19 +2,26 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { Candidate } from '../models/candidates.model';
+import { environment } from '../../environments/environment';
+import { CandidateMapperService } from '../utils/candidate-mapper-commander';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CandidateService {
-  private candidatesUrl = '/assets/data/candidates.json';
+  private candidatesUrl = `${environment.baseUrl}/api/commander`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private candidateMapperService: CandidateMapperService) {}
 
   getCandidates(): Observable<Candidate[]> {
     return this.http.get<any[]>(this.candidatesUrl);
   }
 
+  getCandidatesForJob(id: string): Observable<Candidate[]> {
+    return this.http.get<any[]>(`${this.candidatesUrl}/jobs/${id}/applications`).pipe(
+      map(response => this.candidateMapperService.mapToCandidateModelArray(response, id))
+    );
+  }
   getCandidateById(id: string): Observable<Candidate> {
     return this.getCandidates().pipe(
       map(candidates => {
