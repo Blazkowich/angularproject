@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
@@ -17,28 +17,45 @@ export class LoginService {
       .pipe(
         tap(response => {
           if (response?.access_token) {
-            localStorage.setItem('authToken', response.access_token);
-            localStorage.setItem('userRole', response.role);
+            this.setAuthToken(response.access_token);
+            this.setUserRole(response.role);
           }
         })
       );
   }
 
+  private setAuthToken(token: string): void {
+    if (this.isBrowser()) {
+      localStorage.setItem('authToken', token);
+    }
+  }
+
+  private setUserRole(role: string): void {
+    if (this.isBrowser()) {
+      localStorage.setItem('userRole', role);
+    }
+  }
+
+  private isBrowser(): boolean {
+    return typeof window !== 'undefined' && typeof localStorage !== 'undefined';
+  }
+
   isAuthenticated(): boolean {
-    const token = localStorage.getItem('authToken');
-    return !!token;
+    return this.isBrowser() ? !!localStorage.getItem('authToken') : false;
   }
 
   getAuthToken(): string | null {
-    return localStorage.getItem('authToken');
+    return this.isBrowser() ? localStorage.getItem('authToken') : null;
   }
 
   getUserRole(): string | null {
-    return localStorage.getItem('userRole');
+    return this.isBrowser() ? localStorage.getItem('userRole') : null;
   }
 
   logout(): void {
-    localStorage.removeItem('authToken');
-    localStorage.removeItem('userRole');
+    if (this.isBrowser()) {
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('userRole');
+    }
   }
 }
