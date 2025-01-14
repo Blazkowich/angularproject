@@ -31,7 +31,6 @@ textarea::placeholder {
   margin-left: 10px;
 }
 
-
 .profile-image-container {
   width: 60px;
   height: 60px;
@@ -45,4 +44,21 @@ textarea::placeholder {
   object-fit: cover;
   border: 2px solid #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Right-aligned Section */
+.right-aligned-section {
+  direction: rtl;
+}
+
+.interviewDate{
+  max-width: 200px;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.mb-4 {
+  margin-bottom: 1.5rem;
 }

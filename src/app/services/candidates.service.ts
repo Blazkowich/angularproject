@@ -4,6 +4,7 @@ import { catchError, map, Observable, throwError } from 'rxjs';
 import { Candidate } from '../models/candidates.model';
 import { environment } from '../../environments/environment';
 import { CandidateMapperService } from '../utils/candidate-mapper-commander';
+import { Interview } from '../models/interview.model';
 
 @Injectable({
   providedIn: 'root',
@@ -86,5 +87,14 @@ export class CandidateService {
     }
 
     return age;
+  }
+
+  saveInterviewSummary(interview: Interview): Observable<any> {
+    return this.http.post(`${this.candidatesUrl}/interviews/`, interview).pipe(
+      catchError(error => {
+        console.error('Error saving interview summary:', error);
+        return throwError(() => new Error('Unable to save interview summary'));
+      })
+    );
   }
 }

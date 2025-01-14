@@ -1,7 +1,7 @@
 <div class="container py-3">
   <!-- Header -->
   <div class="d-flex justify-content-center align-items-center mb-3" style="font-weight: bold;">
-    <span class="text-muted">interview | יונתן כהן</span>
+    <span class="text-muted">interview | {{ candidate?.fullName }}</span>
   </div>
 
   <div class="card mb-4" style="height: 120px;">
@@ -13,15 +13,15 @@
       <div class="rounded-circle overflow-hidden" style="width: 60px; height: 60px;">
         <div class="profile-image-container">
           <img [src]="candidate?.imageUrl"
-              alt="Profile picture"
-              class="profile-image"
-              onerror="this.src='assets/images/on.svg'">
+               alt="Profile picture"
+               class="profile-image"
+               onerror="this.src='assets/images/on.svg'">
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Text Area -->
+  <!-- Interview Notes -->
   <div class="form-group mb-4">
     <textarea
       class="form-control"
@@ -34,7 +34,32 @@
     ></textarea>
   </div>
 
-  <!-- Save Button -->
-  <button class="btn btn-primary w-100">Save</button>
-  <button class="btn btn-secondary w-100" (click)="goBack()">Back</button>
+  <!-- Right-aligned Section (Interview Date, Automatic Message, Buttons) -->
+  <div class="right-aligned-section">
+    <div class="form-group mb-4 interviewDate">
+      <label for="interviewDate">Interview Date</label>
+      <input
+        id="interviewDate"
+        type="datetime-local"
+        class="form-control"
+        [(ngModel)]="interviewDate"
+        name="interviewDate"
+        required
+      />
+    </div>
+
+    <div class="form-group mb-4">
+      <label for="automaticMessage">Automatic Message</label>
+      <textarea
+        id="automaticMessage"
+        class="form-control"
+        rows="4"
+        [(ngModel)]="automaticMessage"
+        placeholder="Message to be sent automatically to the candidate."
+      ></textarea>
+    </div>
+
+    <button class="btn btn-primary w-100" (click)="onSave()">Save</button>
+    <button class="btn btn-secondary w-100" (click)="goBack()">Back</button>
+  </div>
 </div>

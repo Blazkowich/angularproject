@@ -1,3 +1,4 @@
+import { CandidateMapperService } from './../../utils/candidate-mapper-commander';
 import { CandidateService } from './../../services/candidates.service';
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
@@ -6,6 +7,7 @@ import { Candidate } from '../../models/candidates.model';
 import { Subscription } from 'rxjs';
 import { Route } from '@angular/router';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Interview } from '../../models/interview.model';
 
 @Component({
   selector: 'app-interview-summary',
@@ -16,6 +18,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class InterviewSummaryComponent implements OnInit, OnDestroy {
   interviewNotes: string = '';
+  interviewDate: Date | null = null;
+  automaticMessage: string = '';
   candidateSub: Subscription | undefined;
   candidate: Candidate | undefined;
   candidateId: string | undefined;
@@ -30,9 +34,9 @@ export class InterviewSummaryComponent implements OnInit, OnDestroy {
     this.candidateId = this.route.snapshot.paramMap.get('id')!;
     this.jobId = localStorage.getItem('jobId')!;
     if (this.candidateId) {
-      this.candidateSub = this.candidateService.getCandidateById(this.candidateId).subscribe({
+      this.candidateSub = this.candidateService.getCommanderCandidateById(this.candidateId).subscribe({
         next: candidate => {
-          this.candidate = candidate;
+          this.candidate = CandidateMapperService.mapCandidateForProfile(candidate);
         }
       });
     } else {
@@ -51,7 +55,26 @@ export class InterviewSummaryComponent implements OnInit, OnDestroy {
   }
 
   onSave() {
-    console.log("Saved");
+    if (this.interviewNotes && this.interviewDate && this.automaticMessage && this.candidate) {
+      const interview: Interview = {
+        candidateId: this.candidate.id,
+        jobId: this.jobId!,
+        interviewNotes: this.interviewNotes,
+        interviewDate: this.interviewDate,
+        automaticMessage: this.automaticMessage,
+        fullName: this.candidate.fullName,
+        email: this.candidate.email
+      };
+
+      this.candidateService.saveInterviewSummary(interview).subscribe({
+        next: response => {
+          console.log('Interview saved successfully');
+        },
+        error: err => {
+          console.log('Error saving interview:', err);
+        }
+      });
+    }
   }
 
   ngOnDestroy(): void {
