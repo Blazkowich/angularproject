@@ -5,6 +5,7 @@ import { Candidate } from '../models/candidates.model';
 import { environment } from '../../environments/environment';
 import { CandidateMapperService } from '../utils/candidate-mapper-commander';
 import { Interview } from '../models/interview.model';
+import { InterviewMapper } from '../utils/interview-mapper';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,9 @@ import { Interview } from '../models/interview.model';
 export class CandidateService {
   private candidatesUrl = `${environment.baseUrl}/api/commander`;
 
-  constructor(private http: HttpClient, private candidateMapperService: CandidateMapperService) {}
+  constructor(
+    private http: HttpClient,
+    private candidateMapperService: CandidateMapperService) {}
 
   getCandidates(): Observable<Candidate[]> {
     return this.http.get<any[]>(this.candidatesUrl);
@@ -89,11 +92,33 @@ export class CandidateService {
     return age;
   }
 
-  saveInterviewSummary(interview: Interview): Observable<any> {
-    return this.http.post(`${this.candidatesUrl}/interviews/`, interview).pipe(
+  getInterview(jobId: string, volunteerId: string): Observable<Interview> {
+    const url = `${this.candidatesUrl}/jobs/${jobId}/volunteers/${volunteerId}/interviews`;
+    return this.http.get<any>(url).pipe(
+      map(response => InterviewMapper.mapToInterviewModel(response)),
       catchError(error => {
-        console.error('Error saving interview summary:', error);
-        return throwError(() => new Error('Unable to save interview summary'));
+        console.error(`Error fetching interview for jobId ${jobId} and volunteerId ${volunteerId}:`, error);
+        return throwError(() => new Error('Unable to fetch interview'));
+      })
+    );
+  }
+
+  saveInterview(interview: Interview, jobId: string, volunteerId: string): Observable<any> {
+    const url = `${this.candidatesUrl}/jobs/${jobId}/volunteers/${volunteerId}/interviews`;
+    return this.http.post(url, interview).pipe(
+      catchError(error => {
+        console.error('Error creating interview:', error);
+        return throwError(() => new Error('Unable to create interview'));
+      })
+    );
+  }
+
+  updateInterview(interview: Interview, jobId: string, volunteerId: string): Observable<any> {
+    const url = `${this.candidatesUrl}/jobs/${jobId}/volunteers/${volunteerId}/interviews`;
+    return this.http.patch(url, interview).pipe(
+      catchError(error => {
+        console.error('Error updating interview:', error);
+        return throwError(() => new Error('Unable to update interview'));
       })
     );
   }

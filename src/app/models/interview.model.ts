@@ -6,4 +6,5 @@ export interface Interview {
   automaticMessage: string;
   fullName: string;
   email: string;
+  status: string;
 }

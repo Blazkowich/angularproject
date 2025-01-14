@@ -5,7 +5,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Candidate } from '../../models/candidates.model';
 import { Subscription } from 'rxjs';
-import { Route } from '@angular/router';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Interview } from '../../models/interview.model';
 
@@ -24,6 +23,7 @@ export class InterviewSummaryComponent implements OnInit, OnDestroy {
   candidate: Candidate | undefined;
   candidateId: string | undefined;
   jobId: string | undefined;
+  interview: Interview | undefined;
 
   constructor(
     private candidateService: CandidateService,
@@ -33,6 +33,7 @@ export class InterviewSummaryComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.candidateId = this.route.snapshot.paramMap.get('id')!;
     this.jobId = localStorage.getItem('jobId')!;
+    this.getInterview(this.candidateId, this.jobId);
     if (this.candidateId) {
       this.candidateSub = this.candidateService.getCommanderCandidateById(this.candidateId).subscribe({
         next: candidate => {
@@ -54,24 +55,54 @@ export class InterviewSummaryComponent implements OnInit, OnDestroy {
     this.router.navigate([`job-details/${this.jobId}/candidates/preferred`]);
   }
 
-  onSave() {
-    if (this.interviewNotes && this.interviewDate && this.automaticMessage && this.candidate) {
-      const interview: Interview = {
-        candidateId: this.candidate.id,
-        jobId: this.jobId!,
-        interviewNotes: this.interviewNotes,
-        interviewDate: this.interviewDate,
-        automaticMessage: this.automaticMessage,
-        fullName: this.candidate.fullName,
-        email: this.candidate.email
-      };
+  getInterview(candidateId: string, jobId: string): void {
+    this.candidateService.getInterview(jobId, candidateId).subscribe({
+      next: interview => {
+        if (interview) {
+          this.interviewNotes = interview.interviewNotes || '';
+          this.interviewDate = interview.interviewDate || null;
+          this.automaticMessage = interview.automaticMessage || '';
+          this.interview = interview;
+        } else {
+          console.log('No interview found for the given candidate and job');
+        }
+      },
+      error: err => {
+        console.error('Error fetching interview:', err);
+      }
+    });
+  }
 
-      this.candidateService.saveInterviewSummary(interview).subscribe({
-        next: response => {
-          console.log('Interview saved successfully');
+  onSave(): void {
+    const interviewData: Interview = {
+      candidateId: this.candidateId!,
+      jobId: this.jobId!,
+      interviewNotes: this.interviewNotes,
+      interviewDate: this.interviewDate,
+      automaticMessage: this.automaticMessage,
+      status: this.interview ? this.interview.status : 'Pending',
+      fullName: this.candidate?.fullName!,
+      email: this.candidate?.email!,
+    };
+
+    if (this.interview) {
+      this.candidateService.updateInterview(interviewData, this.jobId!, this.candidateId!).subscribe({
+        next: updatedInterview => {
+          console.log('Interview updated successfully', updatedInterview);
+          this.router.navigate([`job-details/${this.jobId}/candidates/preferred`]);
         },
         error: err => {
-          console.log('Error saving interview:', err);
+          console.error('Error updating interview:', err);
+        }
+      });
+    } else {
+      this.candidateService.saveInterview(interviewData, this.jobId!, this.candidateId!).subscribe({
+        next: newInterview => {
+          console.log('New interview added successfully', newInterview);
+          this.router.navigate([`job-details/${this.jobId}/candidates/preferred`]);
+        },
+        error: err => {
+          console.error('Error adding new interview:', err);
         }
       });
     }
