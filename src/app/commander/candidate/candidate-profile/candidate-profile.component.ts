@@ -39,6 +39,19 @@ export class CandidateProfileComponent implements OnInit, OnDestroy {
     }
   }
 
+  downloadPdf() {
+    const fullName = this.candidate?.fullName || 'Unknown';
+    const firstName = fullName.split(' ')[0];
+    const pdfUrl = `assets/file/EmptyResume_${firstName}.pdf`;
+    const fileName = `EmptyResume_${firstName}.pdf`;
+
+    console.log(fileName);
+    const anchor = document.createElement('a');
+    anchor.href = pdfUrl;
+    anchor.download = fileName;
+    anchor.click();
+  }
+
   getCandidate(id: string): void {
     this.candidateService.getCandidateById(id).subscribe({
       next: candidate => this.candidate = candidate
