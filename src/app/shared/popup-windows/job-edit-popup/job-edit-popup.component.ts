@@ -1,3 +1,4 @@
+import { JobMapper } from './../../../utils/job-mapper';
 import { JobService } from '../../../services/jobs.service';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -39,7 +40,7 @@ export class JobEditPopupComponent implements OnInit {
       localStorage.setItem('jobId', this.currentJobId);
       this.jobSub = this.jobService.getJobById(this.currentJobId).subscribe({
         next: job => {
-          this.job = job;
+          this.job = JobMapper.mapJobResponse(job);
         }
       });
     } else {

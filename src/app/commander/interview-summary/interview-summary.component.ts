@@ -19,6 +19,7 @@ export class InterviewSummaryComponent implements OnInit, OnDestroy {
   candidateSub: Subscription | undefined;
   candidate: Candidate | undefined;
   candidateId: string | undefined;
+  jobId: string | undefined;
 
   constructor(
     private candidateService: CandidateService,
@@ -27,6 +28,7 @@ export class InterviewSummaryComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.candidateId = this.route.snapshot.paramMap.get('id')!;
+    this.jobId = localStorage.getItem('jobId')!;
     if (this.candidateId) {
       this.candidateSub = this.candidateService.getCandidateById(this.candidateId).subscribe({
         next: candidate => {
@@ -45,7 +47,7 @@ export class InterviewSummaryComponent implements OnInit, OnDestroy {
   }
 
   goBack() {
-    this.router.navigate([`/candidates/preferred`]);
+    this.router.navigate([`job-details/${this.jobId}/candidates/preferred`]);
   }
 
   onSave() {
