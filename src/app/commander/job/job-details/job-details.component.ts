@@ -1,3 +1,4 @@
+import { JobMapper } from './../../../utils/job-mapper';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { JobEditPopupComponent } from '../../../shared/popup-windows/job-edit-popup/job-edit-popup.component';
 import { CloseJobPopupComponent } from "../../../shared/popup-windows/close-job-popup/close-job-popup.component";
@@ -33,18 +34,12 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
       localStorage.setItem('jobId', this.jobId);
       this.jobSub = this.jobService.getJobById(this.jobId).subscribe({
         next: job => {
-          this.job = job;
+          this.job = JobMapper.mapJobResponse(job);
         }
       });
     } else {
       console.log('Job ID not found');
     }
-  }
-
-  getJob(id: string): void {
-    this.jobService.getJobById(id).subscribe({
-      next: job => this.job = job
-    });
   }
 
   isJobOpen(job: Job): boolean {
