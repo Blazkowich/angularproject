@@ -5,7 +5,7 @@ import { Candidate } from '../models/candidates.model';
   providedIn: 'root'
 })
 export class CandidateMapperService {
-  mapToCandidateModel(rawData: any, jobId?: string): Candidate {
+  static mapToCandidatesModel(rawData: any, jobId?: string): Candidate {
     const jobStatuses: { [key: string]: 'preferred' | 'rejected' | 'pending' } = {};
 
     if (jobId && rawData.status) {
@@ -35,6 +35,34 @@ export class CandidateMapperService {
   }
 
   mapToCandidateModelArray(rawDataArray: any[], jobId?: string): Candidate[] {
-    return rawDataArray.map(item => this.mapToCandidateModel(item, jobId));
+    return rawDataArray.map(item => CandidateMapperService.mapToCandidatesModel(item, jobId));
+  }
+
+  static mapCandidateForProfile(candidate: Candidate): any {
+    return {
+      id: candidate.id,
+      fullName: candidate.fullName,
+      idNumber: candidate.idNumber,
+      dateOfBirth: candidate.dateOfBirth,
+      age: candidate.age || null,
+      gender: candidate.gender || null,
+      profile: candidate.profile,
+      phone: candidate.phone,
+      email: candidate.email,
+      address: candidate.address,
+      experience: candidate.experience,
+      education: candidate.education,
+      courses: candidate.courses,
+      languages: candidate.languages,
+      interests: candidate.interests,
+      personalSummary: candidate.personalSummary,
+      jobStatuses: candidate.jobStatuses
+        ? Object.entries(candidate.jobStatuses).reduce((acc, [jobId, status]) => {
+            acc[jobId] = status;
+            return acc;
+          }, {} as { [jobId: string]: 'preferred' | 'rejected' | 'pending' })
+        : {},
+      imageUrl: candidate.imageUrl || null,
+    };
   }
 }

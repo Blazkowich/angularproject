@@ -1,3 +1,4 @@
+import { CandidateMapperService } from './../../../utils/candidate-mapper-commander';
 import { CandidateService } from '../../../services/candidates.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Candidate } from '../../../models/candidates.model';
@@ -35,9 +36,9 @@ export class CandidatesDetailsComponent implements OnInit, OnDestroy{
     this.jobId = localStorage.getItem('jobId')!;
     localStorage.setItem('candidateId', id!);
     if (id) {
-      this.candidateSub = this.candidateService.getCandidateById(id).subscribe({
+      this.candidateSub = this.candidateService.getCommanderCandidateById(id).subscribe({
         next: candidate => {
-          this.candidate = candidate;
+          this.candidate = CandidateMapperService.mapCandidateForProfile(candidate);
         }
       });
     } else {

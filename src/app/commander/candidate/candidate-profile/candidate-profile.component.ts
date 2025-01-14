@@ -1,3 +1,4 @@
+import { CandidateMapperService } from './../../../utils/candidate-mapper-commander';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Candidate } from '../../../models/candidates.model';
@@ -28,9 +29,9 @@ export class CandidateProfileComponent implements OnInit, OnDestroy {
     const id = this.route.snapshot.paramMap.get('id');
     this.jobId = localStorage.getItem('jobId')!;
     if (id) {
-      this.candidateSub = this.candidateService.getCandidateById(id).subscribe({
+      this.candidateSub = this.candidateService.getCommanderCandidateById(id).subscribe({
         next: candidate => {
-          this.candidate = candidate;
+          this.candidate = CandidateMapperService.mapCandidateForProfile(candidate);
         }
       });
     } else {

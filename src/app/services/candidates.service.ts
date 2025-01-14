@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import { catchError, map, Observable, throwError } from 'rxjs';
 import { Candidate } from '../models/candidates.model';
 import { environment } from '../../environments/environment';
 import { CandidateMapperService } from '../utils/candidate-mapper-commander';
@@ -22,6 +22,28 @@ export class CandidateService {
       map(response => this.candidateMapperService.mapToCandidateModelArray(response, id))
     );
   }
+
+  getCommanderCandidateById(id: string): Observable<Candidate> {
+    const candidateUrl = `${this.candidatesUrl}/volunteers/${id}`;
+    return this.http.get<Candidate>(candidateUrl).pipe(
+      map(candidate => {
+        if (!candidate) {
+          throw new Error(`Candidate with ID ${id} not found`);
+        }
+
+        if (candidate.dateOfBirth) {
+          candidate.age = this.calculateAge(candidate.dateOfBirth);
+        }
+
+        return candidate;
+      }),
+      catchError(error => {
+        console.error(`Error fetching candidate with ID ${id}:`, error);
+        return throwError(() => new Error('Unable to fetch candidate data'));
+      })
+    );
+  }
+
   getCandidateById(id: string): Observable<Candidate> {
     return this.getCandidates().pipe(
       map(candidates => {
