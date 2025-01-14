@@ -47,4 +47,30 @@ export class JobService {
       })
     );
   }
+
+  addJob(job: Job): Observable<any> {
+    const jobData = {
+      name: job.jobName,
+      description: job.jobDescription,
+      positions: job.positions,
+      category: job.jobCategory,
+      unit: job.unit,
+      address: job.address,
+      openBase: job.openBase,
+      additionalInfo: job.additionalInfo,
+      questions: job.commonQuestions,
+      answers: job.commonAnswers,
+      workExperience: job.workExperience,
+      education: job.education,
+      passedCourses: job.passedCourses,
+      techSkills: job.techSkills,
+    };
+
+    return this.http.post(`${environment.baseUrl}/api/commander/jobs`, jobData).pipe(
+      catchError(error => {
+        console.error('Error creating job:', error);
+        return throwError(() => error);
+      })
+    );
+  }
 }

@@ -4,6 +4,7 @@ import { ControlIconsComponent } from "../../../shared/control-icons/control-ico
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Job } from '../../../models/jobs.model';
+import { JobService } from '../../../services/jobs.service';
 
 @Component({
   selector: 'commander-create-job',
@@ -37,7 +38,7 @@ export class CreateJobComponent {
 
   progressNumber: number = 25;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private jobService: JobService) {}
 
   // Flags for form validation and page transitions
   isFirstFormValid: boolean = false;
@@ -137,9 +138,19 @@ export class CreateJobComponent {
     this.progressNumber = 75;
   }
 
-  // Add job
   addJob(): void {
-    console.log('Job added', this.job);
+    this.job.status = 'OPEN';
+    this.job.candidateCount = 0;
+
+    this.jobService.addJob(this.job).subscribe({
+      next: (response) => {
+        console.log('Job created successfully:', response);
+        this.router.navigate(['/open-jobs']);
+      },
+      error: (error) => {
+        console.error('Error creating job:', error);
+      }
+    });
   }
 
   goBack() {
