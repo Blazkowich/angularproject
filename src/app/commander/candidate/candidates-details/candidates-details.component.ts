@@ -61,18 +61,35 @@ export class CandidatesDetailsComponent implements OnInit, OnDestroy{
 
   onCandidateAgree() {
     this.isApproved = true;
+    this.updateCandidateStatus('preferred');
     this.showPopup = true;
-    console.log("Agree");
+    console.log('Agree');
   }
 
   onCandidateReject() {
     this.isApproved = false;
+    this.updateCandidateStatus('rejected');
     this.showPopup = true;
-    console.log("Reject");
+    console.log('Reject');
   }
 
   closeCandidatePopup() {
     this.showPopup = false;
+  }
+
+  updateCandidateStatus(status: 'preferred' | 'rejected') {
+    if (this.jobId && this.candidate?.id) {
+      this.candidateService
+        .updateCandidateStatus(this.jobId, this.candidate.id, status)
+        .subscribe({
+          next: () => {
+            console.log(`Candidate status updated to: ${status}`);
+          },
+          error: (err) => {
+            console.log('Error updating status:', err);
+          },
+        });
+    }
   }
 
   getCandidate(id: string): void {

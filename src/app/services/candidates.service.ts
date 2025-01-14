@@ -61,15 +61,14 @@ export class CandidateService {
     );
   }
 
-  updateCandidateStatus(
-    candidateId: string,
-    jobId: string,
-    status: 'preferred' | 'rejected' | 'pending'
-  ): Observable<any> {
-    return this.http.patch(`/api/candidates/${candidateId}/status`, {
-      jobId,
-      status
-    });
+  updateCandidateStatus(jobId: string, candidateId: string, status: 'preferred' | 'rejected'): Observable<any> {
+    const url = `${this.candidatesUrl}/jobs/${jobId}/volunteers/${candidateId}`;
+    return this.http.patch(url, { status }).pipe(
+      catchError((error) => {
+        console.error('Error updating candidate status:', error);
+        return throwError(() => new Error('Unable to update candidate status'));
+      })
+    );
   }
 
   updateCandidate(candidate: Candidate): Observable<Candidate> {
