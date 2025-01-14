@@ -21,7 +21,7 @@
           <div class="d-flex align-items-center w-100 p-2">
             <div class="ms-3 d-flex flex-column flex-grow-1">
               <h4 class="mb-1">{{ job.jobName }}</h4>
-              <h5 class="mb-0">0 Candidates | 0 Suitable</h5>
+              <h5 class="mb-0">{{ getTotalCandidatesCountForJob(job.id) }} Candidates | {{ getPreferredCountForJob(job.id) }} Suitable</h5>
             </div>
           </div>
         </div>
