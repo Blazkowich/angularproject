@@ -32,36 +32,24 @@
                 (change)="validateFirstPageFields()"
                 name="jobCategory">
           <option value="" disabled selected>Select a job category</option>
-          <option value="A">A</option>
-          <option value="B">B</option>
-          <option value="C">C</option>
-          <option value="C">D</option>
-          <option value="C">E</option>
+          <option *ngFor="let jobCategory of jobCategories" [value]="jobCategory">{{ jobCategory }}</option>
         </select>
 
         <select class="form-select form-select-lg"
-                [(ngModel)]="job.unit"
-                (change)="validateFirstPageFields()"
-                name="unit">
+              [(ngModel)]="job.unit"
+              (change)="validateFirstPageFields()"
+              name="unit">
           <option value="" disabled selected>Select a unit</option>
-          <option value="A">A</option>
-          <option value="B">B</option>
-          <option value="C">C</option>
-          <option value="C">D</option>
-          <option value="C">E</option>
+          <option *ngFor="let jobUnit of jobUnits" [value]="jobUnit">{{ jobUnit }}</option>
         </select>
 
         <select class="form-select form-select-lg"
-                [(ngModel)]="job.address"
-                (change)="validateFirstPageFields()"
-                name="address">
-          <option value="" disabled selected>Select an address</option>
-          <option value="A">A</option>
-          <option value="B">B</option>
-          <option value="C">C</option>
-          <option value="C">D</option>
-          <option value="C">E</option>
-        </select>
+              [(ngModel)]="job.address"
+              (change)="validateFirstPageFields()"
+              name="address">
+        <option value="" disabled selected>Select an address</option>
+        <option *ngFor="let jobAddress of jobAddresses" [value]="jobAddress">{{ jobAddress }}</option>
+      </select>
 
         <input type="number"
                class="form-control form-control-lg"
@@ -151,16 +139,12 @@
                name="workExperience">
 
         <select class="form-select form-select-lg"
-                [(ngModel)]="job.education"
-                (change)="validateThirdPageFields()"
-                name="education">
-          <option value="" disabled selected>Education</option>
-          <option value="A">A</option>
-          <option value="B">B</option>
-          <option value="C">C</option>
-          <option value="C">D</option>
-          <option value="C">E</option>
-        </select>
+               [(ngModel)]="job.education"
+               (change)="validateThirdPageFields()"
+               name="education">
+         <option value="" disabled selected>Select education</option>
+         <option *ngFor="let jobEducation of jobEducations" [value]="jobEducation">{{ jobEducation }}</option>
+       </select>
 
         <input type="text"
                class="form-control form-control-lg"
@@ -170,16 +154,12 @@
                name="passedCourses">
 
         <select class="form-select form-select-lg"
-                [(ngModel)]="job.techSkills"
-                (change)="validateThirdPageFields()"
-                name="techSkills">
-          <option value="" disabled selected>Tech Skills</option>
-          <option value="A">A</option>
-          <option value="B">B</option>
-          <option value="C">C</option>
-          <option value="C">D</option>
-          <option value="C">E</option>
-        </select>
+               [(ngModel)]="job.techSkills"
+               (change)="validateThirdPageFields()"
+               name="techSkills">
+         <option value="" disabled selected>Select tech skills</option>
+         <option *ngFor="let jobTechSkill of jobTechSkills" [value]="jobTechSkill">{{ jobTechSkill }}</option>
+       </select>
       </form>
     </div>
   </div>
