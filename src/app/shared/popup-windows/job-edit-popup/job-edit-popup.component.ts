@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CloseJobPopupComponent } from '../close-job-popup/close-job-popup.component';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Job } from '../../../models/jobs.model';
 import { UpdateJobPopupComponent } from '../update-job-popup/update-job-popup.component';
@@ -32,7 +32,7 @@ export class JobEditPopupComponent implements OnInit {
   job: Job | undefined;
   isUpdateJobPopupOpen = false;
 
-  constructor(private route: ActivatedRoute, private jobService: JobService) {}
+  constructor(private route: ActivatedRoute, private jobService: JobService, private router: Router) {}
 
   ngOnInit(): void {
     this.currentJobId = this.route.snapshot.paramMap.get('id')!;
@@ -57,6 +57,23 @@ export class JobEditPopupComponent implements OnInit {
   }
 
   closeJob() {
+    if (this.job) {
+      const updatedJobData = {
+        ...this.job,
+        status: 'closed'
+      };
+
+      this.jobService.updateJob(this.currentJobId, updatedJobData).subscribe({
+        next: response => {
+          console.log('Job status updated to closed successfully', response);
+          this.router.navigate(['/open-jobs']);
+        },
+        error: error => {
+          console.error('Error updating job status', error);
+        }
+      });
+    }
+
     this.isModalOpen = false;
     this.isCloseJobPopupOpen = true;
   }
@@ -74,7 +91,13 @@ export class JobEditPopupComponent implements OnInit {
   }
 
   handleJobUpdated(updatedJob: Job) {
-    console.log('Updated Job:', updatedJob);
-    // Logic for handling updated job
+    this.jobService.updateJob(this.currentJobId, updatedJob).subscribe({
+      next: () => {
+        this.closeUpdateJobPopup();
+      },
+      error: error => {
+        console.error('Error updating job', error);
+      }
+    });
   }
 }

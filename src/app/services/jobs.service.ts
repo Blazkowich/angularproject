@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map, Observable, catchError, throwError } from 'rxjs';
 import { Job } from '../models/jobs.model';
 import { environment } from '../../environments/environment';
+import { JobMapper } from '../utils/job-mapper';
 
 @Injectable({
   providedIn: 'root',
@@ -49,26 +50,21 @@ export class JobService {
   }
 
   addJob(job: Job): Observable<any> {
-    const jobData = {
-      name: job.jobName,
-      description: job.jobDescription,
-      positions: job.positions,
-      category: job.jobCategory,
-      unit: job.unit,
-      address: job.address,
-      openBase: job.openBase,
-      additionalInfo: job.additionalInfo,
-      questions: job.commonQuestions,
-      answers: job.commonAnswers,
-      workExperience: job.workExperience,
-      education: job.education,
-      passedCourses: job.passedCourses,
-      techSkills: job.techSkills,
-    };
-
-    return this.http.post(`${environment.baseUrl}/api/commander/jobs`, jobData).pipe(
+    return this.http.post(`${environment.baseUrl}/api/commander/jobs`, JobMapper.mapJobForAdd(job)).pipe(
       catchError(error => {
         console.error('Error creating job:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  updateJob(jobId: string, jobData: any): Observable<any> {
+    const url = `${environment.baseUrl}/api/commander/jobs/${jobId}`;
+    const mappedData = JobMapper.mapJobForUpdate(jobData);
+    console.log(mappedData);
+    return this.http.patch(url, mappedData).pipe(
+      catchError(error => {
+        console.error('Error updating job:', error);
         return throwError(() => error);
       })
     );

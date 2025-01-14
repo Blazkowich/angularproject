@@ -24,4 +24,43 @@ export class JobMapper {
       department: job.department,
     };
   }
+
+  static mapJobForUpdate(job: Job): any {
+    return {
+      name: job.jobName,
+      description: job.jobDescription,
+      positions: job.positions,
+      category: job.jobCategory,
+      unit: job.unit,
+      address: job.address,
+      openbase: job.openBase,
+      additionalinfo: job.additionalInfo,
+      questions: job.commonQuestions,
+      answers: job.commonAnswers,
+      workexperience: job.workExperience,
+      education: job.education,
+      passedcourses: job.passedCourses,
+      techskills: job.techSkills,
+      status: job.status.toLowerCase()
+    };
+  }
+
+  static mapJobForAdd(job: Job): any {
+    return {
+      name: job.jobName,
+      description: job.jobDescription,
+      positions: job.positions,
+      category: job.jobCategory,
+      unit: job.unit,
+      address: job.address,
+      openBase: job.openBase,
+      additionalInfo: job.additionalInfo,
+      questions: job.commonQuestions,
+      answers: job.commonAnswers,
+      workExperience: job.workExperience,
+      education: job.education,
+      passedCourses: job.passedCourses,
+      techSkills: job.techSkills
+    };
+  }
 }
