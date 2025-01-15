@@ -61,7 +61,6 @@ export class JobService {
   updateJob(jobId: string, jobData: any): Observable<any> {
     const url = `${environment.baseUrl}/api/commander/jobs/${jobId}`;
     const mappedData = JobMapper.mapJobForUpdate(jobData);
-    console.log(mappedData);
     return this.http.patch(url, mappedData).pipe(
       catchError(error => {
         console.error('Error updating job:', error);
