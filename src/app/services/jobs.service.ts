@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, Observable, catchError, throwError, switchMap, of } from 'rxjs';
 import { Job } from '../models/jobs.model';
 import { environment } from '../../environments/environment';
-import { JobMapper } from '../utils/job-mapper';
+import { JobMapper } from '../mappers/job-mapper';
 
 @Injectable({
   providedIn: 'root',

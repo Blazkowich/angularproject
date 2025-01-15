@@ -1,4 +1,4 @@
-import { CandidateMapperService } from './../../utils/candidate-mapper-commander';
+import { CandidateMapperService } from '../../mappers/candidate-mapper-commander';
 import { CandidateService } from './../../services/candidates.service';
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
@@ -37,7 +37,7 @@ export class InterviewSummaryComponent implements OnInit, OnDestroy {
     if (this.candidateId) {
       this.candidateSub = this.candidateService.getCommanderCandidateById(this.candidateId).subscribe({
         next: candidate => {
-          this.candidate = CandidateMapperService.mapCandidateForProfile(candidate);
+          this.candidate = CandidateMapperService.mapCommanderCandidateForProfile(candidate);
         }
       });
     } else {

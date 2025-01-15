@@ -1,5 +1,5 @@
 import { map } from 'rxjs';
-import { JobMapper } from './../../utils/job-mapper';
+import { JobMapper } from '../../mappers/job-mapper';
 import { CandidateService } from './../../services/candidates.service';
 import { Component, OnInit } from '@angular/core';
 import { Job } from '../../models/jobs.model';

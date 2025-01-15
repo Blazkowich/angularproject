@@ -5,7 +5,9 @@ import { Candidate } from '../models/candidates.model';
   providedIn: 'root'
 })
 export class CandidateMapperService {
-  static mapToCommanderCandidatesModel(rawData: any, jobId?: string): Candidate {
+
+  /* Commander Mappers */
+  static mapToCommandersCandidatesModel(rawData: any, jobId?: string): Candidate {
     const jobStatuses: { [key: string]: 'preferred' | 'rejected' | 'pending' } = {};
 
     if (jobId && rawData.status) {
@@ -34,11 +36,11 @@ export class CandidateMapperService {
     };
   }
 
-  static mapToCandidateModelArray(rawDataArray: any[], jobId?: string): Candidate[] {
-    return rawDataArray.map(item => CandidateMapperService.mapToCommanderCandidatesModel(item, jobId));
+  static mapCommandersCandidateModelArray(rawDataArray: any[], jobId?: string): Candidate[] {
+    return rawDataArray.map(item => CandidateMapperService.mapToCommandersCandidatesModel(item, jobId));
   }
 
-  static mapCandidateForProfile(candidate: Candidate): any {
+  static mapCommanderCandidateForProfile(candidate: Candidate): any {
     return {
       id: candidate.id,
       fullName: candidate.fullName,
@@ -65,6 +67,10 @@ export class CandidateMapperService {
       imageUrl: candidate.imageUrl || null,
     };
   }
+
+  /*
+    Volunteer Mapping
+  */
 
   static mapVolunteerCandidateModel(response: any): Candidate {
     return {

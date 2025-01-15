@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { Candidate } from '../../models/candidates.model';
 import { CandidateService } from '../../services/candidates.service';
-import { CandidateMapperService } from '../../utils/candidate-mapper-commander';
+import { CandidateMapperService } from '../../mappers/candidate-mapper-commander';
 
 @Component({
   selector: 'app-hr-job-details',

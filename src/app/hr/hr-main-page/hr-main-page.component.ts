@@ -9,7 +9,7 @@ import { RouterModule } from '@angular/router';
 import { HrBottomNavigationComponent } from "../hr-bottom-navigation/hr-bottom-navigation.component";
 import { LoginService } from '../../services/login.service';
 import { Router } from '@angular/router';
-import { JobMapper } from '../../utils/job-mapper';
+import { JobMapper } from '../../mappers/job-mapper';
 
 @Component({
   selector: 'app-hr-main-page',

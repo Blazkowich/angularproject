@@ -1,4 +1,4 @@
-import { CandidateMapperService } from './../../utils/candidate-mapper-commander';
+import { CandidateMapperService } from '../../mappers/candidate-mapper-commander';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormsModule } from '@angular/forms';

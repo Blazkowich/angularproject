@@ -1,4 +1,4 @@
-import { CandidateMapperService } from './../../utils/candidate-mapper-commander';
+import { CandidateMapperService } from '../../mappers/candidate-mapper-commander';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Candidate } from '../../models/candidates.model';

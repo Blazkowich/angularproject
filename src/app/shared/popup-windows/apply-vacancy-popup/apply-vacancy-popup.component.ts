@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Job } from '../../../models/jobs.model';
-import { JobMapper } from '../../../utils/job-mapper';
+import { JobMapper } from '../../../mappers/job-mapper';
 
 @Component({
   selector: 'app-apply-vacancy-popup',

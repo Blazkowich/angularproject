@@ -1,5 +1,5 @@
 import { LoginService } from './../../services/login.service';
-import { CandidateMapperService } from './../../utils/candidate-mapper-commander';
+import { CandidateMapperService } from '../../mappers/candidate-mapper-commander';
 import { CandidateService } from './../../services/candidates.service';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
@@ -10,7 +10,7 @@ import { BottomNavigationComponent } from "../../shared/bottom-navigation/bottom
 import { Router } from '@angular/router';
 import { JobService } from '../../services/jobs.service';
 import { Job } from '../../models/jobs.model';
-import { JobMapper } from '../../utils/job-mapper';
+import { JobMapper } from '../../mappers/job-mapper';
 
 @Component({
   selector: 'app-user-main-page',

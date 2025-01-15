@@ -1,4 +1,4 @@
-import { JobMapper } from './../../utils/job-mapper';
+import { JobMapper } from '../../mappers/job-mapper';
 import { map } from 'rxjs';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ApplyVacancyPopupComponent } from '../../shared/popup-windows/apply-vacancy-popup/apply-vacancy-popup.component';

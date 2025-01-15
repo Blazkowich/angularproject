@@ -1,4 +1,4 @@
-import { JobMapper } from './../../../utils/job-mapper';
+import { JobMapper } from '../../../mappers/job-mapper';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { JobEditPopupComponent } from '../../../shared/popup-windows/job-edit-popup/job-edit-popup.component';
 import { CloseJobPopupComponent } from "../../../shared/popup-windows/close-job-popup/close-job-popup.component";

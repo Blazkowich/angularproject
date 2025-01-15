@@ -3,9 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { Candidate } from '../models/candidates.model';
 import { environment } from '../../environments/environment';
-import { CandidateMapperService } from '../utils/candidate-mapper-commander';
+import { CandidateMapperService } from '../mappers/candidate-mapper-commander';
 import { Interview } from '../models/interview.model';
-import { InterviewMapper } from '../utils/interview-mapper';
+import { InterviewMapper } from '../mappers/interview-mapper';
 import { LoginService } from './login.service';
 
 @Injectable({
@@ -79,7 +79,7 @@ export class CandidateService {
 
   getCandidatesForJob(id: string): Observable<Candidate[]> {
     return this.http.get<any[]>(`${this.commanderCandidatesUrl}/jobs/${id}/applications`).pipe(
-      map(response => CandidateMapperService.mapToCandidateModelArray(response, id))
+      map(response => CandidateMapperService.mapCommandersCandidateModelArray(response, id))
     );
   }
 

@@ -1,4 +1,4 @@
-import { JobMapper } from './../../../utils/job-mapper';
+import { JobMapper } from '../../../mappers/job-mapper';
 import { JobService } from '../../../services/jobs.service';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { Candidate } from '../models/candidates.model';
-import { CandidateMapperService } from '../utils/candidate-mapper-commander';
+import { CandidateMapperService } from '../mappers/candidate-mapper-commander';
 
 @Injectable({
   providedIn: 'root',
