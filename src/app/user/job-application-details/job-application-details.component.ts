@@ -40,10 +40,20 @@ export class JobApplicationDetailsComponent implements OnInit {
           console.error('Error fetching job details:', err);
         }
       });
+
+      this.jobService.checkIfAlreadyApplied(parseInt(this.jobId)).subscribe({
+        next: (response) => {
+          this.isApplied = response.alreadyApplied;
+        },
+        error: (err) => {
+          console.error('Error checking application status:', err);
+        }
+      });
     } else {
       console.error('No jobId found in localStorage.');
     }
   }
+
 
   switchTab(tab: 'jobRequirements' | 'faq') {
     this.activeTab = tab;

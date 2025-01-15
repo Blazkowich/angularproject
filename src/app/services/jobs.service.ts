@@ -75,6 +75,10 @@ export class JobService {
     );
   }
 
+  checkIfAlreadyApplied(jobId: number): Observable<{ alreadyApplied: boolean }> {
+    return this.http.get<{ alreadyApplied: boolean }>(`${this.jobsUrl}/${jobId}/check-application`);
+  }
+
   /*
     Commander Field
   */
