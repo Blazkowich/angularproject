@@ -23,6 +23,8 @@ export class UserMainPageComponent implements OnInit {
   searchQuery = '';
   candidate: Candidate | undefined;
   jobs: Job[] = [];
+  filteredJobs: Job[] = [];
+  isSortedAscending = true;
 
   constructor(
     private candidateService: CandidateService,
@@ -44,6 +46,7 @@ export class UserMainPageComponent implements OnInit {
     this.jobService.getJobs().subscribe({
       next: (jobs: any[]) => {
         this.jobs = JobMapper.mapJobsForVolunteerMainPage(jobs);
+        this.filteredJobs = [...this.jobs];
       },
       error: (jobsError) => {
         console.error('Error loading jobs:', jobsError);
@@ -58,5 +61,33 @@ export class UserMainPageComponent implements OnInit {
   Logout() {
     this.loginService.logout();
     this.router.navigate(['/login']);
+  }
+
+  filterJobs(): void {
+    const query = this.searchQuery.toLowerCase();
+    this.filteredJobs = this.jobs.filter((job) =>
+      job.jobName.toLowerCase().includes(query)
+    );
+    this.sortJobs();
+  }
+
+  sortJobs(): void {
+    this.filteredJobs.sort((a, b) => {
+      const nameA = a.jobName.toLowerCase();
+      const nameB = b.jobName.toLowerCase();
+
+      if (nameA < nameB) {
+        return this.isSortedAscending ? -1 : 1;
+      }
+      if (nameA > nameB) {
+        return this.isSortedAscending ? 1 : -1;
+      }
+      return 0;
+    });
+  }
+
+  toggleSortOrder(): void {
+    this.isSortedAscending = !this.isSortedAscending;
+    this.sortJobs();
   }
 }

@@ -1,45 +1,44 @@
 <div class="container" style="min-width: 100%;">
   <!-- Search Section -->
   <div class="search-section position-fixed d-flex align-items-center" style="top: 0; left: 0; right: 0; background-color: white; padding: 10px 20px; z-index: 999;">
-   <input
-     type="text"
-     class="form-control search-input"
-     style="direction: rtl;"
-     placeholder="Search for a role"
-     [(ngModel)]="searchQuery">
-   <i class="bi bi-search position-absolute"
+    <input
+      type="text"
+      class="form-control search-input"
+      style="direction: rtl;"
+      placeholder="Search for a role"
+      [(ngModel)]="searchQuery"
+      (ngModelChange)="filterJobs()"> <!-- Call filterJobs when the search query changes -->
+    <i class="bi bi-search position-absolute"
       style="right: 100px; top: 55%; transform: translateY(-50%);"></i>
-   <!-- Profile Picture outside search bar but on the right -->
-   <img
-     [src]="candidate?.imageUrl"
-     class="avatar ms-3"
-     onerror="this.src='assets/images/on.svg'"
-     alt="Profile Image"
-     [routerLink]="'/personal-profile'">
- </div>
+    <!-- Profile Picture outside search bar but on the right -->
+    <img
+      [src]="candidate?.imageUrl"
+      class="avatar ms-3"
+      onerror="this.src='assets/images/on.svg'"
+      alt="Profile Image"
+      [routerLink]="'/personal-profile'">
+  </div>
 
  <!-- Filter Section -->
  <div class="filter-section">
-   <button class="btn btn-outline-secondary filter-button d-flex align-items-center gap-2">
-     <i class="bi bi-sort-down"></i>
-     Sort by name
-   </button>
-   <button class="btn btn-outline-secondary filter-button d-flex align-items-center gap-2">
-     <i class="bi bi-funnel"></i>
-     Filter by name
-   </button>
-   <button class="btn btn-link d-flex flex-column align-items-center icon-btn p-2" (click)="Logout()">
+  <button class="btn btn-outline-secondary filter-button d-flex align-items-center gap-2" (click)="toggleSortOrder()">
+    <i class="bi bi-sort-down"></i>
+    Sort by name
+    <i *ngIf="isSortedAscending" class="bi bi-arrow-down"></i>
+    <i *ngIf="!isSortedAscending" class="bi bi-arrow-up"></i>
+  </button>
+  <button class="btn btn-link d-flex flex-column align-items-center icon-btn p-2" (click)="Logout()">
     <i class="bi bi-box-arrow-right"></i>
     logout
   </button>
- </div>
+</div>
 
  <!-- Title -->
  <h1 class="h3 mb-4 text-black role-title">Role database</h1>
 
  <!-- Role List -->
  <div class="role-list mb-5">
-  <div *ngFor="let job of jobs" class="card role-card mb-3 shadow-lg border-custom">
+  <div *ngFor="let job of filteredJobs" class="card role-card mb-3 shadow-lg border-custom">
     <div class="card-body" [routerLink]="'/job-application-details/' + job.id" (click)="selectJob(job.id)">
       <i class="bi bi-chevron-left chevron-icon me-3"></i>
       <div class="flex-grow-1">

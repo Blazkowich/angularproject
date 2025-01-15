@@ -23,7 +23,10 @@ export class LoginService {
             this.setAuthToken(response.access_token);
             this.setUserRole(response.role);
 
-            if (response.role === 'volunteer' || response.role === 'hr' && response.user) {
+            if (response.role === 'volunteer' && response.user) {
+              this.setCurrentUser(response.user);
+            }
+            if (response.role === 'hr' && response.user) {
               this.setCurrentUser(response.user);
             }
           }
