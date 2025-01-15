@@ -6,9 +6,10 @@ import { JobService } from '../../services/jobs.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { HrBottomNavigationComponent } from "../../shared/hr-bottom-navigation/hr-bottom-navigation.component";
+import { HrBottomNavigationComponent } from "../hr-bottom-navigation/hr-bottom-navigation.component";
 import { LoginService } from '../../services/login.service';
 import { Router } from '@angular/router';
+import { JobMapper } from '../../utils/job-mapper';
 
 @Component({
   selector: 'app-hr-main-page',
@@ -43,7 +44,7 @@ export class HrMainPageComponent implements OnInit {
 
     this.jobService.getJobs().subscribe({
       next: (jobs: Job[]) => {
-        this.jobs = jobs.filter(job => job.status.toLowerCase() !== 'closed');
+        this.jobs = JobMapper.mapJobsForHRMainPage(jobs);
       },
       error: (jobsError) => {
         console.error('Error loading jobs:', jobsError);

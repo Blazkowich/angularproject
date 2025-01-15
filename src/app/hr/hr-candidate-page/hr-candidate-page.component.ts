@@ -6,7 +6,7 @@ import { Candidate } from '../../models/candidates.model';
 import { Job } from '../../models/jobs.model';
 import { CandidateService } from '../../services/candidates.service';
 import { JobService } from '../../services/jobs.service';
-import { HrBottomNavigationComponent } from '../../shared/hr-bottom-navigation/hr-bottom-navigation.component';
+import { HrBottomNavigationComponent } from '../hr-bottom-navigation/hr-bottom-navigation.component';
 import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { ApplyCandidatePopupComponent } from '../../shared/popup-windows/apply-candidate-popup/apply-candidate-popup.component';
@@ -60,7 +60,7 @@ export class HrCandidatePageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     document.documentElement.style.setProperty('--background-color', 'white');
 
-    this.candidateService.getCandidates().subscribe({
+    this.candidateService.getCandidatesForHR().subscribe({
       next: (candidates: Candidate[]) => {
         this.candidates = candidates;
       },
@@ -69,7 +69,7 @@ export class HrCandidatePageComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.candidateService.getCandidateById("2").subscribe({
+    this.candidateService.getCurrentUser().subscribe({
       next: (candidate: Candidate) => {
         this.currentCandidate = candidate;
       },

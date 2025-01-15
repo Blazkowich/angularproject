@@ -111,4 +111,54 @@ export class JobMapper {
       department: item.department
     }));
   }
+
+  static mapJobForHRMainPage(input: any): Job {
+    return {
+        jobName: input.jobName,
+        id: input.id,
+        jobDescription: input.jobDescription,
+        positions: input.positions,
+        jobCategory: input.jobCategory,
+        unit: input.unit,
+        address: input.address,
+        openBase: input.openBase,
+        closedBase: input.closedBase,
+        additionalInfo: input.additionalInfo,
+        commonQuestions: input.commonQuestions,
+        commonAnswers: input.commonAnswers,
+        education: input.education,
+        techSkills: input.techSkills,
+        workExperience: input.workExperience,
+        passedCourses: input.passedCourses,
+        candidateCount: input.candidateCount,
+        department: input.department,
+        status: input.status
+    };
+}
+
+static mapJobsForHRMainPage(input: any[]): Job[] {
+    return input.map(item => ({
+        jobName: item.jobName,
+        id: item.id,
+        jobDescription: item.jobDescription,
+        positions: item.positions,
+        jobCategory: item.jobCategory,
+        unit: item.unit,
+        address: item.address,
+        openBase: item.openBase,
+        closedBase: item.closedBase,
+        additionalInfo: item.additionalInfo,
+        commonQuestions: item.commonQuestions,
+        commonAnswers: item.commonAnswers,
+        education: item.education,
+        techSkills: item.techSkills,
+        workExperience: item.workExperience,
+        passedCourses: item.passedCourses,
+        candidateCount: item.candidateCount,
+        applications_count: item.applications_count,
+        commanderId: item.commanderId,
+        department: item.department,
+        status: item.status
+    }));
+  }
 }

@@ -37,6 +37,10 @@ export class CandidateService {
     return this.http.get<any[]>(this.commanderCandidatesUrl);
   }
 
+  getCandidatesForHR(): Observable<Candidate[]> {
+    return this.http.get<any[]>(`${this.hrUrl}/volunteers`);
+  }
+
   getCandidateById(id: string): Observable<Candidate> {
     return this.getCandidates().pipe(
       map(candidates => {
