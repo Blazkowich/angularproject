@@ -1,3 +1,4 @@
+import { LoginService } from './../../services/login.service';
 import { CandidateMapperService } from './../../utils/candidate-mapper-commander';
 import { CandidateService } from './../../services/candidates.service';
 import { CommonModule } from '@angular/common';
@@ -6,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { Candidate } from '../../models/candidates.model';
 import { RouterModule } from '@angular/router';
 import { BottomNavigationComponent } from "../../shared/bottom-navigation/bottom-navigation.component";
+import { Router } from '@angular/router';
 import { JobService } from '../../services/jobs.service';
 import { Job } from '../../models/jobs.model';
 import { JobMapper } from '../../utils/job-mapper';
@@ -24,7 +26,9 @@ export class UserMainPageComponent implements OnInit {
 
   constructor(
     private candidateService: CandidateService,
-    private jobService: JobService) {}
+    private loginService: LoginService,
+    private jobService: JobService,
+    private router: Router) {}
 
   ngOnInit(): void {
     document.documentElement.style.setProperty('--background-color', 'white');
@@ -49,5 +53,10 @@ export class UserMainPageComponent implements OnInit {
 
   selectJob(jobId: string): void {
     localStorage.setItem('jobId', jobId);
+  }
+
+  Logout() {
+    this.loginService.logout();
+    this.router.navigate(['/login']);
   }
 }
