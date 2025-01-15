@@ -60,7 +60,6 @@ export class CandidateService {
 
   updateVolunteerProfile(candidate: Candidate): Observable<Candidate> {
     const userId = candidate.id;
-
     return this.http.patch<any>(`${this.volunteerUrl}/${userId}`, candidate)
       .pipe(
         map(response => {

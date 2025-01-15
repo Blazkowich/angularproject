@@ -78,11 +78,6 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       next: (updatedCandidate) => {
         this.candidate = updatedCandidate;
         this.isLoading = false;
-
-        localStorage.removeItem('currentUser');
-        localStorage.setItem('currentUser', JSON.stringify(this.candidate));
-
-        this.loadCurrentVolunteer();
         this.goBack();
       },
       error: (error) => {
