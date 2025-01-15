@@ -32,7 +32,7 @@ export class UserMainPageComponent implements OnInit {
 
   ngOnInit(): void {
     document.documentElement.style.setProperty('--background-color', 'white');
-    this.candidateService.getCurrentVolunteer().subscribe({
+    this.candidateService.getCurrentUser().subscribe({
       next: (candidate: Candidate) => {
         this.candidate = CandidateMapperService.mapVolunteerCandidateModel(candidate);
       },

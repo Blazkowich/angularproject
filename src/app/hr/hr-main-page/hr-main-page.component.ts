@@ -7,6 +7,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HrBottomNavigationComponent } from "../../shared/hr-bottom-navigation/hr-bottom-navigation.component";
+import { LoginService } from '../../services/login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-hr-main-page',
@@ -22,12 +24,15 @@ export class HrMainPageComponent implements OnInit {
 
   constructor(
     private candidateService: CandidateService,
-    private jobService: JobService) {}
+    private jobService: JobService,
+    private loginService: LoginService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     document.documentElement.style.setProperty('--background-color', 'white');
 
-    this.candidateService.getCandidateById("2").subscribe({
+    this.candidateService.getCurrentUser().subscribe({
       next: (candidate: Candidate) => {
         this.candidate = candidate;
       },
@@ -48,6 +53,11 @@ export class HrMainPageComponent implements OnInit {
 
   selectJob(jobId: string): void {
     localStorage.setItem('jobId', jobId);
+  }
+
+  Logout() {
+    this.loginService.logout();
+    this.router.navigate(['/login']);
   }
 }
 

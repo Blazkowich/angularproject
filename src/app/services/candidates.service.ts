@@ -20,7 +20,7 @@ export class CandidateService {
     private http: HttpClient, private loginService: LoginService) {}
 
 
-  getCurrentVolunteer(): Observable<Candidate> {
+  getCurrentUser(): Observable<Candidate> {
     return new Observable(observer => {
       const cachedUser = this.loginService.getCurrentUser();
 

@@ -51,7 +51,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
   private loadCurrentVolunteer(): void {
     this.isLoading = true;
-    this.candidateSub = this.candidateService.getCurrentVolunteer().subscribe({
+    this.candidateSub = this.candidateService.getCurrentUser().subscribe({
       next: (candidate) => {
         this.candidate = CandidateMapperService.mapToCandidate(candidate);
         this.isLoading = false;
