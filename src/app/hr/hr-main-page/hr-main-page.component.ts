@@ -22,6 +22,8 @@ export class HrMainPageComponent implements OnInit {
   searchQuery = '';
   candidate: Candidate | undefined;
   jobs: Job[] = [];
+  filteredJobs: Job[] = [];
+  isNameAscending = true;
 
   constructor(
     private candidateService: CandidateService,
@@ -45,6 +47,7 @@ export class HrMainPageComponent implements OnInit {
     this.jobService.getJobs().subscribe({
       next: (jobs: Job[]) => {
         this.jobs = JobMapper.mapJobsForHRMainPage(jobs);
+        this.filteredJobs = [...this.jobs];
       },
       error: (jobsError) => {
         console.error('Error loading jobs:', jobsError);
@@ -59,6 +62,26 @@ export class HrMainPageComponent implements OnInit {
   Logout() {
     this.loginService.logout();
     this.router.navigate(['/login']);
+  }
+
+  toggleSortByName(): void {
+    this.isNameAscending = !this.isNameAscending;
+    this.jobs.sort((a, b) => {
+      const nameA = a.jobName.toLowerCase();
+      const nameB = b.jobName.toLowerCase();
+      if (this.isNameAscending) {
+        return nameA.localeCompare(nameB);
+      } else {
+        return nameB.localeCompare(nameA);
+      }
+    });
+  }
+
+  filterJobs(): void {
+    const query = this.searchQuery.toLowerCase();
+    this.filteredJobs = this.jobs.filter((job) =>
+      job.jobName.toLowerCase().includes(query)
+    );
   }
 }
 

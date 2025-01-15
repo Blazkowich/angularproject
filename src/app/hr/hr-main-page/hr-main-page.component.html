@@ -1,41 +1,49 @@
 <div class="container" style="min-width: 100%;">
   <!-- Search Section -->
   <div class="search-section position-fixed d-flex align-items-center" style="top: 0; left: 0; right: 0; background-color: white; padding: 10px 20px; z-index: 999;">
-   <input
-     type="text"
-     class="form-control search-input"
-     style="direction: rtl;"
-     placeholder="Search for a role"
-     [(ngModel)]="searchQuery">
-   <i class="bi bi-search position-absolute"
+    <input
+      type="text"
+      class="form-control search-input"
+      style="direction: rtl;"
+      placeholder="Search for a role"
+      [(ngModel)]="searchQuery"
+      (input)="filterJobs()"
+    >
+    <i class="bi bi-search position-absolute"
       style="right: 100px; top: 55%; transform: translateY(-50%);"></i>
-   <!-- Profile Picture outside search bar but on the right -->
-   <img
-     [src]="candidate?.imageUrl"
-     class="avatar ms-3"
-     onerror="this.src='assets/images/on.svg'"
-     alt="Profile Image"
-     [routerLink]="'/job-roles'"> <!--???????? Does we need to change this ??????-->
- </div>
+    <img
+      [src]="candidate?.imageUrl"
+      class="avatar ms-3"
+      onerror="this.src='assets/images/on.svg'"
+      alt="Profile Image"
+      [routerLink]="'/job-roles'"
+    >
+  </div>
 
- <!-- Filter Section -->
- <div class="filter-section">
-   <button class="btn btn-outline-secondary filter-button d-flex align-items-center gap-2">
-     <i class="bi bi-chevron-down"></i>
-     Filter by name
-   </button>
-   <button class="btn btn-link d-flex flex-column align-items-center icon-btn p-2" (click)="Logout()">
+<!-- Filter Section -->
+<div class="filter-section">
+  <button
+    class="btn btn-outline-secondary filter-button d-flex align-items-center gap-2"
+    (click)="toggleSortByName()"
+    >
+    <i class="bi" [ngClass]="{'bi-chevron-down': !isNameAscending, 'bi-chevron-up': isNameAscending}"></i>
+    Filter by name
+  </button>
+  <button
+    class="btn btn-link d-flex flex-column align-items-center icon-btn p-2"
+    (click)="Logout()"
+  >
     <i class="bi bi-box-arrow-right"></i>
     logout
   </button>
- </div>
+</div>
 
  <!-- Title -->
  <h1 class="h3 mb-4 text-black role-title">Role database</h1>
 
  <!-- Role List -->
  <div class="role-list mb-5">
-  <div *ngFor="let job of jobs" class="card role-card mb-3 shadow-lg border-custom">
+  <div *ngFor="let job of filteredJobs" class="card role-card mb-3 shadow-lg border-custom">
     <div
       class="card-body"
       [routerLink]="'/job-roles/' + job.id + '/candidate-list'"
