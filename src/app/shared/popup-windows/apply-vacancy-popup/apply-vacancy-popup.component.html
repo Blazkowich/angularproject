@@ -5,8 +5,8 @@
       <button type="button" class="close" (click)="close()">
         <img src="/assets/images/close.svg" alt="Close" />
       </button>
-      <h3 class="h4 mb-2">UX Designer</h3>
-      <p class="text-muted mb-4">Technological unit</p>
+      <h3 class="h4 mb-2">{{job?.jobName}}</h3>
+      <p class="text-muted mb-4">{{job?.unit}}</p>
     </div>
 
     <form (ngSubmit)="onSubmit()">
