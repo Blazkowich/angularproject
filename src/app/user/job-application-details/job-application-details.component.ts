@@ -57,8 +57,8 @@ export class JobApplicationDetailsComponent implements OnInit {
     }
   }
 
-  onApply(additionalInfo: any) {
-    this.jobService.applyForJob(this.jobId, additionalInfo).subscribe({
+  onApply(formData: { additionalInfo: string, resume: File | null }) {
+    this.jobService.applyForJob(this.jobId, formData.additionalInfo, formData.resume).subscribe({
       next: (response) => {
         console.log('Application successful:', response);
         this.isApplied = true;

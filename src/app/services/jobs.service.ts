@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { map, Observable, catchError, throwError } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { map, Observable, catchError, throwError, switchMap, of } from 'rxjs';
 import { Job } from '../models/jobs.model';
 import { environment } from '../../environments/environment';
 import { JobMapper } from '../utils/job-mapper';
@@ -39,10 +39,30 @@ export class JobService {
     );
   }
 
-  applyForJob(jobId: string, additionalInfo: any): Observable<any> {
-    return this.http.post(`${this.jobsUrl}/${jobId}/apply`, additionalInfo).pipe(
-       map((response: any) => {
+  applyForJob(jobId: string, additionalInfo: string, resume: File | null): Observable<any> {
+    const headers = new HttpHeaders();
+
+    return this.http.post(`${this.jobsUrl}/${jobId}/apply`, {}, { headers }).pipe(
+      switchMap((response) => {
+        console.log('Application successful:', response);
+
+        if (resume) {
+          const formData = new FormData();
+          formData.append('additionalInfo', additionalInfo);
+          formData.append('resume', resume, resume.name);
+
+          return this.http.post(`${this.jobsUrl}/${jobId}/resume`, formData, { headers });
+        } else {
+          return of(response);
+        }
+      }),
+      map((response: any) => {
+        console.log(response.message);
         return response.message;
+      }),
+      catchError((error) => {
+        console.error('Error applying for job or uploading resume:', error);
+        return throwError(error);
       })
     );
   }
