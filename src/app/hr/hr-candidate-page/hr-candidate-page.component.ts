@@ -40,6 +40,9 @@ export class HrCandidatePageComponent implements OnInit, OnDestroy {
   selectedJobUnit: string | undefined;
   private routerSubscription: Subscription;
 
+  filteredCandidates: Candidate[] = [];
+  isNameAscending = true;
+
   constructor(
     private candidateService: CandidateService,
     private jobService: JobService,
@@ -64,6 +67,7 @@ export class HrCandidatePageComponent implements OnInit, OnDestroy {
     this.candidateService.getCandidatesForHR().subscribe({
       next: (candidates: Candidate[]) => {
         this.candidates = CandidateMapperService.mapCandidatesForHRModel(candidates);
+        this.filteredCandidates = [...this.candidates];
       },
       error: (error) => {
         console.error('Error loading user:', error);
@@ -166,5 +170,25 @@ export class HrCandidatePageComponent implements OnInit, OnDestroy {
 
   closePopup(): void {
     this.isModalOpen = false;
+  }
+
+  toggleSortByName(): void {
+    this.isNameAscending = !this.isNameAscending;
+    this.filteredCandidates.sort((a, b) => {
+      const nameA = a.fullName.toLowerCase();
+      const nameB = b.fullName.toLowerCase();
+      if (this.isNameAscending) {
+        return nameA.localeCompare(nameB);
+      } else {
+        return nameB.localeCompare(nameA);
+      }
+    });
+  }
+
+  filterCandidates(): void {
+    const query = this.searchQuery.toLowerCase();
+    this.filteredCandidates = this.candidates.filter((candidate) =>
+      candidate.fullName.toLowerCase().includes(query)
+    );
   }
 }

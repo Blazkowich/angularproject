@@ -6,7 +6,8 @@
       class="form-control search-input"
       style="direction: rtl;"
       placeholder="Search for a Soldier"
-      [(ngModel)]="searchQuery">
+      [(ngModel)]="searchQuery"
+      (input)="filterCandidates()">
     <i class="bi bi-search position-absolute"
        style="right: 100px; top: 55%; transform: translateY(-50%);"></i>
     <img
@@ -20,8 +21,9 @@
   <!-- Filter Section -->
   <div class="filter-section d-flex align-items-center justify-content-between">
     <div class="filter-right">
-      <button class="btn btn-outline-secondary filter-button d-flex align-items-center gap-2">
-        <i class="bi bi-chevron-down"></i>
+      <button class="btn btn-outline-secondary filter-button d-flex align-items-center gap-2"
+      (click)="toggleSortByName()">
+        <i class="bi" [ngClass]="{'bi-chevron-down': !isNameAscending, 'bi-chevron-up': isNameAscending}"></i>
         Filter by name
       </button>
     </div>
@@ -40,7 +42,7 @@
 
   <!-- Role List -->
   <div class="role-list mb-5">
-    <div *ngFor="let candidate of candidates" class="card role-card mb-3 shadow-lg border-custom">
+    <div *ngFor="let candidate of filteredCandidates" class="card role-card mb-3 shadow-lg border-custom">
       <div class="card-body" (click)="getStatusButton(candidate).text === 'Job Placement' ? selectJob(jobId!) : null">
         <ng-container *ngIf="!isJobSpecificList; else statusButton">
           <i class="bi bi-chevron-left chevron-icon me-3"></i>

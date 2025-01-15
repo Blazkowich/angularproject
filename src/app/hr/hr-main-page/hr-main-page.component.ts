@@ -66,7 +66,7 @@ export class HrMainPageComponent implements OnInit {
 
   toggleSortByName(): void {
     this.isNameAscending = !this.isNameAscending;
-    this.jobs.sort((a, b) => {
+    this.filteredJobs.sort((a, b) => {
       const nameA = a.jobName.toLowerCase();
       const nameB = b.jobName.toLowerCase();
       if (this.isNameAscending) {
