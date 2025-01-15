@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { Candidate } from '../../models/candidates.model';
 import { CandidateService } from '../../services/candidates.service';
+import { CandidateMapperService } from '../../utils/candidate-mapper-commander';
 
 @Component({
   selector: 'app-hr-job-details',
@@ -42,9 +43,9 @@ export class HrJobDetailsComponent implements OnInit {
   }
 
   loadCandidates() {
-    this.candidateService.getCandidates().subscribe({
+    this.candidateService.getCandidatesForHR().subscribe({
       next: (candidates: Candidate[]) => {
-        this.candidates = candidates;
+        this.candidates = CandidateMapperService.mapCandidatesForHRModel(candidates);
 
         this.preferredCandidatesCount = this.candidates.filter(
           (candidate) =>

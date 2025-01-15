@@ -10,8 +10,8 @@ import { JobService } from '../../services/jobs.service';
 import { HrBottomNavigationComponent } from '../hr-bottom-navigation/hr-bottom-navigation.component';
 import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
-import { ApplyCandidatePopupComponent } from '../../shared/popup-windows/apply-candidate-popup/apply-candidate-popup.component';
-import { AddNewCandidatePopupComponent } from '../../shared/popup-windows/add-new-candidate-popup/add-new-candidate-popup.component';
+import { ApplyCandidatePopupComponent } from '../apply-candidate-popup/apply-candidate-popup.component';
+import { AddNewCandidatePopupComponent } from '../add-new-candidate-popup/add-new-candidate-popup.component';
 
 @Component({
   selector: 'app-hr-candidate-page',
