@@ -31,11 +31,26 @@ export class JobService {
     return this.getJobs().pipe(
       map(jobs => {
         const job = jobs.find(j => String(j.id) === id);
-        console.log(job);
         if (!job) {
           throw new Error(`Job with id ${id} not found`);
         }
         return job;
+      })
+    );
+  }
+
+  applyForJob(jobId: string, additionalInfo: any): Observable<any> {
+    return this.http.post(`${this.jobsUrl}/${jobId}/apply`, additionalInfo).pipe(
+       map((response: any) => {
+        return response.message;
+      })
+    );
+  }
+
+  cancelApplication(jobId: string): Observable<any> {
+    return this.http.delete(`${this.jobsUrl}/${jobId}/apply`).pipe(
+       map((response: any) => {
+        return response.message;
       })
     );
   }

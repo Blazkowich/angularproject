@@ -28,8 +28,6 @@ export class CandidateService {
         observer.error(new Error('No volunteer data found'));
         return;
       }
-      console.log('cached',cachedUser);
-
       observer.next(cachedUser);
       observer.complete();
     });
@@ -70,7 +68,6 @@ export class CandidateService {
         })
       );
   }
-
 
   /*
     Commander Field

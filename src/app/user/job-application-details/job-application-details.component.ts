@@ -57,14 +57,30 @@ export class JobApplicationDetailsComponent implements OnInit {
     }
   }
 
-  onApply() {
-    this.isApplied = true;
-    this.isCancelled = false;
+  onApply(additionalInfo: any) {
+    this.jobService.applyForJob(this.jobId, additionalInfo).subscribe({
+      next: (response) => {
+        console.log('Application successful:', response);
+        this.isApplied = true;
+        this.isCancelled = false;
+      },
+      error: (error) => {
+        console.error('Error applying for job:', error);
+      },
+    });
   }
 
   onCancel() {
-    this.isApplied = false;
-    this.isCancelled = false;
+    this.jobService.cancelApplication(this.jobId).subscribe({
+      next: (response) => {
+        console.log('Application canceled successfully:', response);
+        this.isApplied = false;
+        this.isCancelled = true;
+      },
+      error: (error) => {
+        console.error('Error canceling application:', error);
+      },
+    });
   }
 
   getButtonText(): string {
