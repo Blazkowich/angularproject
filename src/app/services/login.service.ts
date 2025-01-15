@@ -3,12 +3,15 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
+import { Candidate } from '../models/candidates.model';
+import { CandidateMapperService } from '../utils/candidate-mapper-commander';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
   private baseUrl = environment.baseUrl;
+  private currentUser: Candidate | null = null;
 
   constructor(private http: HttpClient) {}
 
@@ -19,9 +22,33 @@ export class LoginService {
           if (response?.access_token) {
             this.setAuthToken(response.access_token);
             this.setUserRole(response.role);
+
+            if (response.role === 'volunteer' && response.user) {
+              this.setCurrentUser(response.user);
+            }
           }
         })
       );
+  }
+
+  private setCurrentUser(user: Candidate): void {
+    if (this.isBrowser()) {
+      this.currentUser = user;
+      localStorage.setItem('currentUser', JSON.stringify(user));
+    }
+  }
+
+  getCurrentUser(): Candidate | null {
+    if (this.currentUser) {
+      return this.currentUser;
+    }
+
+    if (this.isBrowser()) {
+      const storedUser = localStorage.getItem('currentUser');
+      return storedUser ? JSON.parse(storedUser) : null;
+    }
+
+    return null;
   }
 
   private setAuthToken(token: string): void {
@@ -56,6 +83,8 @@ export class LoginService {
     if (this.isBrowser()) {
       localStorage.removeItem('authToken');
       localStorage.removeItem('userRole');
+      localStorage.removeItem('currentUser');
+      this.currentUser = null;
     }
   }
 }

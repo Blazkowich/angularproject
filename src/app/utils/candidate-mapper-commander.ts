@@ -34,7 +34,7 @@ export class CandidateMapperService {
     };
   }
 
-  mapToCandidateModelArray(rawDataArray: any[], jobId?: string): Candidate[] {
+  static mapToCandidateModelArray(rawDataArray: any[], jobId?: string): Candidate[] {
     return rawDataArray.map(item => CandidateMapperService.mapToCandidatesModel(item, jobId));
   }
 
@@ -63,6 +63,33 @@ export class CandidateMapperService {
           }, {} as { [jobId: string]: 'preferred' | 'rejected' | 'pending' })
         : {},
       imageUrl: candidate.imageUrl || null,
+    };
+  }
+
+  static mapVolunteerCandidateModel(response: any): Candidate {
+    if (!response) {
+      throw new Error('Invalid volunteer data');
+    }
+
+    return {
+      id: response.id?.toString() || '',
+      fullName: response.full_name || '',
+      idNumber: response.national_id || '',
+      dateOfBirth: response.date_of_birth || '',
+      age: response.age || null,
+      gender: response.gender || '',
+      profile: response.profile?.toString() || '',
+      phone: '',
+      email: '',
+      address: response.address || '',
+      experience: response.experience || '',
+      education: response.education || '',
+      courses: response.courses || '',
+      languages: response.languages || '',
+      interests: response.interests || '',
+      personalSummary: response.personal_summary || '',
+      jobStatuses: {},
+      imageUrl: ''
     };
   }
 }

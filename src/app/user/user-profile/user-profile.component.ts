@@ -1,8 +1,9 @@
+import { CandidateMapperService } from './../../utils/candidate-mapper-commander';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Candidate } from '../../models/candidates.model';
 import { CandidateService } from '../../services/candidates.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BottomNavigationComponent } from '../../shared/bottom-navigation/bottom-navigation.component';
@@ -16,7 +17,7 @@ import { BottomNavigationComponent } from '../../shared/bottom-navigation/bottom
 })
 export class UserProfileComponent implements OnInit, OnDestroy {
   candidate: Candidate = {
-    id: '1',
+    id: '',
     fullName: '',
     idNumber: '',
     dateOfBirth: '',
@@ -35,32 +36,25 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     jobStatuses: {},
     imageUrl: ''
   };
-
   candidateSub: Subscription | undefined;
   jobId: string | undefined;
 
   constructor(
     private candidateService: CandidateService,
-    private route: ActivatedRoute,
     private router: Router)
   {}
 
   ngOnInit(): void {
-    const id = '1';
     this.jobId = localStorage.getItem('jobId')!;
-
-    if (id) {
-      this.candidateSub = this.candidateService.getCandidateById(id).subscribe({
-        next: candidate => {
-          this.candidate = candidate;
-        },
-        error: (err) => {
-          console.error('Error fetching candidate data:', err);
-        }
-      });
-    } else {
-      console.log('Candidate ID not found');
-    }
+    this.candidateSub = this.candidateService.getCurrentVolunteer().subscribe({
+      next: candidate => {
+        this.candidate = candidate;
+        console.log(this.candidate);
+      },
+      error: (err) => {
+        console.error('Error fetching candidate data:', err);
+      }
+    });
   }
 
   saveProfile() {
@@ -84,6 +78,14 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.candidateSub) {
       this.candidateSub.unsubscribe();
+    }
+  }
+
+  onDateOfBirthChange(event: Event): void {
+    const input = (event.target as HTMLInputElement).value;
+    const datePart = input.split(') ')[1];
+    if (datePart) {
+      this.candidate!.dateOfBirth = datePart.trim();
     }
   }
 }

@@ -6,46 +6,36 @@ import { environment } from '../../environments/environment';
 import { CandidateMapperService } from '../utils/candidate-mapper-commander';
 import { Interview } from '../models/interview.model';
 import { InterviewMapper } from '../utils/interview-mapper';
+import { LoginService } from './login.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CandidateService {
-  private candidatesUrl = `${environment.baseUrl}/api/commander`;
+  private commanderCandidatesUrl = `${environment.baseUrl}/api/commander`;
+  private volunteerUrl = `${environment.baseUrl}/api/volunteer`;
+  private hrUrl = `${environment.baseUrl}/api/hr`;
 
   constructor(
-    private http: HttpClient,
-    private candidateMapperService: CandidateMapperService) {}
+    private http: HttpClient, private loginService: LoginService) {}
+
+
+  getCurrentVolunteer(): Observable<Candidate> {
+    return new Observable(observer => {
+      const cachedUser = this.loginService.getCurrentUser();
+
+      if (!cachedUser) {
+        observer.error(new Error('No volunteer data found'));
+        return;
+      }
+
+      observer.next(cachedUser);
+      observer.complete();
+    });
+  }
 
   getCandidates(): Observable<Candidate[]> {
-    return this.http.get<any[]>(this.candidatesUrl);
-  }
-
-  getCandidatesForJob(id: string): Observable<Candidate[]> {
-    return this.http.get<any[]>(`${this.candidatesUrl}/jobs/${id}/applications`).pipe(
-      map(response => this.candidateMapperService.mapToCandidateModelArray(response, id))
-    );
-  }
-
-  getCommanderCandidateById(id: string): Observable<Candidate> {
-    const candidateUrl = `${this.candidatesUrl}/volunteers/${id}`;
-    return this.http.get<Candidate>(candidateUrl).pipe(
-      map(candidate => {
-        if (!candidate) {
-          throw new Error(`Candidate with ID ${id} not found`);
-        }
-
-        if (candidate.dateOfBirth) {
-          candidate.age = this.calculateAge(candidate.dateOfBirth);
-        }
-
-        return candidate;
-      }),
-      catchError(error => {
-        console.error(`Error fetching candidate with ID ${id}:`, error);
-        return throwError(() => new Error('Unable to fetch candidate data'));
-      })
-    );
+    return this.http.get<any[]>(this.commanderCandidatesUrl);
   }
 
   getCandidateById(id: string): Observable<Candidate> {
@@ -65,8 +55,39 @@ export class CandidateService {
     );
   }
 
+  /*
+    Commander Field
+  */
+
+  getCandidatesForJob(id: string): Observable<Candidate[]> {
+    return this.http.get<any[]>(`${this.commanderCandidatesUrl}/jobs/${id}/applications`).pipe(
+      map(response => CandidateMapperService.mapToCandidateModelArray(response, id))
+    );
+  }
+
+  getCommanderCandidateById(id: string): Observable<Candidate> {
+    const candidateUrl = `${this.commanderCandidatesUrl}/volunteers/${id}`;
+    return this.http.get<Candidate>(candidateUrl).pipe(
+      map(candidate => {
+        if (!candidate) {
+          throw new Error(`Candidate with ID ${id} not found`);
+        }
+
+        if (candidate.dateOfBirth) {
+          candidate.age = this.calculateAge(candidate.dateOfBirth);
+        }
+
+        return candidate;
+      }),
+      catchError(error => {
+        console.error(`Error fetching candidate with ID ${id}:`, error);
+        return throwError(() => new Error('Unable to fetch candidate data'));
+      })
+    );
+  }
+
   updateCandidateStatus(jobId: string, candidateId: string, status: 'preferred' | 'rejected'): Observable<any> {
-    const url = `${this.candidatesUrl}/jobs/${jobId}/volunteers/${candidateId}`;
+    const url = `${this.commanderCandidatesUrl}/jobs/${jobId}/volunteers/${candidateId}`;
     return this.http.patch(url, { status }).pipe(
       catchError((error) => {
         console.error('Error updating candidate status:', error);
@@ -77,6 +98,37 @@ export class CandidateService {
 
   updateCandidate(candidate: Candidate): Observable<Candidate> {
     return this.http.put<Candidate>(`/api/candidates/${candidate.id}`, candidate);
+  }
+
+  getInterview(jobId: string, volunteerId: string): Observable<Interview> {
+    const url = `${this.commanderCandidatesUrl}/jobs/${jobId}/volunteers/${volunteerId}/interviews`;
+    return this.http.get<any>(url).pipe(
+      map(response => InterviewMapper.mapToInterviewModel(response)),
+      catchError(error => {
+        console.error(`Error fetching interview for jobId ${jobId} and volunteerId ${volunteerId}:`, error);
+        return throwError(() => new Error('Unable to fetch interview'));
+      })
+    );
+  }
+
+  saveInterview(interview: Interview, jobId: string, volunteerId: string): Observable<any> {
+    const url = `${this.commanderCandidatesUrl}/jobs/${jobId}/volunteers/${volunteerId}/interviews`;
+    return this.http.post(url, interview).pipe(
+      catchError(error => {
+        console.error('Error creating interview:', error);
+        return throwError(() => new Error('Unable to create interview'));
+      })
+    );
+  }
+
+  updateInterview(interview: Interview, jobId: string, volunteerId: string): Observable<any> {
+    const url = `${this.commanderCandidatesUrl}/jobs/${jobId}/volunteers/${volunteerId}/interviews`;
+    return this.http.patch(url, interview).pipe(
+      catchError(error => {
+        console.error('Error updating interview:', error);
+        return throwError(() => new Error('Unable to update interview'));
+      })
+    );
   }
 
   private calculateAge(dateOfBirth: string): number {
@@ -90,36 +142,5 @@ export class CandidateService {
     }
 
     return age;
-  }
-
-  getInterview(jobId: string, volunteerId: string): Observable<Interview> {
-    const url = `${this.candidatesUrl}/jobs/${jobId}/volunteers/${volunteerId}/interviews`;
-    return this.http.get<any>(url).pipe(
-      map(response => InterviewMapper.mapToInterviewModel(response)),
-      catchError(error => {
-        console.error(`Error fetching interview for jobId ${jobId} and volunteerId ${volunteerId}:`, error);
-        return throwError(() => new Error('Unable to fetch interview'));
-      })
-    );
-  }
-
-  saveInterview(interview: Interview, jobId: string, volunteerId: string): Observable<any> {
-    const url = `${this.candidatesUrl}/jobs/${jobId}/volunteers/${volunteerId}/interviews`;
-    return this.http.post(url, interview).pipe(
-      catchError(error => {
-        console.error('Error creating interview:', error);
-        return throwError(() => new Error('Unable to create interview'));
-      })
-    );
-  }
-
-  updateInterview(interview: Interview, jobId: string, volunteerId: string): Observable<any> {
-    const url = `${this.candidatesUrl}/jobs/${jobId}/volunteers/${volunteerId}/interviews`;
-    return this.http.patch(url, interview).pipe(
-      catchError(error => {
-        console.error('Error updating interview:', error);
-        return throwError(() => new Error('Unable to update interview'));
-      })
-    );
   }
 }

@@ -1,3 +1,4 @@
+import { CandidateMapperService } from './../../utils/candidate-mapper-commander';
 import { CandidateService } from './../../services/candidates.service';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
@@ -27,9 +28,9 @@ export class UserMainPageComponent implements OnInit {
 
   ngOnInit(): void {
     document.documentElement.style.setProperty('--background-color', 'white');
-    this.candidateService.getCandidateById("1").subscribe({
+    this.candidateService.getCurrentVolunteer().subscribe({
       next: (candidate: Candidate) => {
-        this.candidate = candidate;
+        this.candidate = CandidateMapperService.mapVolunteerCandidateModel(candidate);
       },
       error: (error) => {
         console.error('Error loading user:', error);

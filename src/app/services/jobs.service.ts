@@ -19,6 +19,7 @@ export class JobService {
   constructor(private http: HttpClient) {}
 
   getJobs(): Observable<Job[]> {
+    console.log(this.role, this.jobsUrl);
     return this.http.get<Job[]>(this.jobsUrl).pipe(
       catchError(error => {
         console.error('Error fetching jobs:', error);
@@ -39,6 +40,9 @@ export class JobService {
     );
   }
 
+  /*
+    Commander Field
+  */
   getJobApplications(jobId: string): Observable<any[]> {
     const url = `${environment.baseUrl}/api/commander/jobs/${jobId}/applications`;
     return this.http.get<any[]>(url).pipe(
