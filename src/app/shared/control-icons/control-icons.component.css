@@ -19,6 +19,20 @@
   height: auto;
 }
 
+.icon-img-extended {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  background-color: #D3DDE5;
+  border-radius: 50%;
+  font-size: 24px;
+  color: black;
+  line-height: 1;
+  transform: translateY(2px);
+}
+
 /* Responsive adjustments */
 @media (max-width: 576px) {
   .gap-5 {
