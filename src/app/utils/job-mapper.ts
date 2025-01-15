@@ -63,4 +63,52 @@ export class JobMapper {
       techSkills: job.techSkills
     };
   }
+
+  static mapJobForVolunteerMainPage(input: any): Job {
+    return {
+      jobName: input.title,
+      id: input.id,
+      jobDescription: input.description,
+      positions: input.vacant_positions,
+      jobCategory: input.jobCategory,
+      unit: input.unit,
+      address: input.address,
+      openBase: input.openBase,
+      closedBase: input.closedBase,
+      additionalInfo: input.additionalInfo,
+      commonQuestions: input.commonQuestions,
+      commonAnswers: input.commonAnswers,
+      education: input.education,
+      techSkills: input.techSkills,
+      workExperience: input.workExperience,
+      passedCourses: input.passedCourses,
+      candidateCount: input.candidateCount,
+      status: input.status,
+      department: input.department
+    };
+  }
+
+  static mapJobsForVolunteerMainPage(input: any[]): Job[] {
+    return input.map(item => ({
+      jobName: item.title,
+      id: item.id,
+      jobDescription: item.description,
+      positions: item.vacant_positions,
+      jobCategory: item.jobCategory,
+      unit: item.unit,
+      address: item.address,
+      openBase: item.openBase,
+      closedBase: item.closedBase,
+      additionalInfo: item.additionalInfo,
+      commonQuestions: item.commonQuestions,
+      commonAnswers: item.commonAnswers,
+      education: item.education,
+      techSkills: item.techSkills,
+      workExperience: item.workExperience,
+      passedCourses: item.passedCourses,
+      candidateCount: item.candidateCount,
+      status: item.status,
+      department: item.department
+    }));
+  }
 }

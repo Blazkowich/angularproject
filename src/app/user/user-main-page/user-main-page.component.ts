@@ -39,8 +39,7 @@ export class UserMainPageComponent implements OnInit {
 
     this.jobService.getJobs().subscribe({
       next: (jobs: any[]) => {
-        this.jobs = jobs.map(job => JobMapper.mapJobResponse(job));
-        //this.jobs = jobs.filter(job => job.status.toLowerCase() !== 'closed');
+        this.jobs = JobMapper.mapJobsForVolunteerMainPage(jobs);
       },
       error: (jobsError) => {
         console.error('Error loading jobs:', jobsError);

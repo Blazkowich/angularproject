@@ -19,7 +19,6 @@ export class JobService {
   constructor(private http: HttpClient) {}
 
   getJobs(): Observable<Job[]> {
-    console.log(this.role, this.jobsUrl);
     return this.http.get<Job[]>(this.jobsUrl).pipe(
       catchError(error => {
         console.error('Error fetching jobs:', error);
