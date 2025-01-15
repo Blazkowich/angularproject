@@ -160,4 +160,52 @@ export class CandidateMapperService {
     };
   }
 
+  /*
+    HR Mapping
+  */
+  static mapCandidateForHRModel(response: any): Candidate {
+    return {
+        id: response.id?.toString() || '',
+        fullName: response.fullName || '',
+        idNumber: response.idNumber || '',
+        dateOfBirth: new Date(response.dateOfBirth).toISOString() || '',
+        age: response.age || null,
+        gender: response.gender || '',
+        profile: response.profile?.toString() || '',
+        phone: response.phone || '',
+        email: response.email || '',
+        address: response.address || '',
+        experience: response.experience || '',
+        education: response.education || '',
+        courses: response.courses || '',
+        languages: response.languages || '',
+        interests: response.interests || '',
+        personalSummary: response.personalSummary || '',
+        jobStatuses: response.jobStatuses || {},
+        imageUrl: response.imageUrl || ''
+    };
+  }
+
+  static mapCandidatesForHRModel(responseArray: any[]): Candidate[] {
+    return responseArray.map(response => ({
+        id: response.id?.toString() || '',
+        fullName: response.fullName || '',
+        idNumber: response.idNumber || '',
+        dateOfBirth: new Date(response.dateOfBirth).toISOString() || '',
+        age: response.age || null,
+        gender: response.gender || '',
+        profile: response.profile?.toString() || '',
+        phone: response.phone || '',
+        email: response.email || '',
+        address: response.address || '',
+        experience: response.experience || '',
+        education: response.education || '',
+        courses: response.courses || '',
+        languages: response.languages || '',
+        interests: response.interests || '',
+        personalSummary: response.personalSummary || '',
+        jobStatuses: response.jobStatuses || {},
+        imageUrl: response.imageUrl || ''
+    }));
+  }
 }

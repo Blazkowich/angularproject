@@ -1,3 +1,4 @@
+import { CandidateMapperService } from './../../utils/candidate-mapper-commander';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -62,7 +63,7 @@ export class HrCandidatePageComponent implements OnInit, OnDestroy {
 
     this.candidateService.getCandidatesForHR().subscribe({
       next: (candidates: Candidate[]) => {
-        this.candidates = candidates;
+        this.candidates = CandidateMapperService.mapCandidatesForHRModel(candidates);
       },
       error: (error) => {
         console.error('Error loading user:', error);
@@ -153,9 +154,9 @@ export class HrCandidatePageComponent implements OnInit, OnDestroy {
   }
 
   private loadCandidates(): void {
-    this.candidateService.getCandidates().subscribe({
+    this.candidateService.getCandidatesForHR().subscribe({
       next: (candidates: Candidate[]) => {
-        this.candidates = candidates;
+        this.candidates = CandidateMapperService.mapCandidatesForHRModel(candidates);
       },
       error: (error) => {
         console.error('Error loading candidates:', error);
