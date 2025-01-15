@@ -30,7 +30,8 @@ export class JobService {
   getJobById(id: string): Observable<Job> {
     return this.getJobs().pipe(
       map(jobs => {
-        const job = jobs.find(j => j.id === id);
+        const job = jobs.find(j => String(j.id) === id);
+        console.log(job);
         if (!job) {
           throw new Error(`Job with id ${id} not found`);
         }

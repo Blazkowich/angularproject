@@ -22,11 +22,7 @@
       <!-- Personal Info -->
       <div class="mb-4">
         <div class="d-flex align-items-center justify-content-end mb-2">
-          <input
-            [value]="'(' + candidate.age + ') ' + candidate.dateOfBirth"
-            (input)="onDateOfBirthChange($event)"
-            class="form-control"
-          />
+          <input [(ngModel)]="candidate.dateOfBirth" class="form-control" placeholder="Date of Birth">
           <img src="assets/images/cake.svg" alt="Cake" class="ms-2 icons" style="width: 20px; height: 20px;">
         </div>
         <div class="d-flex align-items-center justify-content-end mb-2">

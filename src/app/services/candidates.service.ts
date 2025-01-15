@@ -28,6 +28,7 @@ export class CandidateService {
         observer.error(new Error('No volunteer data found'));
         return;
       }
+      console.log('cached',cachedUser);
 
       observer.next(cachedUser);
       observer.complete();
@@ -54,6 +55,22 @@ export class CandidateService {
       })
     );
   }
+
+  updateVolunteerProfile(candidate: Candidate): Observable<Candidate> {
+    const userId = candidate.id;
+
+    return this.http.patch<any>(`${this.volunteerUrl}/${userId}`, candidate)
+      .pipe(
+        map(response => {
+          return CandidateMapperService.mapFromUpdateVolunteerResponse(response, candidate);
+        }),
+        catchError(error => {
+          console.error('Error updating volunteer profile:', error);
+          return throwError(() => new Error('Failed to update volunteer profile'));
+        })
+      );
+  }
+
 
   /*
     Commander Field

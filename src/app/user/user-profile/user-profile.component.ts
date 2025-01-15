@@ -37,55 +37,69 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     imageUrl: ''
   };
   candidateSub: Subscription | undefined;
-  jobId: string | undefined;
+  isLoading = false;
+  errorMessage = '';
 
   constructor(
     private candidateService: CandidateService,
-    private router: Router)
-  {}
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.jobId = localStorage.getItem('jobId')!;
+    this.loadCurrentVolunteer();
+  }
+
+  private loadCurrentVolunteer(): void {
+    this.isLoading = true;
     this.candidateSub = this.candidateService.getCurrentVolunteer().subscribe({
-      next: candidate => {
-        this.candidate = candidate;
-        console.log(this.candidate);
+      next: (candidate) => {
+        this.candidate = CandidateMapperService.mapToCandidate(candidate);
+        this.isLoading = false;
       },
-      error: (err) => {
-        console.error('Error fetching candidate data:', err);
+      error: (error) => {
+        console.error('Error fetching volunteer data:', error);
+        this.errorMessage = 'Failed to load profile data';
+        this.isLoading = false;
       }
     });
   }
 
-  saveProfile() {
-    if (this.candidate) {
-      this.candidateService.updateCandidate(this.candidate).subscribe({
-        next: () => {
-          console.log('Profile updated successfully');
-          this.goBack();
-        },
-        error: (err) => {
-          console.error('Failed to update profile', err);
-        }
-      });
+  saveProfile(): void {
+    if (!this.candidate) {
+      return;
     }
+
+    this.isLoading = true;
+    this.errorMessage = '';
+
+    this.candidateService.updateVolunteerProfile(
+      CandidateMapperService.mapToUpdateVolunteerRequest(this.candidate)
+    ).subscribe({
+      next: (updatedCandidate) => {
+        this.candidate = updatedCandidate;
+        this.isLoading = false;
+
+        localStorage.removeItem('currentUser');
+        localStorage.setItem('currentUser', JSON.stringify(this.candidate));
+
+        this.loadCurrentVolunteer();
+        this.goBack();
+      },
+      error: (error) => {
+        console.error('Failed to update profile:', error);
+        this.errorMessage = 'Failed to save profile changes';
+        this.isLoading = false;
+      }
+    });
   }
 
-  goBack() {
+  goBack(): void {
     this.router.navigate(['/roles']);
   }
 
   ngOnDestroy(): void {
     if (this.candidateSub) {
       this.candidateSub.unsubscribe();
-    }
-  }
-
-  onDateOfBirthChange(event: Event): void {
-    const input = (event.target as HTMLInputElement).value;
-    const datePart = input.split(') ')[1];
-    if (datePart) {
-      this.candidate!.dateOfBirth = datePart.trim();
     }
   }
 }

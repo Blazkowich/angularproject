@@ -5,7 +5,7 @@ import { Candidate } from '../models/candidates.model';
   providedIn: 'root'
 })
 export class CandidateMapperService {
-  static mapToCandidatesModel(rawData: any, jobId?: string): Candidate {
+  static mapToCommanderCandidatesModel(rawData: any, jobId?: string): Candidate {
     const jobStatuses: { [key: string]: 'preferred' | 'rejected' | 'pending' } = {};
 
     if (jobId && rawData.status) {
@@ -35,7 +35,7 @@ export class CandidateMapperService {
   }
 
   static mapToCandidateModelArray(rawDataArray: any[], jobId?: string): Candidate[] {
-    return rawDataArray.map(item => CandidateMapperService.mapToCandidatesModel(item, jobId));
+    return rawDataArray.map(item => CandidateMapperService.mapToCommanderCandidatesModel(item, jobId));
   }
 
   static mapCandidateForProfile(candidate: Candidate): any {
@@ -67,20 +67,16 @@ export class CandidateMapperService {
   }
 
   static mapVolunteerCandidateModel(response: any): Candidate {
-    if (!response) {
-      throw new Error('Invalid volunteer data');
-    }
-
     return {
       id: response.id?.toString() || '',
       fullName: response.full_name || '',
       idNumber: response.national_id || '',
-      dateOfBirth: response.date_of_birth || '',
+      dateOfBirth: new Date(response.date_of_birth).toISOString() || '',
       age: response.age || null,
       gender: response.gender || '',
       profile: response.profile?.toString() || '',
-      phone: '',
-      email: '',
+      phone: response.phone,
+      email: response.email || '',
       address: response.address || '',
       experience: response.experience || '',
       education: response.education || '',
@@ -92,4 +88,76 @@ export class CandidateMapperService {
       imageUrl: ''
     };
   }
+
+  static mapToUpdateVolunteerRequest(candidate: Candidate): any {
+    return {
+      id: candidate.id || null,
+      full_name: candidate.fullName || null,
+      address: candidate.address || null,
+      primary_profession: candidate.profile || null,
+      education: candidate.education || null,
+      area_of_interest: candidate.interests || null,
+      contact_reference: null,
+      profile: candidate.profile || null,
+      date_of_birth: new Date(candidate.dateOfBirth).toISOString(),
+      gender: candidate.gender || null,
+      experience: candidate.experience || null,
+      courses: candidate.courses || null,
+      languages: candidate.languages || null,
+      personal_summary: candidate.personalSummary || null,
+      phone: candidate.phone || null,
+      email: candidate.email || null
+    };
+  }
+
+  static mapFromUpdateVolunteerResponse(response: any, existingCandidate: Candidate): Candidate {
+    if (!response) {
+      throw new Error('Invalid response data');
+    }
+
+    return {
+      id: response.id?.toString() || existingCandidate.id,
+      fullName: response.full_name || existingCandidate.fullName,
+      idNumber: existingCandidate.idNumber,
+      dateOfBirth: new Date(response.date_of_birth).toISOString() || existingCandidate.dateOfBirth,
+      age: response.age || existingCandidate.age,
+      gender: response.gender || existingCandidate.gender,
+      profile: response.profile || existingCandidate.profile,
+      phone: response.phone || existingCandidate.phone,
+      email: response.email || existingCandidate.email,
+      address: response.address || existingCandidate.address,
+      experience: response.experience || existingCandidate.experience,
+      education: response.education || existingCandidate.education,
+      courses: response.courses || existingCandidate.courses,
+      languages: response.languages || existingCandidate.languages,
+      interests: response.area_of_interest || existingCandidate.interests,
+      personalSummary: response.personal_summary || existingCandidate.personalSummary,
+      jobStatuses: existingCandidate.jobStatuses || {},
+      imageUrl: response.imageUrl || existingCandidate.imageUrl
+    };
+  }
+
+  static mapToCandidate(input: any): Candidate {
+    return {
+      id: input.id.toString(),
+      fullName: input.full_name,
+      idNumber: input.national_id,
+      dateOfBirth: new Date(input.date_of_birth).toISOString(),
+      age: input.age,
+      gender: input.gender,
+      profile: input.profile.toString(),
+      phone: input.phone,
+      email: input.email,
+      address: input.address,
+      experience: input.experience,
+      education: input.education,
+      courses: input.courses,
+      languages: input.languages,
+      interests: input.interests,
+      personalSummary: input.personal_summary,
+      jobStatuses: {},
+      imageUrl: '',
+    };
+  }
+
 }
