@@ -36,6 +36,7 @@ export class HrCandidatePageComponent implements OnInit, OnDestroy {
   isJobSpecificList = false;
   isModalOpen = false;
   isAddCandidateModalOpen = false;
+  isPreferredModalOpen: boolean = false;
   selectedJobName: string | undefined;
   selectedJobUnit: string | undefined;
   selectedCandidateId: string | undefined;
@@ -65,13 +66,39 @@ export class HrCandidatePageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     document.documentElement.style.setProperty('--background-color', 'white');
 
-    this.candidateService.getCandidatesForHR().subscribe({
-      next: (candidates: Candidate[]) => {
-        this.candidates = CandidateMapperService.mapCandidatesForHRModel(candidates);
-        this.filteredCandidates = [...this.candidates];
+    if (this.isJobSpecificList && this.jobId) {
+      // Fetch filtered candidates for the specific job
+      this.candidateService.getCandidatesForHR().subscribe({
+        next: (candidates: Candidate[]) => {
+          const mappedCandidates = CandidateMapperService.mapCandidatesForHRModel(candidates);
+          this.candidates = mappedCandidates.filter(candidate =>
+            candidate.jobStatuses && candidate.jobStatuses[this.jobId!]
+          );
+          this.filteredCandidates = [...this.candidates];
+        },
+        error: (error) => {
+          console.error('Error loading candidates for job:', error);
+        }
+      });
+    } else {
+      // Fetch all candidates
+      this.candidateService.getCandidatesForHR().subscribe({
+        next: (candidates: Candidate[]) => {
+          this.candidates = CandidateMapperService.mapCandidatesForHRModel(candidates);
+          this.filteredCandidates = [...this.candidates];
+        },
+        error: (error) => {
+          console.error('Error loading candidates:', error);
+        }
+      });
+    }
+
+    this.jobService.getJobs().subscribe({
+      next: (jobs: Job[]) => {
+        this.jobs = jobs.filter(job => job.status.toLowerCase() !== 'closed');
       },
-      error: (error) => {
-        console.error('Error loading user:', error);
+      error: (jobsError) => {
+        console.error('Error loading jobs:', jobsError);
       }
     });
 
@@ -80,16 +107,7 @@ export class HrCandidatePageComponent implements OnInit, OnDestroy {
         this.currentCandidate = candidate;
       },
       error: (error) => {
-        console.error('Error loading user:', error);
-      }
-    });
-
-    this.jobService.getJobs().subscribe({
-      next: (jobs: Job[]) => {
-        this.jobs = jobs.filter(job => job.status.toLowerCase() !== 'closed');
-      },
-      error: (jobsError) => {
-        console.error('Error loading jobs:', jobsError);
+        console.error('Error loading current user:', error);
       }
     });
   }
@@ -107,32 +125,22 @@ export class HrCandidatePageComponent implements OnInit, OnDestroy {
 
     const status = candidate.jobStatuses?.[this.jobId]?.toLowerCase();
 
+    if (status === 'preferred') {
+      return {
+        text: 'Preferred',
+        class: 'btn btn-outline-success status-button'
+      };
+    }
+
     switch (status) {
       case 'pending':
-        return {
-          text: 'Pending',
-          class: 'btn btn-outline-warning status-button'
-        };
+        return { text: 'Pending', class: 'btn btn-outline-warning status-button' };
       case 'rejected':
-        return {
-          text: 'Rejected',
-          class: 'btn btn-outline-danger status-button'
-        };
-      case 'preferred':
-        return {
-          text: 'Assigned',
-          class: 'btn btn-outline-success status-button'
-        };
+        return { text: 'Rejected', class: 'btn btn-outline-danger status-button' };
       case 'hired':
-        return {
-          text: 'Hired',
-          class: 'btn btn-outline-info status-button'
-        };
+        return { text: 'Hired', class: 'btn btn-outline-info status-button' };
       default:
-        return {
-          text: 'Job Placement',
-          class: 'btn btn-outline-primary status-button'
-        };
+        return { text: 'Job Placement', class: 'btn btn-outline-primary status-button' };
     }
   }
 
@@ -159,10 +167,14 @@ export class HrCandidatePageComponent implements OnInit, OnDestroy {
 
   onAssignmentComplete(success: boolean): void {
     if (success) {
+      const jobId = localStorage.getItem('jobId');
+      console.log(jobId);
+
       this.candidateService.getCandidatesForHR().subscribe({
         next: (candidates: Candidate[]) => {
           this.candidates = CandidateMapperService.mapCandidatesForHRModel(candidates);
-          this.filteredCandidates = [...this.candidates];
+
+          this.filteredCandidates = this.candidates.filter(candidate => candidate.jobStatuses && candidate.jobStatuses.hasOwnProperty(jobId!));
         },
         error: (error) => {
           console.error('Error refreshing candidates:', error);
@@ -176,13 +188,22 @@ export class HrCandidatePageComponent implements OnInit, OnDestroy {
     }, 2000);
   }
 
+
   closePopup(): void {
     this.isModalOpen = false;
     this.selectedCandidateId = undefined;
   }
 
-  selectCandidate(candidateId: string): void {
+  selectCandidate(candidateId: string, status: string): void {
     localStorage.setItem('candidateId', candidateId);
+    this.selectedCandidateId = candidateId;
+    if (status === 'preferred') {
+      this.isPreferredModalOpen = true;
+    }
+  }
+
+  closeApplyPopup(): void {
+    this.isPreferredModalOpen = false;
   }
 
   openAddCandidatePopup(): void {
