@@ -2,7 +2,7 @@ import { LoginService } from './../../services/login.service';
 import { CandidateMapperService } from '../../mappers/candidate-mapper-commander';
 import { CandidateService } from './../../services/candidates.service';
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Candidate } from '../../models/candidates.model';
 import { RouterModule } from '@angular/router';
@@ -25,6 +25,8 @@ export class UserMainPageComponent implements OnInit {
   jobs: Job[] = [];
   filteredJobs: Job[] = [];
   isSortedAscending = true;
+
+  isProfileDropdownOpen = false;
 
   constructor(
     private candidateService: CandidateService,
@@ -89,5 +91,20 @@ export class UserMainPageComponent implements OnInit {
   toggleSortOrder(): void {
     this.isSortedAscending = !this.isSortedAscending;
     this.sortJobs();
+  }
+
+  toggleProfileDropdown(): void {
+    this.isProfileDropdownOpen = !this.isProfileDropdownOpen;
+  }
+
+  // Optional: Close dropdown when clicking outside
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    const dropdownElement = document.querySelector('.profile-dropdown');
+    const targetElement = event.target as HTMLElement;
+
+    if (dropdownElement && !dropdownElement.contains(targetElement)) {
+      this.isProfileDropdownOpen = false;
+    }
   }
 }

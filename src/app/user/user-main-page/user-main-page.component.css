@@ -5,6 +5,7 @@
 .search-section {
   display: flex;
   align-items: center;
+  z-index: 1001;
 }
 
 .search-input {
@@ -21,6 +22,34 @@
   outline: none;
   box-shadow: none;
   background-color: #f8f9fa;
+}
+
+.dropdown-menu {
+  display: none;
+  background: white;
+  border: 1px solid rgba(0,0,0,.15);
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,.15);
+  z-index: 1000;
+}
+
+.dropdown-menu.show {
+  display: block;
+}
+
+.dropdown-item {
+  padding: 8px 16px;
+  cursor: pointer;
+  text-decoration: none;
+  color: #212529;
+}
+
+.dropdown-item:hover {
+  background-color: #f8f9fa;
+}
+
+.profile-dropdown {
+  z-index: 1001;
 }
 
 .container {
@@ -97,7 +126,7 @@
   left: 0;
   right: 50px;
   padding: 10px 20px;
-  z-index: 999;
+  z-index: 1;
 }
 
 body {
