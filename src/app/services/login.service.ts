@@ -88,6 +88,8 @@ export class LoginService {
       localStorage.removeItem('userRole');
       localStorage.removeItem('currentUser');
       this.currentUser = null;
+
+      window.location.reload();
     }
   }
 }
