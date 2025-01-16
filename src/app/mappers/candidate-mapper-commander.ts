@@ -62,7 +62,7 @@ export class CandidateMapperService {
         ? Object.entries(candidate.jobStatuses).reduce((acc, [jobId, status]) => {
             acc[jobId] = status;
             return acc;
-          }, {} as { [jobId: string]: 'preferred' | 'rejected' | 'pending' })
+          }, {} as { [jobId: string]: 'preferred' | 'rejected' | 'pending' | 'hired'})
         : {},
       imageUrl: candidate.imageUrl || null,
     };

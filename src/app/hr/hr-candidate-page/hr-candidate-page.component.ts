@@ -123,6 +123,11 @@ export class HrCandidatePageComponent implements OnInit, OnDestroy {
           text: 'Assigned',
           class: 'btn btn-outline-success status-button'
         };
+      case 'hired':
+        return {
+          text: 'Hired',
+          class: 'btn btn-outline-info status-button'
+        };
       default:
         return {
           text: 'Job Placement',
