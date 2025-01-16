@@ -3,7 +3,7 @@ import { CreateJobComponent } from './commander/job/create-job/create-job.compon
 import { MainPageComponent } from './commander/main-page/main-page.component';
 import { JobDetailsComponent } from './commander/job/job-details/job-details.component';
 import { ClosedJobComponent } from './commander/job/closed-job/closed-job.component';
-import { MainGuard } from './auth/main-guard/main-guard.component';
+import { MainGuard } from './shared/auth/main-guard/main-guard.component';
 import { LoginComponent } from './login/login.component';
 import { CandidatesComponent } from './commander/candidate/candidates/candidates.component';
 import { CandidatesDetailsComponent } from './commander/candidate/candidates-details/candidates-details.component';

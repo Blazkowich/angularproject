@@ -7,6 +7,7 @@ import { CandidateMapperService } from '../mappers/candidate-mapper-commander';
 import { Interview } from '../models/interview.model';
 import { InterviewMapper } from '../mappers/interview-mapper';
 import { LoginService } from './login.service';
+import { CreateCandidateRequest } from '../models/createCandidate.model';
 
 @Injectable({
   providedIn: 'root',
@@ -168,6 +169,21 @@ export class CandidateService {
       catchError(error => {
         console.error('Error assigning volunteer:', error);
         return throwError(() => new Error(error.error?.message || 'Failed to assign volunteer'));
+      })
+    );
+  }
+
+  createCandidate(candidateData: CreateCandidateRequest): Observable<any> {
+    return this.http.post<any>(`${this.hrUrl}/volunteers`, candidateData).pipe(
+      map(response => ({
+        success: true,
+        userId: response.user_id,
+        volunteerId: response.volunteer_id,
+        message: response.message
+      })),
+      catchError(error => {
+        console.error('Error creating candidate:', error);
+        return throwError(() => new Error(error.error?.message || 'Failed to create candidate'));
       })
     );
   }

@@ -82,8 +82,9 @@
     (assignmentComplete)="onAssignmentComplete($event)">
 </app-apply-candidate-popup>
 
-  <app-add-new-candidate-popup
-    *ngIf="isAddCandidateModalOpen"
-    (closePopup)="closeAddCandidatePopup()">
-  </app-add-new-candidate-popup>
+<app-add-new-candidate-popup
+  *ngIf="isAddCandidateModalOpen"
+  (closePopup)="closeAddCandidatePopup()"
+  (candidateAdded)="onCandidateAdded()">
+</app-add-new-candidate-popup>
 </div>

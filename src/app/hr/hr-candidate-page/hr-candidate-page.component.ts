@@ -215,6 +215,10 @@ export class HrCandidatePageComponent implements OnInit, OnDestroy {
     this.loadCandidates();
   }
 
+  onCandidateAdded(): void {
+    this.loadCandidates();
+  }
+
   private loadCandidates(): void {
     this.candidateService.getCandidatesForHR().subscribe({
       next: (candidates: Candidate[]) => {
