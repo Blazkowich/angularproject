@@ -148,6 +148,30 @@ export class CandidateService {
     );
   }
 
+  assignVolunteerToJob(volunteerId: string, jobId: string): Observable<any> {
+    console.log('jobid',jobId, 'volId',volunteerId);
+    const url = `${this.hrUrl}/assignments`;
+    const payload = {
+      volunteer_id: volunteerId,
+      job_id: jobId
+    };
+
+    return this.http.post<any>(url, payload).pipe(
+      map(response => {
+        console.log(response.message)
+        return {
+          success: true,
+          applicationId: response.application_id,
+          message: response.message
+        };
+      }),
+      catchError(error => {
+        console.error('Error assigning volunteer:', error);
+        return throwError(() => new Error(error.error?.message || 'Failed to assign volunteer'));
+      })
+    );
+  }
+
   private calculateAge(dateOfBirth: string): number {
     const birthDate = new Date(dateOfBirth);
     const today = new Date();

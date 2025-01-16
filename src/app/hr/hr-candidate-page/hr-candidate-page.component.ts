@@ -38,6 +38,7 @@ export class HrCandidatePageComponent implements OnInit, OnDestroy {
   isAddCandidateModalOpen = false;
   selectedJobName: string | undefined;
   selectedJobUnit: string | undefined;
+  selectedCandidateId: string | undefined;
   private routerSubscription: Subscription;
 
   filteredCandidates: Candidate[] = [];
@@ -131,10 +132,18 @@ export class HrCandidatePageComponent implements OnInit, OnDestroy {
   }
 
   selectJob(jobId: string): void {
+    this.selectedCandidateId = localStorage.getItem('candidateId') || undefined;
+
+    if (!this.selectedCandidateId) {
+      console.error('No candidate selected');
+      return;
+    }
+
     this.jobService.getJobById(jobId).subscribe({
       next: (job: Job) => {
         this.selectedJobName = job.jobName;
         this.selectedJobUnit = job.unit;
+        this.jobId = jobId;
         this.isModalOpen = true;
       },
       error: (err) => {
@@ -143,6 +152,29 @@ export class HrCandidatePageComponent implements OnInit, OnDestroy {
     });
   }
 
+  onAssignmentComplete(success: boolean): void {
+    if (success) {
+      this.candidateService.getCandidatesForHR().subscribe({
+        next: (candidates: Candidate[]) => {
+          this.candidates = CandidateMapperService.mapCandidatesForHRModel(candidates);
+          this.filteredCandidates = [...this.candidates];
+        },
+        error: (error) => {
+          console.error('Error refreshing candidates:', error);
+        }
+      });
+    }
+
+    setTimeout(() => {
+      this.isModalOpen = false;
+      this.selectedCandidateId = undefined;
+    }, 2000);
+  }
+
+  closePopup(): void {
+    this.isModalOpen = false;
+    this.selectedCandidateId = undefined;
+  }
 
   selectCandidate(candidateId: string): void {
     localStorage.setItem('candidateId', candidateId);
@@ -166,10 +198,6 @@ export class HrCandidatePageComponent implements OnInit, OnDestroy {
         console.error('Error loading candidates:', error);
       }
     });
-  }
-
-  closePopup(): void {
-    this.isModalOpen = false;
   }
 
   toggleSortByName(): void {

@@ -43,7 +43,7 @@
   <!-- Role List -->
   <div class="role-list mb-5">
     <div *ngFor="let candidate of filteredCandidates" class="card role-card mb-3 shadow-lg border-custom">
-      <div class="card-body" (click)="getStatusButton(candidate).text === 'Job Placement' ? selectJob(jobId!) : null">
+      <div class="card-body" (click)="selectCandidate(candidate.id); getStatusButton(candidate).text === 'Job Placement' ? selectJob(jobId!) : null">
         <ng-container *ngIf="!isJobSpecificList; else statusButton">
           <i class="bi bi-chevron-left chevron-icon me-3"></i>
         </ng-container>
@@ -67,17 +67,19 @@
     </div>
   </div>
 
-
   <!-- Bottom Navigation -->
   <app-hr-bottom-navigation></app-hr-bottom-navigation>
 
   <!-- Apply Candidate Popup -->
   <app-apply-candidate-popup
-    [isModalOpen]="isModalOpen"
-    [jobName]="selectedJobName"
-    [jobUnit]="selectedJobUnit"
-    (closePopup)="closePopup()">
-  </app-apply-candidate-popup>
+  [isModalOpen]="isModalOpen"
+  [jobName]="selectedJobName"
+  [jobUnit]="selectedJobUnit"
+  [jobId]="jobId"
+  [candidateId]="selectedCandidateId"
+  (closePopup)="closePopup()"
+  (assignmentComplete)="onAssignmentComplete($event)">
+</app-apply-candidate-popup>
 
   <app-add-new-candidate-popup
     *ngIf="isAddCandidateModalOpen"
