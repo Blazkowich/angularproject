@@ -7,7 +7,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Job } from '../../../models/jobs.model';
 import { JobService } from '../../../services/jobs.service';
-import { ApproveRejectPopupComponent } from '../../../shared/popup-windows/approve-reject-popup/approve-reject-popup.component';
+import { ApproveRejectPopupComponent } from '../../popups/approve-reject-popup/approve-reject-popup.component';
 
 @Component({
   selector: 'app-candidates-details',

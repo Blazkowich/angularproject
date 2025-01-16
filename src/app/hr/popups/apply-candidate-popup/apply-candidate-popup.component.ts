@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CandidateService } from '../../services/candidates.service';
+import { CandidateService } from '../../../services/candidates.service';
 
 @Component({
   selector: 'app-apply-candidate-popup',

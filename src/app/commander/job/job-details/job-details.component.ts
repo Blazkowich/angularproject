@@ -1,11 +1,11 @@
 import { JobMapper } from '../../../mappers/job-mapper';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { JobEditPopupComponent } from '../../../shared/popup-windows/job-edit-popup/job-edit-popup.component';
-import { CloseJobPopupComponent } from "../../../shared/popup-windows/close-job-popup/close-job-popup.component";
+import { JobEditPopupComponent } from '../../popups/job-edit-popup/job-edit-popup.component';
+import { CloseJobPopupComponent } from "../../popups/close-job-popup/close-job-popup.component";
 import { JobService } from '../../../services/jobs.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Job } from '../../../models/jobs.model';
-import { CommonModule, Location } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 
 @Component({

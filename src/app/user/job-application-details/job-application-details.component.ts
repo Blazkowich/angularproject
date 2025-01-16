@@ -1,8 +1,7 @@
 import { JobMapper } from '../../mappers/job-mapper';
-import { map } from 'rxjs';
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { ApplyVacancyPopupComponent } from '../../shared/popup-windows/apply-vacancy-popup/apply-vacancy-popup.component';
-import { CancelVacancyPopupComponent } from '../../shared/popup-windows/cancel-vacancy-popup/cancel-vacancy-popup.component';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ApplyVacancyPopupComponent } from '../popups/apply-vacancy-popup/apply-vacancy-popup.component';
+import { CancelVacancyPopupComponent } from '../popups/cancel-vacancy-popup/cancel-vacancy-popup.component';
 import { CommonModule } from '@angular/common';
 import { JobService } from '../../services/jobs.service';
 import { Router } from '@angular/router';
