@@ -2,23 +2,40 @@
   <!-- Search Section -->
   <div class="search-section position-fixed d-flex align-items-center" style="top: 0; left: 0; right: 0; background-color: white; padding: 10px 20px; z-index: 999;">
     <input
-      type="text"
-      class="form-control search-input"
-      style="direction: rtl;"
-      placeholder="Search for a role"
-      [(ngModel)]="searchQuery"
-      (input)="filterJobs()"
-    >
-    <i class="bi bi-search position-absolute"
-      style="right: 100px; top: 55%; transform: translateY(-50%);"></i>
+    type="text"
+    class="form-control search-input"
+    style="direction: rtl;"
+    placeholder="Search for a Soldier"
+    [(ngModel)]="searchQuery"
+    (input)="filterJobs()">
+  <i class="bi bi-search position-absolute"
+     style="right: 100px; top: 55%; transform: translateY(-50%);"></i>
+
+  <div class="profile-dropdown position-relative ms-3" (click)="$event.stopPropagation()">
     <img
       [src]="candidate?.imageUrl"
-      class="avatar ms-3"
+      class="avatar"
       onerror="this.src='assets/images/on.svg'"
       alt="Profile Image"
-      [routerLink]="'/job-roles'"
-    >
+      (click)="toggleProfileDropdown()"
+      style="cursor: pointer;">
+    <div class="dropdown-menu position-absolute end-0 mt-2"
+         [class.show]="isProfileDropdownOpen"
+         style="min-width: 200px;">
+      <a class="dropdown-item d-flex align-items-center gap-2"
+         [routerLink]="'/job-roles'"
+         (click)="isProfileDropdownOpen = false">
+        <i class="bi bi-briefcase"></i>
+        Job Roles
+      </a>
+      <a class="dropdown-item d-flex align-items-center gap-2"
+         (click)="Logout(); isProfileDropdownOpen = false">
+        <i class="bi bi-box-arrow-right"></i>
+        Logout
+      </a>
+    </div>
   </div>
+</div>
 
 <!-- Filter Section -->
 <div class="filter-section">
@@ -28,13 +45,6 @@
     >
     <i class="bi" [ngClass]="{'bi-chevron-down': !isNameAscending, 'bi-chevron-up': isNameAscending}"></i>
     Sort by name
-  </button>
-  <button
-    class="btn btn-link d-flex flex-column align-items-center icon-btn p-2"
-    (click)="Logout()"
-  >
-    <i class="bi bi-box-arrow-right"></i>
-    logout
   </button>
 </div>
 

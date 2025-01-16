@@ -10,12 +10,31 @@
       (input)="filterCandidates()">
     <i class="bi bi-search position-absolute"
        style="right: 100px; top: 55%; transform: translateY(-50%);"></i>
-    <img
-      [src]="currentCandidate?.imageUrl"
-      class="avatar ms-3"
-      onerror="this.src='assets/images/on.svg'"
-      alt="Profile Image"
-      [routerLink]="'/job-roles'">
+
+    <div class="profile-dropdown position-relative ms-3" (click)="$event.stopPropagation()">
+      <img
+        [src]="currentCandidate?.imageUrl"
+        class="avatar"
+        onerror="this.src='assets/images/on.svg'"
+        alt="Profile Image"
+        (click)="toggleProfileDropdown()"
+        style="cursor: pointer;">
+      <div class="dropdown-menu position-absolute end-0 mt-2"
+           [class.show]="isProfileDropdownOpen"
+           style="min-width: 200px;">
+        <a class="dropdown-item d-flex align-items-center gap-2"
+           [routerLink]="'/job-roles'"
+           (click)="isProfileDropdownOpen = false">
+          <i class="bi bi-briefcase"></i>
+          Job Roles
+        </a>
+        <a class="dropdown-item d-flex align-items-center gap-2"
+           (click)="Logout(); isProfileDropdownOpen = false">
+          <i class="bi bi-box-arrow-right"></i>
+          Logout
+        </a>
+      </div>
+    </div>
   </div>
 
   <!-- Filter Section -->

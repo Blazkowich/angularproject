@@ -1,6 +1,6 @@
 import { CandidateMapperService } from '../../mappers/candidate-mapper-commander';
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { Candidate } from '../../models/candidates.model';
@@ -12,6 +12,7 @@ import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { ApplyCandidatePopupComponent } from '../popups/apply-candidate-popup/apply-candidate-popup.component';
 import { AddNewCandidatePopupComponent } from '../popups/add-new-candidate-popup/add-new-candidate-popup.component';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-hr-candidate-page',
@@ -40,6 +41,7 @@ export class HrCandidatePageComponent implements OnInit, OnDestroy {
   selectedJobName: string | undefined;
   selectedJobUnit: string | undefined;
   selectedCandidateId: string | undefined;
+  isProfileDropdownOpen = false;
   private routerSubscription: Subscription;
 
   filteredCandidates: Candidate[] = [];
@@ -48,7 +50,8 @@ export class HrCandidatePageComponent implements OnInit, OnDestroy {
   constructor(
     private candidateService: CandidateService,
     private jobService: JobService,
-    private router: Router
+    private router: Router,
+    private loginService: LoginService
   ) {
     this.routerSubscription = this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
@@ -248,5 +251,25 @@ export class HrCandidatePageComponent implements OnInit, OnDestroy {
     this.filteredCandidates = this.candidates.filter((candidate) =>
       candidate.fullName.toLowerCase().includes(query)
     );
+  }
+
+  toggleProfileDropdown(): void {
+    this.isProfileDropdownOpen = !this.isProfileDropdownOpen;
+  }
+
+  // Optional: Close dropdown when clicking outside
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    const dropdownElement = document.querySelector('.profile-dropdown');
+    const targetElement = event.target as HTMLElement;
+
+    if (dropdownElement && !dropdownElement.contains(targetElement)) {
+      this.isProfileDropdownOpen = false;
+    }
+  }
+
+  Logout(): void {
+    this.loginService.logout();
+    this.router.navigate(['/login']);
   }
 }

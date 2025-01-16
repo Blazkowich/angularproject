@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Candidate } from '../../models/candidates.model';
 import { Job } from '../../models/jobs.model';
 import { CandidateService } from '../../services/candidates.service';
@@ -24,6 +24,7 @@ export class HrMainPageComponent implements OnInit {
   jobs: Job[] = [];
   filteredJobs: Job[] = [];
   isNameAscending = true;
+  isProfileDropdownOpen = false;
 
   constructor(
     private candidateService: CandidateService,
@@ -59,11 +60,6 @@ export class HrMainPageComponent implements OnInit {
     localStorage.setItem('jobId', jobId);
   }
 
-  Logout() {
-    this.loginService.logout();
-    this.router.navigate(['/login']);
-  }
-
   toggleSortByName(): void {
     this.isNameAscending = !this.isNameAscending;
     this.filteredJobs.sort((a, b) => {
@@ -82,6 +78,26 @@ export class HrMainPageComponent implements OnInit {
     this.filteredJobs = this.jobs.filter((job) =>
       job.jobName.toLowerCase().includes(query)
     );
+  }
+
+  toggleProfileDropdown(): void {
+    this.isProfileDropdownOpen = !this.isProfileDropdownOpen;
+  }
+
+  // Optional: Close dropdown when clicking outside
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    const dropdownElement = document.querySelector('.profile-dropdown');
+    const targetElement = event.target as HTMLElement;
+
+    if (dropdownElement && !dropdownElement.contains(targetElement)) {
+      this.isProfileDropdownOpen = false;
+    }
+  }
+
+  Logout(): void {
+    this.loginService.logout();
+    this.router.navigate(['/login']);
   }
 }
 
