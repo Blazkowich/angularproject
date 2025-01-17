@@ -25,8 +25,8 @@ export class CreateJobComponent {
     closedBase: false,
     jobDescription: '',
     additionalInfo: '',
-    commonQuestions: [''],
-    commonAnswers: [''],
+    commonQuestions: '',
+    commonAnswers: '',
     education: '',
     techSkills: '',
     workExperience: '',
@@ -143,16 +143,6 @@ export class CreateJobComponent {
     this.isPage2Completed = true;
     this.isPage3Completed = false;
     this.progressNumber = 75;
-  }
-
-  addQAPair() {
-    this.job.commonQuestions.push('');
-    this.job.commonAnswers.push('');
-  }
-
-  removeQAPair(index: number) {
-    this.job.commonQuestions.splice(index, 1);
-    this.job.commonAnswers.splice(index, 1);
   }
 
   addJob(): void {
