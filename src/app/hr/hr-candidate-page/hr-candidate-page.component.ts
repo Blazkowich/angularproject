@@ -107,7 +107,7 @@ export class HrCandidatePageComponent implements OnInit, OnDestroy {
 
     this.candidateService.getCurrentUser().subscribe({
       next: (candidate: Candidate) => {
-        this.currentCandidate = candidate;
+        this.currentCandidate = CandidateMapperService.mapVolunteerCandidateModel(candidate);
       },
       error: (error) => {
         console.error('Error loading current user:', error);
