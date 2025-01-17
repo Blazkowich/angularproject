@@ -10,6 +10,7 @@ import { HrBottomNavigationComponent } from "../hr-bottom-navigation/hr-bottom-n
 import { LoginService } from '../../services/login.service';
 import { Router } from '@angular/router';
 import { JobMapper } from '../../mappers/job-mapper';
+import { CandidateMapperService } from '../../mappers/candidate-mapper-commander';
 
 @Component({
   selector: 'app-hr-main-page',
@@ -38,7 +39,7 @@ export class HrMainPageComponent implements OnInit {
 
     this.candidateService.getCurrentUser().subscribe({
       next: (candidate: Candidate) => {
-        this.candidate = candidate;
+        this.candidate = CandidateMapperService.mapVolunteerCandidateModel(candidate);
       },
       error: (error) => {
         console.error('Error loading user:', error);

@@ -23,6 +23,7 @@
     <div class="dropdown-menu position-absolute end-0 mt-2"
          [class.show]="isProfileDropdownOpen"
          style="min-width: 200px;">
+         <h5 class="text-center">{{candidate?.fullName}}</h5>
       <a class="dropdown-item d-flex align-items-center gap-2"
          [routerLink]="'/personal-profile'"
          (click)="isProfileDropdownOpen = false">
