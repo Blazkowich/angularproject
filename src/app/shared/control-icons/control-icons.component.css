@@ -60,4 +60,12 @@
   h4 {
     font-size: 1rem;
   }
+
+  .icon-img-extended {
+    width: 44px;
+    height: 44px;
+    font-size: 20px;
+    color: black;
+    line-height: 1;
+  }
 }
