@@ -47,22 +47,20 @@ export class JobMapper {
 
   static mapJobForAdd(job: Job): any {
     return {
-        name: job.jobName,
-        description: job.jobDescription,
-        positions: job.positions,
-        category: job.jobCategory,
-        unit: job.unit,
-        address: job.address,
-        openBase: job.openBase,
-        additionalInfo: job.additionalInfo,
-        qaPairs: job.commonQuestions.map((question, index) => ({
-            question: question,
-            answer: job.commonAnswers[index] || ''
-        })),
-        workExperience: job.workExperience,
-        education: job.education,
-        passedCourses: job.passedCourses,
-        techSkills: job.techSkills
+      name: job.jobName,
+      description: job.jobDescription,
+      positions: job.positions,
+      category: job.jobCategory,
+      unit: job.unit,
+      address: job.address,
+      openBase: job.openBase,
+      additionalInfo: job.additionalInfo,
+      questions: job.commonQuestions,
+      answers: job.commonAnswers,
+      workExperience: job.workExperience,
+      education: job.education,
+      passedCourses: job.passedCourses,
+      techSkills: job.techSkills
     };
   }
 
