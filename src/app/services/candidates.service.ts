@@ -229,6 +229,17 @@ export class CandidateService {
     );
   }
 
+  downloadResume(jobId: string, userId: string): Observable<Blob> {
+    const url = `${this.commanderCandidatesUrl}/jobs/${jobId}/volunteers/${userId}/resume`;
+    return this.http.get(url, { responseType: 'blob' }).pipe(
+      catchError(error => {
+        console.error('Error downloading resume:', error);
+        return throwError(() => new Error('Unable to download resume'));
+      })
+    );
+  }
+
+
   private calculateAge(dateOfBirth: string): number {
     const birthDate = new Date(dateOfBirth);
     const today = new Date();

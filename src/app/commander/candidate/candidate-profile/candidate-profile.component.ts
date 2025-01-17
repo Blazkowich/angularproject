@@ -39,17 +39,23 @@ export class CandidateProfileComponent implements OnInit, OnDestroy {
     }
   }
 
-  downloadPdf() {
-    const fullName = this.candidate?.fullName || 'Unknown';
-    const firstName = fullName.split(' ')[0];
-    const pdfUrl = `assets/file/EmptyResume_${firstName}.pdf`;
-    const fileName = `EmptyResume_${firstName}.pdf`;
+  downloadPdf(): void {
+    if (!this.jobId || !this.candidate?.id) {
+      console.error('Job ID or Candidate ID is missing');
+      return;
+    }
 
-    console.log(fileName);
-    const anchor = document.createElement('a');
-    anchor.href = pdfUrl;
-    anchor.download = fileName;
-    anchor.click();
+    this.candidateService.downloadResume(this.jobId, this.candidate.id).subscribe({
+      next: (blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const anchor = document.createElement('a');
+        anchor.href = url;
+        anchor.download = `Resume_${this.candidate?.fullName}.pdf`;
+        anchor.click();
+        window.URL.revokeObjectURL(url);
+      },
+      error: (err) => console.error('Failed to download resume:', err),
+    });
   }
 
   getCandidate(id: string): void {
