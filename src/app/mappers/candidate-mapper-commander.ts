@@ -105,7 +105,8 @@ export class CandidateMapperService {
       area_of_interest: candidate.interests || null,
       contact_reference: null,
       profile: candidate.profile || null,
-      date_of_birth: candidate.dateOfBirth.toString(),
+      // Format the date_of_birth to YYYY-MMM-DD (e.g., 2001-Oct-29)
+      date_of_birth: this.formatDate(candidate.dateOfBirth),
       gender: candidate.gender || null,
       experience: candidate.experience || null,
       courses: candidate.courses || null,
@@ -114,6 +115,19 @@ export class CandidateMapperService {
       phone: candidate.phone || null,
       email: candidate.email || null
     };
+  }
+
+  private static formatDate(date: string): string {
+    const months = [
+      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+    ];
+
+    const d = new Date(date);
+    const year = d.getFullYear();
+    const month = months[d.getMonth()];
+    const day = d.getDate().toString().padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
   }
 
   static mapFromUpdateVolunteerResponse(response: any, existingCandidate: Candidate): Candidate {

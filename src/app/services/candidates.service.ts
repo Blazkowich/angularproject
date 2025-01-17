@@ -20,6 +20,19 @@ export class CandidateService {
   constructor(
     private http: HttpClient, private loginService: LoginService) {}
 
+  getProfileDetails(): Observable<Candidate> {
+    const url = `${this.volunteerUrl}/get-profile-details`;
+
+    return this.http.get<Candidate>(url).pipe(
+      map((response: Candidate) => {
+        return response;
+      }),
+      catchError(error => {
+        console.error('Error fetching profile details:', error);
+        return throwError(() => new Error('Unable to fetch profile details'));
+      })
+    );
+  }
 
   getCurrentUser(): Observable<Candidate> {
     return new Observable(observer => {
@@ -61,6 +74,7 @@ export class CandidateService {
 
   updateVolunteerProfile(candidate: Candidate): Observable<Candidate> {
     const userId = candidate.id;
+    console.log(candidate);
     return this.http.patch<any>(`${this.volunteerUrl}/${userId}`, candidate)
       .pipe(
         map(response => {

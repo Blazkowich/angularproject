@@ -68,7 +68,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
   private loadCurrentVolunteer(): void {
     this.isLoading = true;
-    this.candidateSub = this.candidateService.getCurrentUser().subscribe({
+    this.candidateSub = this.candidateService.getProfileDetails().subscribe({
       next: (candidate) => {
         this.candidate = CandidateMapperService.mapToCandidate(candidate);
         this.isLoading = false;
@@ -95,7 +95,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       next: (updatedCandidate) => {
         this.candidate = updatedCandidate;
         this.isLoading = false;
-        this.goBack();
+        window.location.reload();
       },
       error: (error) => {
         console.error('Failed to update profile:', error);
