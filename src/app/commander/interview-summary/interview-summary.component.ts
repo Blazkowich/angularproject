@@ -7,6 +7,8 @@ import { Candidate } from '../../models/candidates.model';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Interview } from '../../models/interview.model';
+import { Job } from '../../models/jobs.model';
+import { JobService } from '../../services/jobs.service';
 
 @Component({
   selector: 'app-interview-summary',
@@ -28,8 +30,12 @@ export class InterviewSummaryComponent implements OnInit, OnDestroy {
   showDeleteConfirmation: boolean = false;
   originalInterviewData: Partial<Interview> = {};
 
+  currentUser: Candidate | undefined;
+  currentJob: Job | undefined;
+
   constructor(
     private candidateService: CandidateService,
+    private jobService: JobService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
@@ -37,7 +43,31 @@ export class InterviewSummaryComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.candidateId = this.route.snapshot.paramMap.get('id')!;
     this.jobId = localStorage.getItem('jobId')!;
+    this.loadCurrentJob(this.jobId);
+    this.loadCurrentUser();
     this.loadInitialData();
+  }
+
+  private loadCurrentJob(currentJobId: string) {
+    this.jobService.getJobById(currentJobId).subscribe({
+      next: job => {
+        if (job) {
+          this.currentJob = job;
+          console.log(this.currentJob);
+        }
+      }
+    });
+  }
+
+  private loadCurrentUser() {
+    this.candidateService.getCurrentUser().subscribe({
+      next: user => {
+        if (user) {
+          this.currentUser = user;
+          console.log(this.currentUser);
+        }
+      }
+    });
   }
 
   private loadInitialData(): void {
@@ -119,6 +149,43 @@ export class InterviewSummaryComponent implements OnInit, OnDestroy {
     return changes;
   }
 
+  // onSave(): void {
+  //   if (!this.candidateId || !this.jobId) {
+  //     console.error('Missing required IDs');
+  //     return;
+  //   }
+
+  //   const interviewData: Interview = {
+  //     candidateId: this.candidateId,
+  //     jobId: this.jobId,
+  //     interviewNotes: this.interviewNotes,
+  //     interviewDate: this.interviewDate,
+  //     automaticMessage: this.automaticMessage,
+  //     status: this.interview?.status || 'Pending',
+  //     fullName: this.candidate?.fullName || '',
+  //     email: this.candidate?.email || '',
+  //   };
+
+  //   if (this.isInterviewScheduled) {
+  //     const updatedInterview = this.getChangedFields();
+  //     if (Object.keys(this.getChangedFieldsData()).length > 0) {
+  //       this.candidateService.updateInterview(updatedInterview, this.jobId, this.candidateId).subscribe({
+  //         next: updatedInterview => {
+  //           this.router.navigate([`job-details/${this.jobId}/candidates/preferred`]);
+  //         },
+  //         error: err => console.error('Error updating interview:', err)
+  //       });
+  //     }
+  //   } else {
+  //     this.candidateService.saveInterview(interviewData, this.jobId, this.candidateId).subscribe({
+  //       next: newInterview => {
+  //         this.router.navigate([`job-details/${this.jobId}/candidates/preferred`]);
+  //       },
+  //       error: err => console.error('Error adding new interview:', err)
+  //     });
+  //   }
+  // }
+
   onSave(): void {
     if (!this.candidateId || !this.jobId) {
       console.error('Missing required IDs');
@@ -136,11 +203,22 @@ export class InterviewSummaryComponent implements OnInit, OnDestroy {
       email: this.candidate?.email || '',
     };
 
+    const interviewEmailData = {
+      candidate_email: this.candidate?.email || '',
+      commander_email: this.currentUser?.email || '',
+      job_title: this.currentJob?.jobName || '',
+      interview_time: this.interviewDate || '',
+      candidate_name: this.candidate?.fullName || '',
+      commander_name: this.currentUser?.fullName || '',
+      additional_info: this.automaticMessage || '',
+    };
+
     if (this.isInterviewScheduled) {
       const updatedInterview = this.getChangedFields();
       if (Object.keys(this.getChangedFieldsData()).length > 0) {
         this.candidateService.updateInterview(updatedInterview, this.jobId, this.candidateId).subscribe({
           next: updatedInterview => {
+            this.candidateService.sendInterviewData(interviewEmailData);
             this.router.navigate([`job-details/${this.jobId}/candidates/preferred`]);
           },
           error: err => console.error('Error updating interview:', err)
@@ -149,6 +227,7 @@ export class InterviewSummaryComponent implements OnInit, OnDestroy {
     } else {
       this.candidateService.saveInterview(interviewData, this.jobId, this.candidateId).subscribe({
         next: newInterview => {
+          this.candidateService.sendInterviewData(interviewEmailData);
           this.router.navigate([`job-details/${this.jobId}/candidates/preferred`]);
         },
         error: err => console.error('Error adding new interview:', err)

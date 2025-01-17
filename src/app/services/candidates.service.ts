@@ -161,6 +161,23 @@ export class CandidateService {
     return this.http.delete<void>(`${this.commanderCandidatesUrl}/jobs/${jobId}/volunteers/${candidateId}/interviews`);
   }
 
+  sendInterviewData(interviewData: any): void {
+    const url = `${this.commanderCandidatesUrl}/send-interview-invitation`;
+    this.http.post(url, interviewData).pipe(
+      catchError(error => {
+        console.error('Error sending interview invitation:', error);
+        return throwError(() => new Error('Unable to send interview invitation'));
+      })
+    ).subscribe({
+      next: response => {
+        console.log('Interview invitation sent successfully:', response);
+      },
+      error: err => {
+        console.error('Error sending interview invitation:', err);
+      }
+    });
+  }
+
   assignVolunteerToJob(volunteerId: string, jobId: string): Observable<any> {
     const url = `${this.hrUrl}/assignments`;
     const payload = {

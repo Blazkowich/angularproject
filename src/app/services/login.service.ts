@@ -29,6 +29,9 @@ export class LoginService {
             if (response.role === 'hr' && response.user) {
               this.setCurrentUser(response.user);
             }
+            if (response.role === 'commander' && response.user) {
+              this.setCurrentUser(response.user);
+            }
           }
         })
       );
