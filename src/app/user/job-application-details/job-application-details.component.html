@@ -66,9 +66,14 @@
 
     <!-- Frequently Asked Questions Content -->
     <div [ngClass]="{'fade-in': activeTab === 'faq'}" *ngIf="activeTab === 'faq'">
-      <div class="mb-3 justify-content-center text-center">
-        <h6>{{job?.commonQuestions}}</h6>
-        <p>{{ job?.commonAnswers }}</p>
+      <div class="mb-3 justify-content-center">
+        <div *ngFor="let question of job?.commonQuestions; let i = index" class="mb-4 text-center">
+          <h6 class="question-title">{{question}}</h6>
+          <p class="answer-text">{{job?.commonAnswers?.[i]}}</p>
+        </div>
+        <div *ngIf="!job?.commonQuestions?.length" class="text-center">
+          <p>No FAQ available for this position.</p>
+        </div>
       </div>
     </div>
   </div>

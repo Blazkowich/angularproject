@@ -3,7 +3,10 @@
   <div class="d-flex justify-content-center align-items-center mb-3" style="font-weight: bold;">
     <span class="text-muted">interview | {{ candidate?.fullName }}</span>
   </div>
-
+  <div *ngIf="interviewDate" class="mb-3 text-center">
+    <h6>Interview Scheduled For:</h6>
+    <p>{{ interviewDate | date: 'medium' }}</p>
+  </div>
   <div class="card mb-4" style="height: 120px;">
     <div class="card-body d-flex align-items-center justify-content-end">
       <div class="me-2 text-end">
@@ -21,6 +24,19 @@
     </div>
   </div>
 
+  <!-- Cancel/Delete Confirmation Modal -->
+  <div *ngIf="showDeleteConfirmation" class="modal-overlay">
+    <div class="modal-content">
+      <h4>Cancel Interview</h4>
+      <p>Do you want to reset the form or delete this interview?</p>
+      <div class="d-flex justify-content-end gap-2">
+        <button class="btn btn-danger" (click)="onDeleteConfirm()">Delete Interview</button>
+        <button class="btn btn-secondary" (click)="onCancel()">Reset Form</button>
+        <button class="btn btn-outline-secondary" (click)="onDeleteCancel()">Close</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Interview Notes -->
   <div class="form-group mb-4">
     <textarea
@@ -34,7 +50,7 @@
     ></textarea>
   </div>
 
-  <!-- Right-aligned Section (Interview Date, Automatic Message, Buttons) -->
+  <!-- Right-aligned Section -->
   <div class="right-aligned-section">
     <div class="form-group mb-4 interviewDate">
       <label for="interviewDate">Interview Date</label>
@@ -59,7 +75,14 @@
       ></textarea>
     </div>
 
-    <button class="btn btn-primary w-100" (click)="onSave()">Save</button>
-    <button class="btn btn-secondary w-100" (click)="goBack()">Back</button>
+    <div class="d-flex justify-content-end gap-2">
+      <button class="btn btn-primary" (click)="onSave()">
+        {{ isInterviewScheduled ? 'Update' : 'Save' }}
+      </button>
+      <button *ngIf="isInterviewScheduled" class="btn btn-secondary" (click)="onDeleteClick()">
+        Cancel
+      </button>
+      <button class="btn btn-outline-secondary" (click)="goBack()">Back</button>
+    </div>
   </div>
 </div>

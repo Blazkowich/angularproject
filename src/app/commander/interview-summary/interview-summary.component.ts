@@ -24,88 +24,173 @@ export class InterviewSummaryComponent implements OnInit, OnDestroy {
   candidateId: string | undefined;
   jobId: string | undefined;
   interview: Interview | undefined;
+  isInterviewScheduled: boolean = false;
+  showDeleteConfirmation: boolean = false;
+  originalInterviewData: Partial<Interview> = {};
 
   constructor(
     private candidateService: CandidateService,
     private route: ActivatedRoute,
-    private router: Router){}
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.candidateId = this.route.snapshot.paramMap.get('id')!;
     this.jobId = localStorage.getItem('jobId')!;
-    this.getInterview(this.candidateId, this.jobId);
-    if (this.candidateId) {
-      this.candidateSub = this.candidateService.getCommanderCandidateById(this.candidateId).subscribe({
-        next: candidate => {
-          this.candidate = CandidateMapperService.mapCommanderCandidateForProfile(candidate);
-        }
-      });
-    } else {
-      console.log('Candidate ID not found');
+    this.loadInitialData();
+  }
+
+  private loadInitialData(): void {
+    if (!this.candidateId || !this.jobId) {
+      console.error('Missing required IDs');
+      return;
     }
-  }
 
-  getCandidate(id: string): void {
-    this.candidateService.getCandidateById(id).subscribe({
-      next: candidate => this.candidate = candidate
+    this.candidateSub = this.candidateService.getCommanderCandidateById(this.candidateId).subscribe({
+      next: candidate => {
+        this.candidate = CandidateMapperService.mapCommanderCandidateForProfile(candidate);
+        this.getInterview(this.candidateId!, this.jobId!);
+      },
+      error: err => console.error('Error loading candidate:', err)
     });
-  }
-
-  goBack() {
-    this.router.navigate([`job-details/${this.jobId}/candidates/preferred`]);
   }
 
   getInterview(candidateId: string, jobId: string): void {
     this.candidateService.getInterview(jobId, candidateId).subscribe({
       next: interview => {
         if (interview) {
-          this.interviewNotes = interview.interviewNotes || '';
-          this.interviewDate = interview.interviewDate || null;
-          this.automaticMessage = interview.automaticMessage || '';
           this.interview = interview;
+          this.interviewNotes = interview.interviewNotes || '';
+          this.interviewDate = interview.interviewDate ? new Date(interview.interviewDate) : null;
+          this.automaticMessage = interview.automaticMessage || '';
+          this.isInterviewScheduled = true;
+
+          this.originalInterviewData = {
+            interviewNotes: this.interviewNotes,
+            interviewDate: this.interviewDate,
+            automaticMessage: this.automaticMessage
+          };
         } else {
-          console.log('No interview found for the given candidate and job');
+          this.isInterviewScheduled = false;
         }
       },
       error: err => {
-        console.error('Error fetching interview:', err);
+        console.error('Unexpected error fetching interview:', err);
       }
     });
   }
 
-  onSave(): void {
-    const interviewData: Interview = {
+
+  private hasChanges(): boolean {
+    return this.interviewNotes !== this.originalInterviewData.interviewNotes ||
+           this.interviewDate !== this.originalInterviewData.interviewDate ||
+           this.automaticMessage !== this.originalInterviewData.automaticMessage;
+  }
+
+  private getChangedFields(): Interview {
+    // Create a complete Interview object with all required fields
+    return {
       candidateId: this.candidateId!,
       jobId: this.jobId!,
       interviewNotes: this.interviewNotes,
       interviewDate: this.interviewDate,
       automaticMessage: this.automaticMessage,
-      status: this.interview ? this.interview.status : 'Pending',
-      fullName: this.candidate?.fullName!,
-      email: this.candidate?.email!,
+      status: this.interview?.status || 'Pending',
+      fullName: this.candidate?.fullName || '',
+      email: this.candidate?.email || '',
+      // Include only the changed fields in the actual data sent to the server
+      ...this.getChangedFieldsData()
+    };
+  }
+
+  private getChangedFieldsData(): Partial<Interview> {
+    const changes: Partial<Interview> = {};
+
+    if (this.interviewNotes !== this.originalInterviewData.interviewNotes) {
+      changes.interviewNotes = this.interviewNotes;
+    }
+    if (this.interviewDate !== this.originalInterviewData.interviewDate) {
+      changes.interviewDate = this.interviewDate;
+    }
+    if (this.automaticMessage !== this.originalInterviewData.automaticMessage) {
+      changes.automaticMessage = this.automaticMessage;
+    }
+
+    return changes;
+  }
+
+  onSave(): void {
+    if (!this.candidateId || !this.jobId) {
+      console.error('Missing required IDs');
+      return;
+    }
+
+    const interviewData: Interview = {
+      candidateId: this.candidateId,
+      jobId: this.jobId,
+      interviewNotes: this.interviewNotes,
+      interviewDate: this.interviewDate,
+      automaticMessage: this.automaticMessage,
+      status: this.interview?.status || 'Pending',
+      fullName: this.candidate?.fullName || '',
+      email: this.candidate?.email || '',
     };
 
-    if (this.interview) {
-      this.candidateService.updateInterview(interviewData, this.jobId!, this.candidateId!).subscribe({
-        next: updatedInterview => {
-          console.log('Interview updated successfully', updatedInterview);
-          this.router.navigate([`job-details/${this.jobId}/candidates/preferred`]);
-        },
-        error: err => {
-          console.error('Error updating interview:', err);
-        }
-      });
+    if (this.isInterviewScheduled) {
+      const updatedInterview = this.getChangedFields();
+      if (Object.keys(this.getChangedFieldsData()).length > 0) {
+        this.candidateService.updateInterview(updatedInterview, this.jobId, this.candidateId).subscribe({
+          next: updatedInterview => {
+            this.router.navigate([`job-details/${this.jobId}/candidates/preferred`]);
+          },
+          error: err => console.error('Error updating interview:', err)
+        });
+      }
     } else {
-      this.candidateService.saveInterview(interviewData, this.jobId!, this.candidateId!).subscribe({
+      this.candidateService.saveInterview(interviewData, this.jobId, this.candidateId).subscribe({
         next: newInterview => {
-          console.log('New interview added successfully', newInterview);
           this.router.navigate([`job-details/${this.jobId}/candidates/preferred`]);
         },
-        error: err => {
-          console.error('Error adding new interview:', err);
-        }
+        error: err => console.error('Error adding new interview:', err)
       });
     }
+  }
+
+  onCancel(): void {
+    if (this.isInterviewScheduled) {
+      this.interviewNotes = this.originalInterviewData.interviewNotes || '';
+      this.interviewDate = this.originalInterviewData.interviewDate || null;
+      this.automaticMessage = this.originalInterviewData.automaticMessage || '';
+    }
+  }
+
+  onDeleteClick(): void {
+    this.showDeleteConfirmation = true;
+  }
+
+  onDeleteConfirm(): void {
+    if (!this.candidateId || !this.jobId) {
+      console.error('Missing required IDs');
+      return;
+    }
+
+    this.candidateService.deleteInterview(this.jobId, this.candidateId).subscribe({
+      next: () => {
+        this.router.navigate([`job-details/${this.jobId}/candidates/preferred`]);
+      },
+      error: err => {
+        console.error('Error deleting interview:', err);
+        this.showDeleteConfirmation = false;
+      }
+    });
+  }
+
+  onDeleteCancel(): void {
+    this.showDeleteConfirmation = false;
+  }
+
+  goBack(): void {
+    this.router.navigate([`job-details/${this.jobId}/candidates/preferred`]);
   }
 
   ngOnDestroy(): void {
