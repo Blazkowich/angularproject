@@ -95,4 +95,26 @@ export class LoginService {
       window.location.reload();
     }
   }
+
+  requestPasswordReset(email: string): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/api/auth/reset-password`, { email })
+      .pipe(
+        tap(response => {
+          console.log('Password reset email sent');
+        })
+      );
+  }
+
+  resetPassword(token: string, newPassword: string): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/api/auth/reset-password/confirm`, {
+      token,
+      newPassword
+    }).pipe(
+      tap(() => {
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('userRole');
+        localStorage.removeItem('currentUser');
+      })
+    );
+  }
 }

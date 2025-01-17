@@ -3,11 +3,12 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginService } from '../services/login.service';
+import { RestorePasswordPopupComponent } from '../forgot-password-components/restore-password-popup/restore-password-popup.component';
 
 @Component({
   selector: 'login-component',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RestorePasswordPopupComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -15,6 +16,7 @@ export class LoginComponent {
   username: string = '';
   password: string = '';
   errorMessage: string = '';
+  showRestorePassword: boolean = false;
 
   constructor(private router: Router, private loginService: LoginService) {}
 
@@ -34,6 +36,22 @@ export class LoginComponent {
       (error) => {
         console.error('Login failed:', error);
         this.errorMessage = 'Invalid username or password';
+      }
+    );
+  }
+
+  onForgotPasswordClick(event: Event) {
+    event.preventDefault();
+    this.showRestorePassword = true;
+  }
+
+  handlePasswordReset(email: string) {
+    this.loginService.requestPasswordReset(email).subscribe(
+      () => {
+        this.showRestorePassword = false;
+      },
+      (error) => {
+        console.error('Password reset request failed:', error);
       }
     );
   }

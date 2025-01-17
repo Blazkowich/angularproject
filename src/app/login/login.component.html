@@ -22,7 +22,7 @@
 
         <!-- Forgot Password -->
         <div class="text-center mb-4">
-          <a href="#" class="text-decoration-none fw-bold" style="color: #6B4EFF;">Forgot Password?</a>
+          <a href="" class="text-decoration-none fw-bold" style="color: #6B4EFF;" (click)="onForgotPasswordClick($event)">Forgot Password?</a>
         </div>
 
         <!-- Login Button -->
@@ -38,3 +38,10 @@
     </div>
   </div>
 </div>
+
+<!-- Restore Password Popup -->
+<app-restore-password-popup
+  *ngIf="showRestorePassword"
+  (close)="showRestorePassword = false"
+  (submit)="handlePasswordReset($event)">
+</app-restore-password-popup>
