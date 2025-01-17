@@ -39,6 +39,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   candidateSub: Subscription | undefined;
   isLoading = false;
   errorMessage = '';
+  isPreviewOpen: boolean = false;
 
   constructor(
     private candidateService: CandidateService,
@@ -47,6 +48,22 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loadCurrentVolunteer();
+  }
+
+  openPreview(event: MouseEvent): void {
+    event.stopPropagation();
+    this.isPreviewOpen = true;
+  }
+
+  closePreview(event: MouseEvent): void {
+    event.stopPropagation();
+    this.isPreviewOpen = false;
+  }
+
+  closePreviewOnClickOutside(event: MouseEvent): void {
+    if (this.isPreviewOpen) {
+      this.isPreviewOpen = false;
+    }
   }
 
   private loadCurrentVolunteer(): void {

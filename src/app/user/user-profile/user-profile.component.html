@@ -13,14 +13,15 @@
                  [src]="candidate.imageUrl"
                  alt="Profile picture"
                  onerror="this.src='assets/images/on.svg'"
-                 (click)="goBack()">
-            <div class="profile-preview">
+                 (click)="openPreview($event)">
+            <div class="profile-preview" *ngIf="isPreviewOpen" (click)="closePreview($event)">
               <img [src]="candidate.imageUrl"
                    alt="Profile preview"
                    onerror="this.src='assets/images/on.svg'">
             </div>
           </div>
         </div>
+
       </div>
 
       <!-- Personal Info -->

@@ -82,18 +82,18 @@ body {
   transition: opacity 0.3s ease, visibility 0.3s;
 }
 
-.profile-image:hover + .profile-preview,
-.profile-preview:hover {
-  opacity: 1;
-  visibility: visible;
-}
-
 .profile-preview img {
   max-width: 80vw;
   max-height: 80vh;
   border-radius: 8px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
   object-fit: contain;
+}
+
+/* When preview is open */
+.profile-preview {
+  opacity: 1;
+  visibility: visible;
 }
 
 .name-and-id {
