@@ -1,9 +1,16 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-12">
-      <h4 class="text-center" style="color: white;">{{ candidate?.fullName }}</h4>
+      <h4 class="text-center full_name">{{ candidate?.fullName }}</h4>
       <!-- Icon Buttons Container - Added mt-2 for 10px top margin -->
       <div class="d-flex justify-content-center align-items-center gap-5 sticky-top pt-4 mt-4">
+        <!-- Home Button -->
+        <button class="btn btn-link d-flex flex-column align-items-center icon-btn p-2" [routerLink]="'/open-jobs'">
+          <div class="icon-circle-home">
+            <img src="/assets/images/on.svg" alt="new" class="icon-img-extended-home">
+          </div>
+          <h4 class="text-white fw-light mt-4 mb-0" style="font-family: 'Heebo', sans-serif;">home</h4>
+        </button>
         <!-- New Button -->
         <button class="btn btn-link d-flex flex-column align-items-center icon-btn p-2" [routerLink]="'/create-job'">
           <img src="/assets/images/new.svg" alt="new" class="icon-img">
