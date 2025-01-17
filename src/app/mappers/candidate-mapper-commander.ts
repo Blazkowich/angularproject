@@ -91,7 +91,7 @@ export class CandidateMapperService {
       interests: response.interests || '',
       personalSummary: response.personal_summary || '',
       jobStatuses: {},
-      imageUrl: ''
+      imageUrl: response.imageUrl || '',
     };
   }
 
@@ -162,7 +162,7 @@ export class CandidateMapperService {
       interests: input?.interests || '',
       personalSummary: input?.personal_summary || '',
       jobStatuses: {},
-      imageUrl: '',
+      imageUrl: input.imageUrl || '',
     };
   }
 
