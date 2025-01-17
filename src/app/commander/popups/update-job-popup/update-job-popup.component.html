@@ -38,6 +38,34 @@
             <label for="candidateCount">Number of Candidates</label>
             <input type="number" class="form-control" id="candidateCount" [(ngModel)]="job.positions" name="candidateCount" required>
           </div>
+          <div class="mb-3">
+            <label class="form-label h6">Common Questions and Answers</label>
+            <div *ngFor="let question of job.commonQuestions; let i = index" class="mb-2">
+              <div class="input-group">
+                <input type="text"
+                       class="form-control mb-2"
+                       [(ngModel)]="job.commonQuestions[i]"
+                       placeholder="Common Question"
+                       [name]="'question' + i">
+                <input type="text"
+                       class="form-control mb-2"
+                       [(ngModel)]="job.commonAnswers[i]"
+                       placeholder="Common Answer"
+                       [name]="'answer' + i">
+                <button class="btn btn-danger override-width"
+                        type="button"
+                        (click)="removeQAPair(i)"
+                        *ngIf="job.commonQuestions.length > 1">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </div>
+            </div>
+            <button class="btn btn-secondary"
+                    type="button"
+                    (click)="addQAPair()">
+              <i class="bi bi-plus"></i> Add Question & Answer
+            </button>
+          </div>
           <button type="submit" class="btn btn-primary">Save Changes</button>
         </form>
       </div>

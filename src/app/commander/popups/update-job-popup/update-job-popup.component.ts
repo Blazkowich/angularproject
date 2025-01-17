@@ -24,4 +24,18 @@ export class UpdateJobPopupComponent {
   close() {
     this.closePopupEvent.emit();
   }
+
+  addQAPair() {
+    if (this.job) {
+      this.job.commonQuestions.push('');
+      this.job.commonAnswers.push('');
+    }
+  }
+
+  removeQAPair(index: number) {
+    if (this.job) {
+      this.job.commonQuestions.splice(index, 1);
+      this.job.commonAnswers.splice(index, 1);
+    }
+  }
 }
