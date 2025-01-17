@@ -97,6 +97,7 @@
                     (input)="validateSecondPageFields()"
                     name="jobDescription"></textarea>
         </div>
+
         <div class="mb-3">
           <label class="form-label h6">Additional Information</label>
           <textarea class="form-control"
@@ -108,22 +109,18 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label h6">Common Questions</label>
-          <textarea class="form-control"
-                    [(ngModel)]="job.commonQuestions"
-                    rows="5"
-                    placeholder="Enter common questions (separate with '|')">
-          </textarea>
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label h6">Common Answers</label>
-          <textarea class="form-control"
-                    [(ngModel)]="job.commonAnswers"
-                    rows="5"
-                    placeholder="Enter common answers (separate with '|')">
-          </textarea>
-        </div>
+          <label class="form-label h6">Common Questions and Answers</label>
+          <input type="text"
+                 class="form-control mb-2"
+                 [(ngModel)]="job.commonQuestions"
+                 placeholder="Common Questions"
+                 name="commonQuestions">
+          <input type="text"
+                 class="form-control"
+                 [(ngModel)]="job.commonAnswers"
+                 placeholder="Common Answers"
+                 name="commonAnswers">
+          </div>
       </form>
     </div>
   </div>

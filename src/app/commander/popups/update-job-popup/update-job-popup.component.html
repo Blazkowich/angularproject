@@ -38,6 +38,14 @@
             <label for="candidateCount">Number of Candidates</label>
             <input type="number" class="form-control" id="candidateCount" [(ngModel)]="job.positions" name="candidateCount" required>
           </div>
+          <div class="form-group">
+            <label for="commonQuestions">Question</label>
+            <input type="text" class="form-control" id="commonQuestions" [(ngModel)]="job.commonQuestions" name="commonQuestions" required>
+          </div>
+          <div class="form-group">
+            <label for="commonAnswers">Answer</label>
+            <input type="text" class="form-control" id="commonAnswers" [(ngModel)]="job.commonAnswers" name="commonAnswers" required>
+          </div>
           <button type="submit" class="btn btn-primary">Save Changes</button>
         </form>
       </div>
