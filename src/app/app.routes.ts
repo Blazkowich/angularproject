@@ -15,10 +15,11 @@ import { JobApplicationDetailsComponent } from './user/job-application-details/j
 import { HrMainPageComponent } from './hr/hr-main-page/hr-main-page.component';
 import { HrCandidatePageComponent } from './hr/hr-candidate-page/hr-candidate-page.component';
 import { HrJobDetailsComponent } from './hr/hr-job-details/hr-job-details.component';
+import { LoginGuard } from './shared/auth/login.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent },
+  { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
   //Commander
   { path: 'open-jobs', component: MainPageComponent, canActivate: [MainGuard], data: { role: 'commander' } },
   { path: 'create-job', component: CreateJobComponent, canActivate: [MainGuard], data: { role: 'commander' } },

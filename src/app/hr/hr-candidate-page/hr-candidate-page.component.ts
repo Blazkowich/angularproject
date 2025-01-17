@@ -216,6 +216,7 @@ export class HrCandidatePageComponent implements OnInit, OnDestroy {
   closeAddCandidatePopup(): void {
     this.isAddCandidateModalOpen = false;
     this.loadCandidates();
+    window.location.reload();
   }
 
   onCandidateAdded(): void {
