@@ -1,3 +1,6 @@
+.container-fluid {
+  margin-top: -20px;
+}
 .icon-btn {
   background: none;
   border: none;
