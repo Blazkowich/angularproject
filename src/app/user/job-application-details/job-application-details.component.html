@@ -30,11 +30,6 @@
       <p>{{ job?.jobDescription }}</p>
 
       <div class="mb-3">
-        <h6 class="mb-1">It is important that they know</h6>
-        <p>{{ job?.additionalInfo }}</p>
-      </div>
-
-      <div class="mb-3">
         <h6>Work experience</h6>
         <p>{{ job?.workExperience }}</p>
       </div>
@@ -54,6 +49,11 @@
         <p>{{ job?.techSkills }}</p>
       </div>
 
+      <div class="mb-3">
+        <h6 class="mb-1">Additional Info</h6>
+        <p>{{ job?.additionalInfo }}</p>
+      </div>
+
       <div class="text-center">
         <button
           class="btn"
@@ -66,45 +66,9 @@
 
     <!-- Frequently Asked Questions Content -->
     <div [ngClass]="{'fade-in': activeTab === 'faq'}" *ngIf="activeTab === 'faq'">
-      <div class="mb-3">
-        <h6>Is prior experience in UX design necessary?</h6>
-        <p>
-          Advantage if you have a basic background in design or design software,
-          we are looking for creativity and the ability to learn quickly.
-        </p>
-      </div>
-
-      <div class="mb-3">
-        <h6>What are the requirements for the role?</h6>
-        <p>
-          Basic understanding of user experience and a desire to learn.
-          Ability to work in a team and communicate well with others.
-          A creative approach and problem-solving mindset.
-        </p>
-      </div>
-
-      <div class="mb-3">
-        <h6>Will I receive training in the role?</h6>
-        <p>
-          Yes, you will receive training, mentoring, and professional guidance
-          that will help you acquire the knowledge and skills required for the role.
-        </p>
-      </div>
-
-      <div class="mb-3">
-        <h6>What does a day in this role look like?</h6>
-        <p>
-          Working on screen design for applications or websites, collaborating with
-          developers and product managers, and collecting feedback from users.
-        </p>
-      </div>
-
-      <div class="mb-3">
-        <h6>What are the challenges expected in the role?</h6>
-        <p>
-          Quick learning of design principles and interfaces, and the ability to balance
-          user requirements with the requirements of the technical team.
-        </p>
+      <div class="mb-3 justify-content-center text-center">
+        <h6>{{job?.commonQuestions}}</h6>
+        <p>{{ job?.commonAnswers }}</p>
       </div>
     </div>
   </div>

@@ -9,8 +9,8 @@ export interface Job {
   closedBase: boolean;
   jobDescription: string;
   additionalInfo: string;
-  commonQuestions: string;
-  commonAnswers: string;
+  commonQuestions: string[];
+  commonAnswers: string[];
   education: string;
   techSkills: string;
   workExperience: string;

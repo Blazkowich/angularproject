@@ -33,7 +33,7 @@ export class JobApplicationDetailsComponent implements OnInit {
     if (this.jobId) {
       this.jobService.getJobById(this.jobId).subscribe({
         next: (job: Job) => {
-          this.job = JobMapper.mapJobResponse(job);
+          this.job = JobMapper.mapJobForVolunteerJobDetailsPage(job);
         },
         error: (err) => {
           console.error('Error fetching job details:', err);
