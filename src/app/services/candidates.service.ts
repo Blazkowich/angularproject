@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { catchError, map, Observable, throwError } from 'rxjs';
+import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { Candidate } from '../models/candidates.model';
 import { environment } from '../../environments/environment';
 import { CandidateMapperService } from '../mappers/candidate-mapper-commander';
@@ -118,11 +118,19 @@ export class CandidateService {
     return this.http.put<Candidate>(`/api/candidates/${candidate.id}`, candidate);
   }
 
-  getInterview(jobId: string, volunteerId: string): Observable<Interview> {
+  getInterview(jobId: string, volunteerId: string): Observable<Interview | null> {
     const url = `${this.commanderCandidatesUrl}/jobs/${jobId}/volunteers/${volunteerId}/interviews`;
     return this.http.get<any>(url).pipe(
-      map(response => InterviewMapper.mapToInterviewModel(response)),
+      map(response => {
+        if (!response) {
+          return null;
+        }
+        return InterviewMapper.mapToInterviewModel(response);
+      }),
       catchError(error => {
+        if (error.status === 404) {
+          return of(null);
+        }
         console.error(`Error fetching interview for jobId ${jobId} and volunteerId ${volunteerId}:`, error);
         return throwError(() => new Error('Unable to fetch interview'));
       })
@@ -149,8 +157,11 @@ export class CandidateService {
     );
   }
 
+  deleteInterview(jobId: string, candidateId: string): Observable<void> {
+    return this.http.delete<void>(`${this.commanderCandidatesUrl}/jobs/${jobId}/volunteers/${candidateId}/interviews`);
+  }
+
   assignVolunteerToJob(volunteerId: string, jobId: string): Observable<any> {
-    console.log('jobid',jobId, 'volId',volunteerId);
     const url = `${this.hrUrl}/assignments`;
     const payload = {
       volunteer_id: volunteerId,
@@ -159,7 +170,6 @@ export class CandidateService {
 
     return this.http.post<any>(url, payload).pipe(
       map(response => {
-        console.log(response.message)
         return {
           success: true,
           applicationId: response.application_id,
