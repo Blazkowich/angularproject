@@ -1,6 +1,13 @@
 <div class="container" style="min-width: 100%;">
 <!-- Search Section -->
 <div class="search-section position-fixed d-flex align-items-center" style="top: 0; left: 0; right: 0; background-color: white; padding: 10px 20px; z-index: 999;">
+  <img
+      [src]="'assets/images/on.svg'"
+      class="main-avatar"
+      onerror="this.src='assets/images/on.svg'"
+      alt="Main Image"
+      [routerLink]="'/roles'"
+      >
   <input
     type="text"
     class="form-control search-input"

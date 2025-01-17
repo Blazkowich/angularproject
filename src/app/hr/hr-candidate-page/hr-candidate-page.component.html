@@ -1,6 +1,13 @@
 <div class="container" style="min-width: 100%;">
   <!-- Search Section -->
   <div class="search-section position-fixed d-flex align-items-center" style="top: 0; left: 0; right: 0; background-color: white; padding: 10px 20px; z-index: 999;">
+    <img
+    [src]="'assets/images/on.svg'"
+    class="main-avatar"
+    onerror="this.src='assets/images/on.svg'"
+    alt="Main Image"
+    [routerLink]="'/job-roles'"
+    >
     <input
       type="text"
       class="form-control search-input"
@@ -23,12 +30,6 @@
            [class.show]="isProfileDropdownOpen"
            style="min-width: 200px;">
         <h5 class="text-center">{{currentCandidate?.fullName}}</h5>
-        <a class="dropdown-item d-flex align-items-center gap-2"
-           [routerLink]="'/job-roles'"
-           (click)="isProfileDropdownOpen = false">
-          <i class="bi bi-briefcase"></i>
-          Job Roles
-        </a>
         <a class="dropdown-item d-flex align-items-center gap-2"
            (click)="Logout(); isProfileDropdownOpen = false">
           <i class="bi bi-box-arrow-right"></i>
