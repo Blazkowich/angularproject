@@ -8,6 +8,7 @@ import { Interview } from '../models/interview.model';
 import { InterviewMapper } from '../mappers/interview-mapper';
 import { LoginService } from './login.service';
 import { CreateCandidateRequest } from '../models/createCandidate.model';
+import { InterviewInvitationEmail } from '../models/interviewInvitation.model';
 
 @Injectable({
   providedIn: 'root',
@@ -159,6 +160,23 @@ export class CandidateService {
 
   deleteInterview(jobId: string, candidateId: string): Observable<void> {
     return this.http.delete<void>(`${this.commanderCandidatesUrl}/jobs/${jobId}/volunteers/${candidateId}/interviews`);
+  }
+
+  sendInterviewData(interviewEmailData: InterviewInvitationEmail): void {
+    const url = `${this.commanderCandidatesUrl}/send-interview-invitation`;
+    this.http.post(url, interviewEmailData).pipe(
+      catchError(error => {
+        console.error('Error sending interview invitation:', error);
+        return throwError(() => new Error('Unable to send interview invitation'));
+      })
+    ).subscribe({
+      next: response => {
+        console.log('Interview invitation sent successfully:', response);
+      },
+      error: err => {
+        console.error('Error sending interview invitation:', err);
+      }
+    });
   }
 
   assignVolunteerToJob(volunteerId: string, jobId: string): Observable<any> {

@@ -7,6 +7,8 @@ import { Candidate } from '../../models/candidates.model';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Interview } from '../../models/interview.model';
+import { Job } from '../../models/jobs.model';
+import { JobService } from '../../services/jobs.service';
 
 @Component({
   selector: 'app-interview-summary',
@@ -22,7 +24,9 @@ export class InterviewSummaryComponent implements OnInit, OnDestroy {
   candidateSub: Subscription | undefined;
   candidate: Candidate | undefined;
   candidateId: string | undefined;
+  currentUser: Candidate | undefined;
   jobId: string | undefined;
+  job: Job | undefined;
   interview: Interview | undefined;
   isInterviewScheduled: boolean = false;
   showDeleteConfirmation: boolean = false;
@@ -30,6 +34,7 @@ export class InterviewSummaryComponent implements OnInit, OnDestroy {
 
   constructor(
     private candidateService: CandidateService,
+    private jobService: JobService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
@@ -37,6 +42,7 @@ export class InterviewSummaryComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.candidateId = this.route.snapshot.paramMap.get('id')!;
     this.jobId = localStorage.getItem('jobId')!;
+    this.getCurrentUser();
     this.loadInitialData();
   }
 
@@ -53,6 +59,28 @@ export class InterviewSummaryComponent implements OnInit, OnDestroy {
       },
       error: err => console.error('Error loading candidate:', err)
     });
+  }
+
+  getCurrentUser() {
+    this.candidateService.getCurrentUser().subscribe({
+      next: currentUser => {
+        if (currentUser) {
+          this.currentUser = currentUser;
+          console.log(currentUser);
+        }
+      }
+    })
+  }
+
+  getCurrentJob(jobId: string) {
+    this.jobService.getJobById(jobId).subscribe({
+      next: currentJob => {
+        if (currentJob) {
+          this.job = currentJob;
+          console.log(this.job);
+        }
+      }
+    })
   }
 
   getInterview(candidateId: string, jobId: string): void {
@@ -125,6 +153,16 @@ export class InterviewSummaryComponent implements OnInit, OnDestroy {
       return;
     }
 
+    const interviewEmailData = {
+      candidate_email: this.candidate?.email || '',
+      commander_email: this.currentUser?.email || '',
+      job_title: this.job?.jobName || '',
+      interview_time: this.interviewDate ? this.interviewDate.toISOString() : '',
+      candidate_name: this.candidate?.fullName || '',
+      commander_name: this.currentUser?.fullName || '',
+      additional_info: this.automaticMessage || '',
+    };
+
     const interviewData: Interview = {
       candidateId: this.candidateId,
       jobId: this.jobId,
@@ -141,6 +179,7 @@ export class InterviewSummaryComponent implements OnInit, OnDestroy {
       if (Object.keys(this.getChangedFieldsData()).length > 0) {
         this.candidateService.updateInterview(updatedInterview, this.jobId, this.candidateId).subscribe({
           next: updatedInterview => {
+            this.candidateService.sendInterviewData(interviewEmailData);
             this.router.navigate([`job-details/${this.jobId}/candidates/preferred`]);
           },
           error: err => console.error('Error updating interview:', err)
@@ -149,12 +188,14 @@ export class InterviewSummaryComponent implements OnInit, OnDestroy {
     } else {
       this.candidateService.saveInterview(interviewData, this.jobId, this.candidateId).subscribe({
         next: newInterview => {
+          this.candidateService.sendInterviewData(interviewEmailData);
           this.router.navigate([`job-details/${this.jobId}/candidates/preferred`]);
         },
         error: err => console.error('Error adding new interview:', err)
       });
     }
   }
+
 
   onCancel(): void {
     if (this.isInterviewScheduled) {
