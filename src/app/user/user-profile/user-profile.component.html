@@ -9,12 +9,16 @@
         </div>
         <div class="rounded-circle overflow-hidden">
           <div class="profile-image-container">
-            <img class="cursor-pointer"
+            <img class="profile-image"
                  [src]="candidate.imageUrl"
                  alt="Profile picture"
-                 class="profile-image"
                  onerror="this.src='assets/images/on.svg'"
                  (click)="goBack()">
+            <div class="profile-preview">
+              <img [src]="candidate.imageUrl"
+                   alt="Profile preview"
+                   onerror="this.src='assets/images/on.svg'">
+            </div>
           </div>
         </div>
       </div>
