@@ -6,7 +6,7 @@
   background: white;
   border-top: 1px solid #dee2e6;
   z-index: 1000;
-  height: 80px;
+  height: 70px;
 }
 
 .nav-item {
@@ -23,7 +23,7 @@
 }
 
 .nav-text {
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   color: #879099;
 }
 
