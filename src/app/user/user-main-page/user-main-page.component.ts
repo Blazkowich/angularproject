@@ -6,7 +6,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Candidate } from '../../models/candidates.model';
 import { RouterModule } from '@angular/router';
-import { BottomNavigationComponent } from "../../shared/bottom-navigation/bottom-navigation.component";
+import { BottomNavigationComponent } from "../popups/bottom-navigation/bottom-navigation.component";
 import { Router } from '@angular/router';
 import { JobService } from '../../services/jobs.service';
 import { Job } from '../../models/jobs.model';

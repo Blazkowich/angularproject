@@ -44,8 +44,6 @@ export class JobService {
 
     return this.http.post(`${this.jobsUrl}/${jobId}/apply`, {}, { headers }).pipe(
       switchMap((response) => {
-        console.log('Application successful:', response);
-
         if (resume) {
           const formData = new FormData();
           formData.append('additionalInfo', additionalInfo);
@@ -57,7 +55,6 @@ export class JobService {
         }
       }),
       map((response: any) => {
-        console.log(response.message);
         return response.message;
       }),
       catchError((error) => {

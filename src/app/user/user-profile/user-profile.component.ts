@@ -6,7 +6,7 @@ import { CandidateService } from '../../services/candidates.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { BottomNavigationComponent } from '../../shared/bottom-navigation/bottom-navigation.component';
+import { BottomNavigationComponent } from '../popups/bottom-navigation/bottom-navigation.component';
 import { DateFormatterComponent } from '../../shared/date-formatter/date-formatter.component';
 
 @Component({

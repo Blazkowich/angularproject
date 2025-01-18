@@ -1,10 +1,10 @@
-import { LoginService } from './../../services/login.service';
+import { LoginService } from '../../../services/login.service';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
-import { CandidateService } from '../../services/candidates.service';
-import { CandidateMapperService } from '../../mappers/candidate-mapper-commander';
-import { Candidate } from '../../models/candidates.model';
+import { CandidateService } from '../../../services/candidates.service';
+import { CandidateMapperService } from '../../../mappers/candidate-mapper-commander';
+import { Candidate } from '../../../models/candidates.model';
 
 @Component({
   selector: 'control-icons',

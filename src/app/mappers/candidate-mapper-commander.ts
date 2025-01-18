@@ -6,12 +6,40 @@ import { Candidate } from '../models/candidates.model';
 })
 export class CandidateMapperService {
 
+    // This mapping is used in: Commander, Hr and volunteer
+  // Hr Candidate page - OnInit
+  // Hr main page - OnInit
+  // Control icons - OnInit
+  // User main page - OnInit
+  static mapVolunteerCandidateModel(response: any): Candidate {
+    return {
+      id: response.id?.toString() || '',
+      fullName: response.full_name || '',
+      idNumber: response.national_id || '',
+      dateOfBirth: response.date_of_birth || '',
+      age: response.age || null,
+      gender: response.gender || '',
+      profile: response.profile?.toString() || '',
+      phone: response.phone,
+      email: response.email || '',
+      address: response.address || '',
+      experience: response.experience || '',
+      education: response.education || '',
+      courses: response.courses || '',
+      languages: response.languages || '',
+      interests: response.interests || '',
+      personalSummary: response.personal_summary || '',
+      jobStatuses: {},
+      imageUrl: response.imageUrl || '',
+    };
+  }
+
   /* Commander Mappers */
   static mapToCommandersCandidatesModel(rawData: any, jobId?: string): Candidate {
-    const jobStatuses: { [key: string]: 'preferred' | 'rejected' | 'pending' } = {};
+    const jobStatuses: { [key: string]: 'preferred' | 'rejected' | 'pending' | 'hired' } = {};
 
     if (jobId && rawData.status) {
-      jobStatuses[jobId] = rawData.status as 'preferred' | 'rejected' | 'pending';
+      jobStatuses[jobId] = rawData.status as 'preferred' | 'rejected' | 'pending' | 'hired';
     }
 
     return {
@@ -36,10 +64,13 @@ export class CandidateMapperService {
     };
   }
 
+  // CandidatesService - getCandidatesForJob
   static mapCommandersCandidateModelArray(rawDataArray: any[], jobId?: string): Candidate[] {
     return rawDataArray.map(item => CandidateMapperService.mapToCommandersCandidatesModel(item, jobId));
   }
-
+  // Candidate Profile - OnInit
+  // Candidate Details - OnInit
+  // Interview Summary - loadInitialData
   static mapCommanderCandidateForProfile(candidate: Candidate): any {
     return {
       id: candidate?.id || '',
@@ -72,29 +103,7 @@ export class CandidateMapperService {
     Volunteer Mapping
   */
 
-  static mapVolunteerCandidateModel(response: any): Candidate {
-    return {
-      id: response.id?.toString() || '',
-      fullName: response.full_name || '',
-      idNumber: response.national_id || '',
-      dateOfBirth: response.date_of_birth || '',
-      age: response.age || null,
-      gender: response.gender || '',
-      profile: response.profile?.toString() || '',
-      phone: response.phone,
-      email: response.email || '',
-      address: response.address || '',
-      experience: response.experience || '',
-      education: response.education || '',
-      courses: response.courses || '',
-      languages: response.languages || '',
-      interests: response.interests || '',
-      personalSummary: response.personal_summary || '',
-      jobStatuses: {},
-      imageUrl: response.imageUrl || '',
-    };
-  }
-
+  // User profile - SaveProfile(UpdateRequest)
   static mapToUpdateVolunteerRequest(candidate: Candidate): any {
     return {
       id: candidate.id || null,
@@ -116,6 +125,7 @@ export class CandidateMapperService {
     };
   }
 
+  // CandidateService - updateVolunteerProfile(UpdateResponse)
   static mapFromUpdateVolunteerResponse(response: any, existingCandidate: Candidate): Candidate {
     if (!response) {
       throw new Error('Invalid response data');
@@ -143,6 +153,7 @@ export class CandidateMapperService {
     };
   }
 
+  // User Profile - loadCurrentVolunteer
   static mapToCandidate(input: any): Candidate {
     return {
       id: input?.id?.toString() || '',
@@ -169,29 +180,9 @@ export class CandidateMapperService {
   /*
     HR Mapping
   */
-  static mapCandidateForHRModel(response: any): Candidate {
-    return {
-        id: response.id?.toString() || '',
-        fullName: response.fullName || '',
-        idNumber: response.idNumber || '',
-        dateOfBirth: new Date(response.dateOfBirth).toISOString() || '',
-        age: response.age || null,
-        gender: response.gender || '',
-        profile: response.profile?.toString() || '',
-        phone: response.phone || '',
-        email: response.email || '',
-        address: response.address || '',
-        experience: response.experience || '',
-        education: response.education || '',
-        courses: response.courses || '',
-        languages: response.languages || '',
-        interests: response.interests || '',
-        personalSummary: response.personalSummary || '',
-        jobStatuses: response.jobStatuses || {},
-        imageUrl: response.imageUrl || ''
-    };
-  }
 
+  // Hr Candidate page - OnInit, onAssignmentComplete, loadCandidates
+  // hr job details - loadCandidates
   static mapCandidatesForHRModel(responseArray: any[]): Candidate[] {
     return responseArray.map(response => ({
         id: response.id?.toString() || '',

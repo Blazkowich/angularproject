@@ -74,7 +74,6 @@ export class CandidateService {
 
   updateVolunteerProfile(candidate: Candidate): Observable<Candidate> {
     const userId = candidate.id;
-    console.log(candidate);
     return this.http.patch<any>(`${this.volunteerUrl}/${userId}`, candidate)
       .pipe(
         map(response => {

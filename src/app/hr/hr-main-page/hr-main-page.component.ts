@@ -6,7 +6,7 @@ import { JobService } from '../../services/jobs.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { HrBottomNavigationComponent } from "../hr-bottom-navigation/hr-bottom-navigation.component";
+import { HrBottomNavigationComponent } from "../popups/hr-bottom-navigation/hr-bottom-navigation.component";
 import { LoginService } from '../../services/login.service';
 import { Router } from '@angular/router';
 import { JobMapper } from '../../mappers/job-mapper';

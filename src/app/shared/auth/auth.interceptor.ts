@@ -6,7 +6,7 @@ import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { inject } from '@angular/core';
-import { TokenExpirationService } from '../token-expiration.service';
+import { TokenExpirationService } from './token-expiration.service';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const router = inject(Router);

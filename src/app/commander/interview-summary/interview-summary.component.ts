@@ -55,7 +55,6 @@ export class InterviewSummaryComponent implements OnInit, OnDestroy {
       next: job => {
         if (job) {
           this.currentJob = job;
-          console.log(this.currentJob);
         }
       }
     });
@@ -66,7 +65,6 @@ export class InterviewSummaryComponent implements OnInit, OnDestroy {
       next: user => {
         if (user) {
           this.currentUser = user;
-          console.log(this.currentUser);
         }
       }
     });
@@ -90,7 +88,6 @@ export class InterviewSummaryComponent implements OnInit, OnDestroy {
   getInterview(candidateId: string, jobId: string): void {
     this.candidateService.getInterview(jobId, candidateId).subscribe({
       next: interview => {
-        console.log(interview);
         if (interview) {
           this.interview = interview;
           this.interviewNotes = interview.interviewNotes || '';

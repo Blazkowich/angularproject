@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { ControlIconsComponent } from '../../../shared/control-icons/control-icons.component';
+import { ControlIconsComponent } from '../../popups/control-icons/control-icons.component';
 import { Job } from '../../../models/jobs.model';
 import { JobService } from '../../../services/jobs.service';
 import { JobMapper } from '../../../mappers/job-mapper';

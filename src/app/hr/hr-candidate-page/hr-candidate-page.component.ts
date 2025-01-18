@@ -7,7 +7,7 @@ import { Candidate } from '../../models/candidates.model';
 import { Job } from '../../models/jobs.model';
 import { CandidateService } from '../../services/candidates.service';
 import { JobService } from '../../services/jobs.service';
-import { HrBottomNavigationComponent } from '../hr-bottom-navigation/hr-bottom-navigation.component';
+import { HrBottomNavigationComponent } from '../popups/hr-bottom-navigation/hr-bottom-navigation.component';
 import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { ApplyCandidatePopupComponent } from '../popups/apply-candidate-popup/apply-candidate-popup.component';
