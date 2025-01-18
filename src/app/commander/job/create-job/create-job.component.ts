@@ -39,9 +39,7 @@ export class CreateJobComponent {
   // DropDown Variables
   jobCategories: string[] = ['Category 1', 'Category 2', 'Category 3'];
   jobUnits: string[] = ['Unit 1', 'Unit 2', 'Unit 3'];
-  jobAddresses: string[] = ['Address 1', 'Address 2', 'Address 3'];
   jobEducations: string[] = ['High School', 'Bachelors', 'Masters'];
-  jobTechSkills: string[] = ['Skill 1', 'Skill 2', 'Skill 3'];
 
   progressNumber: number = 25;
 

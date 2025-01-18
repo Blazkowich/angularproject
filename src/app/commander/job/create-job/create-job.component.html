@@ -43,13 +43,11 @@
           <option *ngFor="let jobUnit of jobUnits" [value]="jobUnit">{{ jobUnit }}</option>
         </select>
 
-        <select class="form-select form-select-lg"
-              [(ngModel)]="job.address"
-              (change)="validateFirstPageFields()"
-              name="address">
-        <option value="" disabled selected>Select an address</option>
-        <option *ngFor="let jobAddress of jobAddresses" [value]="jobAddress">{{ jobAddress }}</option>
-      </select>
+      <input class="form-select form-select-lg"
+            [(ngModel)]="job.address"
+            placeholder="Address"
+            (change)="validateFirstPageFields()"
+            name="address">
 
         <input type="number"
                class="form-control form-control-lg"
@@ -107,7 +105,7 @@
                     (input)="validateSecondPageFields()"
                     name="additionalInfo"></textarea>
         </div>
-
+        <!-- 1 -->
         <div class="mb-3">
           <label class="form-label h6">Common Question</label>
           <div class="input-group">
@@ -122,6 +120,32 @@
                    placeholder="Common Answer"
                    name="commonAnswer">
           </div>
+          <!-- 2 -->
+        <div class="input-group">
+          <input type="text"
+                 class="form-control mb-2"
+                 [(ngModel)]="job.commonQuestions"
+                 placeholder="Common Question"
+                 name="commonQuestion2">
+          <input type="text"
+                 class="form-control mb-2"
+                 [(ngModel)]="job.commonAnswers"
+                 placeholder="Common Answer"
+                 name="commonAnswer2">
+        </div>
+        <!-- 3 -->
+        <div class="input-group">
+          <input type="text"
+                 class="form-control mb-2"
+                 [(ngModel)]="job.commonQuestions"
+                 placeholder="Common Question"
+                 name="commonQuestion3">
+          <input type="text"
+                 class="form-control mb-2"
+                 [(ngModel)]="job.commonAnswers"
+                 placeholder="Common Answer"
+                 name="commonAnswer3">
+        </div>
         </div>
       </form>
     </div>
@@ -155,13 +179,11 @@
                (input)="validateThirdPageFields()"
                name="passedCourses">
 
-        <select class="form-select form-select-lg"
+        <input class="form-select form-select-lg"
                [(ngModel)]="job.techSkills"
+               placeholder="Tech Skills"
                (change)="validateThirdPageFields()"
                name="techSkills">
-         <option value="" disabled selected>Select tech skills</option>
-         <option *ngFor="let jobTechSkill of jobTechSkills" [value]="jobTechSkill">{{ jobTechSkill }}</option>
-       </select>
       </form>
     </div>
   </div>
