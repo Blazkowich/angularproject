@@ -9,11 +9,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Interview } from '../../models/interview.model';
 import { Job } from '../../models/jobs.model';
 import { JobService } from '../../services/jobs.service';
+import { DateFormatterComponent } from '../../shared/date-formatter/date-formatter.component';
 
 @Component({
   selector: 'app-interview-summary',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, DateFormatterComponent],
   templateUrl: './interview-summary.component.html',
   styleUrl: './interview-summary.component.css'
 })
@@ -270,6 +271,10 @@ export class InterviewSummaryComponent implements OnInit, OnDestroy {
 
   goBack(): void {
     this.router.navigate([`job-details/${this.jobId}/candidates/preferred`]);
+  }
+
+  onDateChange(formattedDate: string): void {
+    this.interviewDate = new Date(formattedDate);
   }
 
   ngOnDestroy(): void {

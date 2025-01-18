@@ -53,15 +53,11 @@
   <!-- Right-aligned Section -->
   <div class="right-aligned-section">
     <div class="form-group mb-4 interviewDate">
-      <label for="interviewDate">Interview Date</label>
-      <input
-        id="interviewDate"
-        type="datetime-local"
-        class="form-control"
-        [(ngModel)]="interviewDate"
-        name="interviewDate"
-        required
-      />
+      <label for="interviewDate">Interview Date:</label>
+      <app-date-formatter
+        [initialDate]="interviewDate?.toISOString()!"
+        (dateChange)="onDateChange($event)">
+      </app-date-formatter>
     </div>
 
     <div class="form-group mb-4">
