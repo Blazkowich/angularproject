@@ -88,6 +88,10 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       return;
     }
 
+    const formattedDateOfBirth = this.candidate.dateOfBirth ? this.formatDateForAPI(new Date(this.candidate.dateOfBirth)) : '';
+
+    this.candidate.dateOfBirth = formattedDateOfBirth;
+
     this.isLoading = true;
     this.errorMessage = '';
 
@@ -107,11 +111,21 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     });
   }
 
+  private formatDateForAPI(date: Date): string {
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const year = date.getFullYear();
+    const month = months[date.getMonth()];
+    const day = ('0' + date.getDate()).slice(-2);
+    return `${year}-${month}-${day}`;
+  }
+
+
   goBack(): void {
     this.router.navigate(['/roles']);
   }
 
   onDateOfBirthChange(date: string): void {
+    console.log(date);
     this.candidate.dateOfBirth = date;
   }
 

@@ -5,8 +5,13 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
   selector: 'app-date-formatter',
   standalone: true,
   imports: [ReactiveFormsModule],
-  templateUrl: './date-formatter.component.html',
-  styleUrl: './date-formatter.component.css'
+  template: `
+  <form>
+  <div class="form-group">
+    <input type="date" id="date" class="form-control" [value]="dateControl.value" (change)="onDateChange($event)">
+  </div>
+  </form>
+  `
 })
 export class DateFormatterComponent implements OnInit, OnChanges {
   @Input() initialDate: string = '';
@@ -52,14 +57,15 @@ export class DateFormatterComponent implements OnInit, OnChanges {
   private formatDateForAPI(date: Date): string {
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     const year = date.getFullYear();
-    const month = months[date.getMonth()];
+    const month = months[date.getMonth()];  // Use the 3-letter abbreviation of the month
     const day = ('0' + date.getDate()).slice(-2);
     return `${year}-${month}-${day}`;
   }
 
   onDateChange(event: any): void {
     const date: Date = new Date(event.target.value);
-    const formattedDate: string = this.formatDateForAPI(date);
-    this.dateChange.emit(formattedDate);
+    const formattedDate: string = this.formatDateForAPI(date);  // Format the date as YYYY-MMM-DD
+    console.log(formattedDate);
+    this.dateChange.emit(formattedDate); // Emit the formatted date
   }
 }

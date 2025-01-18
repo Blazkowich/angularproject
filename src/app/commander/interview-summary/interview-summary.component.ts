@@ -10,11 +10,12 @@ import { Interview } from '../../models/interview.model';
 import { Job } from '../../models/jobs.model';
 import { JobService } from '../../services/jobs.service';
 import { DateFormatterComponent } from '../../shared/date-formatter/date-formatter.component';
+import { InterviewDateFormatterComponent } from '../../shared/date-formatter/interview-date-formatter.component';
 
 @Component({
   selector: 'app-interview-summary',
   standalone: true,
-  imports: [CommonModule, FormsModule, DateFormatterComponent],
+  imports: [CommonModule, FormsModule, InterviewDateFormatterComponent],
   templateUrl: './interview-summary.component.html',
   styleUrl: './interview-summary.component.css'
 })
@@ -89,9 +90,11 @@ export class InterviewSummaryComponent implements OnInit, OnDestroy {
   getInterview(candidateId: string, jobId: string): void {
     this.candidateService.getInterview(jobId, candidateId).subscribe({
       next: interview => {
+        console.log(interview);
         if (interview) {
           this.interview = interview;
           this.interviewNotes = interview.interviewNotes || '';
+          // Ensure proper date conversion
           this.interviewDate = interview.interviewDate ? new Date(interview.interviewDate) : null;
           this.automaticMessage = interview.automaticMessage || '';
           this.isInterviewScheduled = true;
@@ -109,13 +112,6 @@ export class InterviewSummaryComponent implements OnInit, OnDestroy {
         console.error('Unexpected error fetching interview:', err);
       }
     });
-  }
-
-
-  private hasChanges(): boolean {
-    return this.interviewNotes !== this.originalInterviewData.interviewNotes ||
-           this.interviewDate !== this.originalInterviewData.interviewDate ||
-           this.automaticMessage !== this.originalInterviewData.automaticMessage;
   }
 
   private getChangedFields(): Interview {
@@ -150,43 +146,6 @@ export class InterviewSummaryComponent implements OnInit, OnDestroy {
     return changes;
   }
 
-  // onSave(): void {
-  //   if (!this.candidateId || !this.jobId) {
-  //     console.error('Missing required IDs');
-  //     return;
-  //   }
-
-  //   const interviewData: Interview = {
-  //     candidateId: this.candidateId,
-  //     jobId: this.jobId,
-  //     interviewNotes: this.interviewNotes,
-  //     interviewDate: this.interviewDate,
-  //     automaticMessage: this.automaticMessage,
-  //     status: this.interview?.status || 'Pending',
-  //     fullName: this.candidate?.fullName || '',
-  //     email: this.candidate?.email || '',
-  //   };
-
-  //   if (this.isInterviewScheduled) {
-  //     const updatedInterview = this.getChangedFields();
-  //     if (Object.keys(this.getChangedFieldsData()).length > 0) {
-  //       this.candidateService.updateInterview(updatedInterview, this.jobId, this.candidateId).subscribe({
-  //         next: updatedInterview => {
-  //           this.router.navigate([`job-details/${this.jobId}/candidates/preferred`]);
-  //         },
-  //         error: err => console.error('Error updating interview:', err)
-  //       });
-  //     }
-  //   } else {
-  //     this.candidateService.saveInterview(interviewData, this.jobId, this.candidateId).subscribe({
-  //       next: newInterview => {
-  //         this.router.navigate([`job-details/${this.jobId}/candidates/preferred`]);
-  //       },
-  //       error: err => console.error('Error adding new interview:', err)
-  //     });
-  //   }
-  // }
-
   onSave(): void {
     if (!this.candidateId || !this.jobId) {
       console.error('Missing required IDs');
@@ -220,7 +179,8 @@ export class InterviewSummaryComponent implements OnInit, OnDestroy {
         this.candidateService.updateInterview(updatedInterview, this.jobId, this.candidateId).subscribe({
           next: updatedInterview => {
             this.candidateService.sendInterviewData(interviewEmailData);
-            this.router.navigate([`job-details/${this.jobId}/candidates/preferred`]);
+            this.getInterview(this.candidateId!, this.jobId!);
+            window.location.reload();
           },
           error: err => console.error('Error updating interview:', err)
         });
@@ -229,7 +189,8 @@ export class InterviewSummaryComponent implements OnInit, OnDestroy {
       this.candidateService.saveInterview(interviewData, this.jobId, this.candidateId).subscribe({
         next: newInterview => {
           this.candidateService.sendInterviewData(interviewEmailData);
-          this.router.navigate([`job-details/${this.jobId}/candidates/preferred`]);
+          this.getInterview(this.candidateId!, this.jobId!);
+          window.location.reload();
         },
         error: err => console.error('Error adding new interview:', err)
       });
