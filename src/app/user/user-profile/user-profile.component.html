@@ -34,7 +34,10 @@
           <img src="assets/images/cake.svg" alt="Cake" class="ms-2 icons" style="width: 20px; height: 20px;">
         </div>
         <div class="d-flex align-items-center justify-content-end mb-2">
-          <input [(ngModel)]="candidate.gender" class="form-control" placeholder="Gender">
+          <select [(ngModel)]="candidate.gender" class="form-control">
+            <option value="MALE">MALE</option>
+            <option value="FEMALE">FEMALE</option>
+          </select>
           <img src="assets/images/unisex.svg" alt="Gender" class="ms-2 icons" style="width: 20px; height: 20px;">
         </div>
         <div class="d-flex align-items-center justify-content-end mb-2">
