@@ -55,7 +55,8 @@
     <div class="row justify-content-center">
       <div class="col-12 col-md-10 col-lg-8">
         <div class="candidate-box-container">
-          <h3 *ngIf="isCandidatesActive" style="font-family: 'Heebo', sans-serif;">Candidates To Review</h3>
+          <h3 *ngIf="isCandidatesActive && (candidates | filter: { status: ['pending'], jobId: this.jobId }).length > 0"
+            style="font-family: 'Heebo', sans-serif;">Candidates To Review</h3>
           <div *ngFor="let candidate of candidates | filter: { status: ['pending'], jobId: this.jobId }"
               class="candidate-box mb-3 position-relative cursor-pointer"
               (click)="goToCandidateDetails(candidate.id)">
@@ -75,7 +76,8 @@
               <i class="bi bi-chevron-left chevron-icon"></i>
             </div>
           </div>
-          <h3 *ngIf="isCandidatesActive" style="font-family: 'Heebo', sans-serif;">Rejected</h3>
+          <h3 *ngIf="isCandidatesActive && (candidates | filter: { status: ['rejected'], jobId: this.jobId }).length > 0"
+            style="font-family: 'Heebo', sans-serif;">Rejected</h3>
           <div *ngFor="let candidate of candidates | filter: { status: ['rejected'], jobId: this.jobId }"
               class="candidate-box mb-3 position-relative cursor-pointer"
               (click)="goToCandidateDetails(candidate.id)">
@@ -105,7 +107,9 @@
     <div class="row justify-content-center">
       <div class="col-12 col-md-10 col-lg-8">
         <div class="candidate-box-container">
-          <h3 *ngIf="isPreferableActive && !shouldShowCandidatesText()">Preferrable Candidates</h3>
+          <h3 *ngIf="isPreferableActive && (candidates | filter: { status: ['preferred'], jobId: this.jobId }).length > 0">
+            Preferrable Candidates
+          </h3>
           <div *ngFor="let candidate of candidates | filter: { status: ['preferred'], jobId: this.jobId }"
               class="candidate-box mb-3 position-relative cursor-pointer"
               (click)="goToCandidateDetails(candidate.id)">
