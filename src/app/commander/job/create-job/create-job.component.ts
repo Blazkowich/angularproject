@@ -145,16 +145,6 @@ export class CreateJobComponent {
     this.progressNumber = 75;
   }
 
-  addQAPair() {
-    this.job.commonQuestions.push('');
-    this.job.commonAnswers.push('');
-  }
-
-  removeQAPair(index: number) {
-    this.job.commonQuestions.splice(index, 1);
-    this.job.commonAnswers.splice(index, 1);
-  }
-
   addJob(): void {
     this.job.status = 'OPEN';
     this.job.candidateCount = 0;
