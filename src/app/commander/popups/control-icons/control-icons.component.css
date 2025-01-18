@@ -51,8 +51,8 @@
 
 .full_name {
   color: white;
-  margin-top: 10px;
-  margin-bottom: -20px;
+  margin-top: 20px;
+  margin-bottom: -30px;
 }
 
 /* Responsive adjustments */
@@ -70,9 +70,8 @@
   }
 
   .exb-right {
-    top:-50px !important;
-    right: -25px !important;
-    transform: scale(0.8);
+    top: 6px !important;
+    right: -10px !important;
   }
 }
 
@@ -98,8 +97,11 @@
   }
 
   .exb-right {
-    top: -50px !important;
-    right: -25px !important;
-    transform: scale(0.7);
+    top: 6px !important;
+    right: -10px !important;
+  }
+
+  .exb-right h4 {
+    font-size: 1rem;
   }
 }
