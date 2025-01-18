@@ -5,6 +5,12 @@
   text-decoration: none;
 }
 
+.exb-right {
+  top: 7px !important;
+  cursor: pointer;
+  z-index: 9999;
+}
+
 .icon-btn:hover {
   transform: scale(1.1);
 }
@@ -43,13 +49,6 @@
   align-items: center;
 }
 
-.icon-img-extended-home {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transform: translateX(-5px) translateY(1px);
-}
-
 .full_name {
   color: white;
   margin-top: 10px;
@@ -69,6 +68,12 @@
   h4 {
     font-size: 0.9rem;
   }
+
+  .exb-right {
+    top:-50px !important;
+    right: -25px !important;
+    transform: scale(0.8);
+  }
 }
 
 @media (max-width: 400px) {
@@ -84,13 +89,17 @@
     font-size: 1rem;
   }
 
-  .text-
-
   .icon-img-extended {
     width: 44px;
     height: 44px;
     font-size: 20px;
     color: black;
     line-height: 1;
+  }
+
+  .exb-right {
+    top: -50px !important;
+    right: -25px !important;
+    transform: scale(0.7);
   }
 }

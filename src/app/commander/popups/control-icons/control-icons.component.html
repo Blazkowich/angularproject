@@ -1,16 +1,15 @@
-<div class="container-fluid">
+<div class="container-fluid position-relative">
+  <!-- Logout Button - Positioned Absolutely -->
+  <button class="btn btn-link d-flex flex-column align-items-center icon-btn p-2 position-absolute top-0 end-0 mt-5 me-4 exb-right" (click)="Logout()">
+    <i class="bi bi-box-arrow-right icon-img-extended"></i>
+    <h4 class="text-white fw-light mt-4 mb-0" style="font-family: 'Heebo', sans-serif;">logout</h4>
+  </button>
+
   <div class="row">
     <div class="col-12">
       <h4 class="text-center full_name">{{ candidate?.fullName }}</h4>
-      <!-- Icon Buttons Container - Added mt-2 for 10px top margin -->
+      <!-- Icon Buttons Container -->
       <div class="d-flex justify-content-center align-items-center gap-5 sticky-top pt-4 mt-4">
-        <!-- Home Button -->
-        <button class="btn btn-link d-flex flex-column align-items-center icon-btn p-2" [routerLink]="'/open-jobs'">
-          <div class="icon-circle-home">
-            <img src="/assets/images/on.svg" alt="new" class="icon-img-extended-home">
-          </div>
-          <h4 class="text-white fw-light mt-4 mb-0" style="font-family: 'Heebo', sans-serif;">home</h4>
-        </button>
         <!-- New Button -->
         <button class="btn btn-link d-flex flex-column align-items-center icon-btn p-2" [routerLink]="'/create-job'">
           <img src="/assets/images/new.svg" alt="new" class="icon-img">
@@ -27,12 +26,6 @@
         <button class="btn btn-link d-flex flex-column align-items-center icon-btn p-2" [routerLink]="'/open-jobs'">
           <img src="/assets/images/open.svg" alt="open" class="icon-img">
           <h4 class="text-white fw-light mt-4 mb-0" style="font-family: 'Heebo', sans-serif;">open</h4>
-        </button>
-
-        <!-- Exit Button -->
-        <button class="btn btn-link d-flex flex-column align-items-center icon-btn p-2" (click)="Logout()">
-          <i class="bi bi-box-arrow-right icon-img-extended"></i>
-          <h4 class="text-white fw-light mt-4 mb-0" style="font-family: 'Heebo', sans-serif;">logout</h4>
         </button>
       </div>
     </div>
