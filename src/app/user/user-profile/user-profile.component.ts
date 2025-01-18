@@ -85,12 +85,16 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       next: (updatedCandidate) => {
         this.candidate = updatedCandidate;
         this.isLoading = false;
-        window.location.reload();
+        alert('User Updated Successfully!')
+        setTimeout(() => {
+          window.location.reload();
+        }, 3000);
       },
       error: (error) => {
         console.error('Failed to update profile:', error);
         this.errorMessage = 'Failed to save profile changes';
         this.isLoading = false;
+        alert('Update Failed!')
       }
     });
   }
