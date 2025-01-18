@@ -55,6 +55,25 @@ export class CandidateService {
     return this.http.get<any[]>(`${this.hrUrl}/volunteers`);
   }
 
+
+  getVolunteerForHRById(id: string): Observable<Candidate> {
+    return this.getCandidatesForHR().pipe(
+      map(candidates => {
+        console.log(candidates);
+        const candidate = candidates.find(candidate => String(candidate.id) === id);
+        if (!candidate) {
+          throw new Error(`candidate with id ${id} not found`);
+        }
+
+        if (candidate.dateOfBirth) {
+          candidate.age = this.calculateAge(candidate.dateOfBirth);
+        }
+
+        return candidate;
+      })
+    );
+  }
+
   getCandidateById(id: string): Observable<Candidate> {
     return this.getCandidates().pipe(
       map(candidates => {

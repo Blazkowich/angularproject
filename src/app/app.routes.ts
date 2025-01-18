@@ -17,6 +17,7 @@ import { HrCandidatePageComponent } from './hr/hr-candidate-page/hr-candidate-pa
 import { HrJobDetailsComponent } from './hr/hr-job-details/hr-job-details.component';
 import { LoginGuard } from './shared/auth/login.guard';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
+import { HrUserProfileComponent } from './hr/hr-user-profile/hr-user-profile.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -41,5 +42,6 @@ export const routes: Routes = [
   { path: 'candidates-list', component:HrCandidatePageComponent, canActivate: [MainGuard], data: { role: 'hr' } },
   { path: 'job-roles/:id/candidate-list', component:HrCandidatePageComponent, canActivate: [MainGuard], data: { role: 'hr' } },
   { path: 'job-requirements/:id', component:HrJobDetailsComponent, canActivate: [MainGuard], data: { role: 'hr' } },
+  { path: 'hr-candidate-profile/:id', component:HrUserProfileComponent,  canActivate: [MainGuard], data: { role: 'hr'} },
   { path: '**', redirectTo: '/login' }
 ];
