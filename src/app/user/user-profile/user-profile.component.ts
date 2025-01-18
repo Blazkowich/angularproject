@@ -7,11 +7,12 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BottomNavigationComponent } from '../../shared/bottom-navigation/bottom-navigation.component';
+import { DateFormatterComponent } from '../../shared/date-formatter/date-formatter.component';
 
 @Component({
   selector: 'app-my-profile',
   standalone: true,
-  imports: [CommonModule, FormsModule, BottomNavigationComponent],
+  imports: [CommonModule, FormsModule, BottomNavigationComponent, DateFormatterComponent],
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css']
 })
@@ -71,6 +72,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     this.candidateSub = this.candidateService.getProfileDetails().subscribe({
       next: (candidate) => {
         this.candidate = CandidateMapperService.mapToCandidate(candidate);
+        console.log('Loaded date of birth:', this.candidate.dateOfBirth);
         this.isLoading = false;
       },
       error: (error) => {
@@ -107,6 +109,10 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
   goBack(): void {
     this.router.navigate(['/roles']);
+  }
+
+  onDateOfBirthChange(date: string): void {
+    this.candidate.dateOfBirth = date;
   }
 
   ngOnDestroy(): void {
