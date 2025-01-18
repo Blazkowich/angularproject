@@ -51,28 +51,11 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     this.loadCurrentVolunteer();
   }
 
-  openPreview(event: MouseEvent): void {
-    event.stopPropagation();
-    this.isPreviewOpen = true;
-  }
-
-  closePreview(event: MouseEvent): void {
-    event.stopPropagation();
-    this.isPreviewOpen = false;
-  }
-
-  closePreviewOnClickOutside(event: MouseEvent): void {
-    if (this.isPreviewOpen) {
-      this.isPreviewOpen = false;
-    }
-  }
-
   private loadCurrentVolunteer(): void {
     this.isLoading = true;
     this.candidateSub = this.candidateService.getProfileDetails().subscribe({
       next: (candidate) => {
         this.candidate = CandidateMapperService.mapToCandidate(candidate);
-        console.log('Loaded date of birth:', this.candidate.dateOfBirth);
         this.isLoading = false;
       },
       error: (error) => {
@@ -88,7 +71,8 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const formattedDateOfBirth = this.candidate.dateOfBirth ? this.formatDateForAPI(new Date(this.candidate.dateOfBirth)) : '';
+    const formattedDateOfBirth = this.candidate.dateOfBirth ?
+    this.formatDateForAPI(new Date(this.candidate.dateOfBirth)) : '';
 
     this.candidate.dateOfBirth = formattedDateOfBirth;
 
@@ -111,21 +95,27 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     });
   }
 
-  private formatDateForAPI(date: Date): string {
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    const year = date.getFullYear();
-    const month = months[date.getMonth()];
-    const day = ('0' + date.getDate()).slice(-2);
-    return `${year}-${month}-${day}`;
+  openPreview(event: MouseEvent): void {
+    event.stopPropagation();
+    this.isPreviewOpen = true;
   }
 
+  closePreview(event: MouseEvent): void {
+    event.stopPropagation();
+    this.isPreviewOpen = false;
+  }
+
+  closePreviewOnClickOutside(event: MouseEvent): void {
+    if (this.isPreviewOpen) {
+      this.isPreviewOpen = false;
+    }
+  }
 
   goBack(): void {
     this.router.navigate(['/roles']);
   }
 
   onDateOfBirthChange(date: string): void {
-    console.log(date);
     this.candidate.dateOfBirth = date;
   }
 
@@ -133,5 +123,13 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     if (this.candidateSub) {
       this.candidateSub.unsubscribe();
     }
+  }
+
+  private formatDateForAPI(date: Date): string {
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const year = date.getFullYear();
+    const month = months[date.getMonth()];
+    const day = ('0' + date.getDate()).slice(-2);
+    return `${year}-${month}-${day}`;
   }
 }

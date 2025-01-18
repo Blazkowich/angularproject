@@ -159,7 +159,7 @@ export class CandidateMapperService {
       education: input?.education || '',
       courses: input?.courses || '',
       languages: input?.languages || '',
-      interests: input?.interests || '',
+      interests: input?.area_of_interest || '',
       personalSummary: input?.personal_summary || '',
       jobStatuses: {},
       imageUrl: input.imageUrl || '',
