@@ -43,7 +43,7 @@
           <option *ngFor="let jobUnit of jobUnits" [value]="jobUnit">{{ jobUnit }}</option>
         </select>
 
-      <input class="form-select form-select-lg"
+      <input class="form-control form-select-lg"
             [(ngModel)]="job.address"
             placeholder="מיקום"
             (change)="validateFirstPageFields()"
@@ -179,7 +179,7 @@
                (input)="validateThirdPageFields()"
                name="passedCourses">
 
-        <input class="form-select form-select-lg"
+        <input class="form-control form-select-lg"
                [(ngModel)]="job.techSkills"
                placeholder="מערכות ושפות תוכנה"
                (change)="validateThirdPageFields()"
