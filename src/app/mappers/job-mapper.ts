@@ -1,3 +1,4 @@
+
 import { Job } from "../models/jobs.model";
 
 export class JobMapper {
@@ -13,8 +14,8 @@ export class JobMapper {
       closedBase: job.closedBase,
       jobDescription: job.jobDescription,
       additionalInfo: job.additionalInfo,
-      commonQuestions: job.commonQuestions,
-      commonAnswers: job.commonAnswers,
+      commonQuestions: job.questions.map((q: any) => q.question_text),
+      commonAnswers: job.questions.map((q: any) => q.answer_text),
       education: job.education,
       techSkills: job.techSkills,
       workExperience: job.workExperience,
@@ -35,8 +36,11 @@ export class JobMapper {
       address: job.address,
       openbase: job.openBase,
       additionalinfo: job.additionalInfo,
-      questions: job.commonQuestions,
-      answers: job.commonAnswers,
+      questions: job.commonQuestions.map((questionText: string, index: number) => ({
+        id: job.commonAnswers[index] ? `${index}` : '',
+        question_text: questionText,
+        answer_text: job.commonAnswers[index] || ''
+      })),
       workexperience: job.workExperience,
       education: job.education,
       passedcourses: job.passedCourses,
@@ -44,6 +48,9 @@ export class JobMapper {
       status: job.status.toLowerCase()
     };
   }
+
+
+
 
   static mapJobForAdd(job: Job): any {
     return {
@@ -55,7 +62,11 @@ export class JobMapper {
       address: job.address,
       openBase: job.openBase,
       additionalInfo: job.additionalInfo,
-      questions: job.commonQuestions,
+      questions: job.commonQuestions.map((questionText: string, index: number) => ({
+        id: job.commonAnswers[index] ? `${index}` : '',
+        question_text: questionText,
+        answer_text: job.commonAnswers[index] || ''
+      })),
       answers: job.commonAnswers,
       workExperience: job.workExperience,
       education: job.education,

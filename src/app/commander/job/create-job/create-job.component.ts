@@ -25,7 +25,7 @@ export class CreateJobComponent {
     closedBase: false,
     jobDescription: '',
     additionalInfo: '',
-    commonQuestions: [''],
+    commonQuestions: [],
     commonAnswers: [''],
     education: '',
     techSkills: '',

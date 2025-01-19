@@ -1,6 +1,7 @@
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ChangeDetectorRef } from '@angular/core';
 import { Job } from '../../../models/jobs.model';
 
 @Component({
@@ -16,6 +17,8 @@ export class UpdateJobPopupComponent {
   @Output() closePopupEvent = new EventEmitter<void>();
   @Output() jobUpdated = new EventEmitter<Job>();
 
+  constructor(private cdr: ChangeDetectorRef) {}
+
   onSubmit() {
     this.jobUpdated.emit(this.job);
     this.closePopupEvent.emit();
@@ -23,5 +26,9 @@ export class UpdateJobPopupComponent {
 
   close() {
     this.closePopupEvent.emit();
+  }
+
+  trackByIndex(index: number): number {
+    return index;
   }
 }

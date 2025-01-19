@@ -34,37 +34,28 @@
             <label for="education">השכלה</label>
             <input type="text" class="form-control" id="education" [(ngModel)]="job.education" name="education">
           </div>
-          <div class="form-group">
-            <label for="candidateCount">מספר תקנים</label>
-            <input type="number" class="form-control" id="candidateCount" [(ngModel)]="job.positions" name="candidateCount" required>
+
+          <div *ngFor="let question of job.commonQuestions; let i = index; trackBy: trackByIndex">
+            <div class="form-group">
+              <label for="commonQuestion">שאלה {{ i + 1 }}</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="job.commonQuestions[i]"
+                name="commonQuestion{{i}}"
+                required>
+            </div>
+            <div class="form-group">
+              <label for="commonAnswer">תשובה {{ i + 1 }}</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="job.commonAnswers[i]"
+                name="commonAnswer{{i}}"
+                required>
+            </div>
           </div>
 
-          <div class="form-group">
-            <label for="commonQuestion">שאלה</label>
-            <input type="text" class="form-control" id="commonQuestion" [(ngModel)]="job.commonQuestions" name="commonQuestion" required>
-          </div>
-          <div class="form-group">
-            <label for="commonAnswer">תשובה</label>
-            <input type="text" class="form-control" id="commonAnswer" [(ngModel)]="job.commonAnswers" name="commonAnswer" required>
-          </div>
-
-          <div class="form-group">
-            <label for="commonQuestion">שאלה</label>
-            <input type="text" class="form-control" id="commonQuestion" [(ngModel)]="job.commonQuestions" name="commonQuestion" required>
-          </div>
-          <div class="form-group">
-            <label for="commonAnswer">תשובה</label>
-            <input type="text" class="form-control" id="commonAnswer" [(ngModel)]="job.commonAnswers" name="commonAnswer" required>
-          </div>
-
-          <div class="form-group">
-            <label for="commonQuestion">שאלה</label>
-            <input type="text" class="form-control" id="commonQuestion" [(ngModel)]="job.commonQuestions" name="commonQuestion" required>
-          </div>
-          <div class="form-group">
-            <label for="commonAnswer">תשובה</label>
-            <input type="text" class="form-control" id="commonAnswer" [(ngModel)]="job.commonAnswers" name="commonAnswer" required>
-          </div>
           <button type="submit" class="btn btn-primary">שמור</button>
         </form>
       </div>

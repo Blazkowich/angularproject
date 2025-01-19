@@ -105,48 +105,53 @@
                     (input)="validateSecondPageFields()"
                     name="additionalInfo"></textarea>
         </div>
-        <!-- 1 -->
-        <div class="mb-3">
-          <label class="form-label h6">שאלות נפוצות ותשובות</label>
-          <div class="input-group">
-            <input type="text"
-                   class="form-control mb-2"
-                   [(ngModel)]="job.commonQuestions"
-                   placeholder="שאלה"
-                   name="commonQuestion">
-            <input type="text"
-                   class="form-control mb-2"
-                   [(ngModel)]="job.commonAnswers"
-                   placeholder="תשובה"
-                   name="commonAnswer">
-          </div>
-          <!-- 2 -->
-        <div class="input-group">
-          <input type="text"
-                 class="form-control mb-2"
-                 [(ngModel)]="job.commonQuestions"
-                 placeholder="שאלה"
-                 name="commonQuestion2">
-          <input type="text"
-                 class="form-control mb-2"
-                 [(ngModel)]="job.commonAnswers"
-                 placeholder="תשובה"
-                 name="commonAnswer2">
-        </div>
-        <!-- 3 -->
-        <div class="input-group">
-          <input type="text"
-                 class="form-control mb-2"
-                 [(ngModel)]="job.commonQuestions"
-                 placeholder="שאלה"
-                 name="commonQuestion3">
-          <input type="text"
-                 class="form-control mb-2"
-                 [(ngModel)]="job.commonAnswers"
-                 placeholder="תשובה"
-                 name="commonAnswer3">
-        </div>
-        </div>
+            <!-- Input Group 1 -->
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control mb-2"
+                [(ngModel)]="job.commonQuestions[0]"
+                placeholder="שאלה"
+                name="commonQuestion1">
+              <input
+                type="text"
+                class="form-control mb-2"
+                [(ngModel)]="job.commonAnswers[0]"
+                placeholder="תשובה"
+                name="commonAnswer1">
+            </div>
+
+            <!-- Input Group 2 -->
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control mb-2"
+                [(ngModel)]="job.commonQuestions[1]"
+                placeholder="שאלה"
+                name="commonQuestion2">
+              <input
+                type="text"
+                class="form-control mb-2"
+                [(ngModel)]="job.commonAnswers[1]"
+                placeholder="תשובה"
+                name="commonAnswer2">
+            </div>
+
+            <!-- Input Group 3 -->
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control mb-2"
+                [(ngModel)]="job.commonQuestions[2]"
+                placeholder="שאלה"
+                name="commonQuestion3">
+              <input
+                type="text"
+                class="form-control mb-2"
+                [(ngModel)]="job.commonAnswers[2]"
+                placeholder="תשובה"
+                name="commonAnswer3">
+            </div>
       </form>
     </div>
   </div>
