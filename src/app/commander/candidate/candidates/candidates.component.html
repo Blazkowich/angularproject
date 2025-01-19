@@ -71,7 +71,7 @@
               <div class="me-3 d-flex flex-column flex-grow-1 text-end">
                 <h4 class="mb-1" style="font-family: 'Heebo', sans-serif;">{{ candidate.fullName }}</h4>
                 <h5 class="mb-0" style="font-family: 'Heebo', sans-serif;">{{ candidate.age }}</h5>
-                <h5 class="mb-0" style="font-family: 'Heebo', sans-serif;">{{ candidate.jobStatuses[jobId] }}</h5>
+                <h5 class="mb-0" style="font-family: 'Heebo', sans-serif;">{{ candidate.jobStatuses[jobId] }} - <h5 class="button-like-text" (click)="contactCandidate(candidate.id)">Contact</h5></h5>
               </div>
               <i class="bi bi-chevron-left chevron-icon"></i>
             </div>
@@ -111,22 +111,23 @@
             Preferrable Candidates
           </h3>
           <div *ngFor="let candidate of candidates | filter: { status: ['preferred'], jobId: this.jobId }"
-              class="candidate-box mb-3 position-relative cursor-pointer"
-              (click)="goToCandidateDetails(candidate.id)">
+              class="candidate-box mb-3 position-relative cursor-pointer">
             <div class="d-flex align-items-center w-100 p-2">
               <div class="profile-image-container">
                 <img [src]="candidate.imageUrl"
                     alt="Profile picture"
                     class="profile-image"
                     onerror="this.src='assets/images/on.svg'"
-                    (click)="goToCandidateProfile(candidate.id)">
+                    (click)="$event.stopPropagation(); goToCandidateProfile(candidate.id)">
               </div>
               <div class="me-3 d-flex flex-column flex-grow-1 text-end">
-                <h4 class="mb-1">{{ candidate.fullName }}</h4>
-                <h5 class="mb-0">{{ candidate.age }}</h5>
-                <h5 class="button-like-text mb-0" (click)="contactCandidate(candidate.id)">Contact</h5>
+                <div (click)="goToCandidateDetails(candidate.id)">
+                  <h4 class="mb-1">{{ candidate.fullName }}</h4>
+                  <h5 class="mb-0">{{ candidate.age }}</h5>
+                </div>
+                <h5 class="button-like-text for-summary" (click)="$event.stopPropagation(); openInterviewSummary(candidate)">Summary</h5>
               </div>
-              <i class="bi bi-chevron-left chevron-icon"></i>
+              <i class="bi bi-chevron-left chevron-icon" (click)="goToCandidateDetails(candidate.id)"></i>
             </div>
           </div>
         </div>
@@ -139,4 +140,13 @@
 <div [hidden]="!(isCandidatesActive && shouldShowCandidatesText()) && !(isPreferableActive && shouldShowPreferableText())" class="position-fixed bottom-0 start-0 w-100">
   <image-component></image-component>
 </div>
+
+<app-interview-summary-popup
+  *ngIf="showInterviewPopup"
+  [jobId]="jobId!"
+  [volunteerId]="candidateSummary?.id!"
+  [existingInterview]="interview"
+  (close)="showInterviewPopup = false"
+  (save)="handleInterviewSave($event)">
+</app-interview-summary-popup>
 

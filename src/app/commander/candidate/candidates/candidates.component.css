@@ -25,14 +25,21 @@ nav {
   background: none;
 }
 
+.candidate-box-container {
+  position: relative;
+  z-index: 1;
+}
+
 /* Candidate Box And Panel */
 .candidate-box {
+  position: relative;
+  z-index: 2;
   background-color: #91838325;
   border-radius: 15px;
   min-height: 70px;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
-  overflow: hidden;
+  overflow: visible; /* Changed from hidden to allow button to overflow */
 }
 
 .candidate-box:hover {
@@ -61,6 +68,11 @@ nav {
   100% {
     transform: translateX(0);
   }
+}
+
+.d-flex.align-items-center.w-100.p-2 {
+  position: relative;
+  z-index: 3;
 }
 
 h2 {
@@ -117,10 +129,12 @@ h5 {
 }
 
 /* Preferred Candidate Interview Click */
-.button-like-text {
+.button-like-text.for-summary {
+  position: relative;
+  z-index: 100;
   display: inline-block;
   margin-top: 5px;
-  padding: 1px 2px;
+  padding: 4px 5px;
   max-width: 100px;
   background-color: #446BF2;
   color: white;
@@ -130,11 +144,24 @@ h5 {
   transition: background-color 0.3s ease;
   font-weight: bold;
   text-decoration: none;
-  font-size: 12px;
+  font-size: 14px;
+}
+
+.button-like-text.for-summary {
+  z-index: 1001;
+}
+
+.app-interview-summary-popup {
+  z-index: 1002 !important;
 }
 
 .button-like-text:hover {
   background-color: #3658a1;
+}
+
+.app-interview-summary-popup {
+  position: relative;
+  z-index: 1000;
 }
 
 @media (max-width: 400px) {

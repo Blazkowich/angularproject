@@ -60,7 +60,7 @@ export class CandidateMapperService {
       interests: '',
       personalSummary: '',
       jobStatuses: jobStatuses,
-      imageUrl: ''
+      imageUrl: rawData.imageUrl || ''
     };
   }
 

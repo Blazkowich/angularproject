@@ -26,15 +26,6 @@
 
   <!-- Cancel/Delete Confirmation Modal -->
   <div *ngIf="showDeleteConfirmation" class="modal-overlay">
-<!--    <div class="modal-content">-->
-<!--      <h4>Cancel Interview</h4>-->
-<!--      <p>Do you want to reset the form or delete this interview?</p>-->
-<!--      <div class="d-flex justify-content-end gap-2">-->
-<!--        <button class="btn btn-danger" (click)="onDeleteConfirm()">Delete Interview</button>-->
-<!--        <button class="btn btn-secondary" (click)="onCancel()">Reset Form</button>-->
-<!--        <button class="btn btn-outline-secondary" (click)="onDeleteCancel()">Close</button>-->
-<!--      </div>-->
-<!--    </div>-->
     <div class="modal-content">
       <h4>ביטול ראיון</h4>
       <p>האם תרצה/י לאפס את הטופס או למחוק ראיון זה?</p>
@@ -44,19 +35,6 @@
         <button class="btn btn-outline-secondary" (click)="onDeleteCancel()">סגור</button>
       </div>
     </div>
-  </div>
-
-  <!-- Interview Notes -->
-  <div class="form-group mb-4">
-    <textarea
-      class="form-control"
-      rows="8"
-      placeholder="הקלד על החייל, הכרה הראשונית, השפעה.
-מורלים, האם החייל עבר בעבודה הקודמת דברים דומים, האם יש חוזקים שיש לו ניסיון, ידע או ניסיון בטכנולוגיות, ויכולת להדריך עצמאית.
-מה הביא את החייל לבחור לשרת בצה״ל"
-      [(ngModel)]="interviewNotes"
-      dir="rtl"
-    ></textarea>
   </div>
 
   <!-- Right-aligned Section -->

@@ -59,7 +59,6 @@ export class CandidateService {
   getVolunteerForHRById(id: string): Observable<Candidate> {
     return this.getCandidatesForHR().pipe(
       map(candidates => {
-        console.log(candidates);
         const candidate = candidates.find(candidate => String(candidate.id) === id);
         if (!candidate) {
           throw new Error(`candidate with id ${id} not found`);
@@ -251,7 +250,7 @@ export class CandidateService {
     const url = `${this.commanderCandidatesUrl}/jobs/${jobId}/volunteers/${userId}/resume`;
     return this.http.get(url, { responseType: 'blob' }).pipe(
       catchError(error => {
-        console.error('Error downloading resume:', error);
+        alert('Error downloading resume');
         return throwError(() => new Error('Unable to download resume'));
       })
     );

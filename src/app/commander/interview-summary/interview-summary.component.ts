@@ -20,7 +20,6 @@ import { InterviewDateFormatterComponent } from '../../shared/date-formatter/int
   styleUrl: './interview-summary.component.css'
 })
 export class InterviewSummaryComponent implements OnInit, OnDestroy {
-  interviewNotes: string = '';
   interviewDate: Date | null = null;
   automaticMessage: string = '';
   candidateSub: Subscription | undefined;
@@ -90,14 +89,11 @@ export class InterviewSummaryComponent implements OnInit, OnDestroy {
       next: interview => {
         if (interview) {
           this.interview = interview;
-          this.interviewNotes = interview.interviewNotes || '';
-          // Ensure proper date conversion
           this.interviewDate = interview.interviewDate ? new Date(interview.interviewDate) : null;
           this.automaticMessage = interview.automaticMessage || '';
           this.isInterviewScheduled = true;
 
           this.originalInterviewData = {
-            interviewNotes: this.interviewNotes,
             interviewDate: this.interviewDate,
             automaticMessage: this.automaticMessage
           };
@@ -112,27 +108,21 @@ export class InterviewSummaryComponent implements OnInit, OnDestroy {
   }
 
   private getChangedFields(): Interview {
-    // Create a complete Interview object with all required fields
     return {
       candidateId: this.candidateId!,
       jobId: this.jobId!,
-      interviewNotes: this.interviewNotes,
+      interviewNotes: '',
       interviewDate: this.interviewDate,
       automaticMessage: this.automaticMessage,
       status: this.interview?.status || 'Pending',
       fullName: this.candidate?.fullName || '',
       email: this.candidate?.email || '',
-      // Include only the changed fields in the actual data sent to the server
       ...this.getChangedFieldsData()
     };
   }
 
   private getChangedFieldsData(): Partial<Interview> {
     const changes: Partial<Interview> = {};
-
-    if (this.interviewNotes !== this.originalInterviewData.interviewNotes) {
-      changes.interviewNotes = this.interviewNotes;
-    }
     if (this.interviewDate !== this.originalInterviewData.interviewDate) {
       changes.interviewDate = this.interviewDate;
     }
@@ -152,7 +142,7 @@ export class InterviewSummaryComponent implements OnInit, OnDestroy {
     const interviewData: Interview = {
       candidateId: this.candidateId,
       jobId: this.jobId,
-      interviewNotes: this.interviewNotes,
+      interviewNotes: '',
       interviewDate: this.interviewDate,
       automaticMessage: this.automaticMessage,
       status: this.interview?.status || 'Pending',
@@ -196,7 +186,6 @@ export class InterviewSummaryComponent implements OnInit, OnDestroy {
 
   onCancel(): void {
     if (this.isInterviewScheduled) {
-      this.interviewNotes = this.originalInterviewData.interviewNotes || '';
       this.interviewDate = this.originalInterviewData.interviewDate || null;
       this.automaticMessage = this.originalInterviewData.automaticMessage || '';
     }
@@ -228,7 +217,7 @@ export class InterviewSummaryComponent implements OnInit, OnDestroy {
   }
 
   goBack(): void {
-    this.router.navigate([`job-details/${this.jobId}/candidates/preferred`]);
+    this.router.navigate([`job-details/${this.jobId}/candidates`]);
   }
 
   onDateChange(formattedDate: string): void {

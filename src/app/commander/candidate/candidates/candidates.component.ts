@@ -1,20 +1,22 @@
 import { CommonModule, Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router, RouterModule } from '@angular/router';
 import { CandidateService } from '../../../services/candidates.service';
 import { Candidate } from '../../../models/candidates.model';
-import { filter } from 'rxjs';
+import { filter, Subscription } from 'rxjs';
 import { ImageComponent } from '../../../shared/image/image.component';
 import { FilterPipe } from '../../../shared/filterPipe/filter.pipe';
+import { Interview } from '../../../models/interview.model';
+import { InterviewSummaryPopupComponent } from '../../popups/interview-summary-popup/interview-summary-popup.component';
 
 @Component({
   selector: 'app-candidates',
   standalone: true,
-  imports: [CommonModule, RouterModule, ImageComponent, FilterPipe],
+  imports: [CommonModule, RouterModule, ImageComponent, FilterPipe, InterviewSummaryPopupComponent],
   templateUrl: './candidates.component.html',
   styleUrl: './candidates.component.css'
 })
-export class CandidatesComponent implements OnInit {
+export class CandidatesComponent implements OnInit, OnDestroy {
   candidates: Candidate[] = [];
   jobId: string = '';
   allCandidates: Candidate[] = [];
@@ -22,6 +24,11 @@ export class CandidatesComponent implements OnInit {
   isMainActive: boolean = false;
   isCandidatesActive: boolean = false;
   isPreferableActive: boolean = false;
+  showInterviewPopup = false;
+  interviewNotes: string = '';
+  candidateSummary: Candidate | undefined;
+  interview: Interview | null = null;
+  private interviewSub: Subscription | undefined;
 
   constructor(
     private router: Router,
@@ -42,6 +49,32 @@ export class CandidatesComponent implements OnInit {
     this.jobId = localStorage.getItem('jobId')!;
     this.loadCandidates();
     this.checkFilter();
+  }
+
+  private loadInterview(): void {
+    if (!this.jobId || !this.candidateSummary?.id) {
+      console.error('Job ID or Candidate ID is missing');
+      return;
+    }
+
+    this.interviewSub = this.candidateService
+      .getInterview(this.jobId, this.candidateSummary.id)
+      .subscribe({
+        next: (interview) => {
+          this.interviewNotes = interview?.interviewNotes || '';
+          this.interview = {
+            candidateId: this.candidateSummary!.id,
+            jobId: this.jobId,
+            interviewNotes: this.interviewNotes,
+            interviewDate: null,
+            automaticMessage: '',
+            fullName: this.candidateSummary!.fullName,
+            email: this.candidateSummary!.email,
+            status: this.candidateSummary!.jobStatuses[this.jobId]
+          };
+        },
+        error: (error) => console.error('Failed to load interview:', error)
+      });
   }
 
   private loadCandidates(): void {
@@ -83,6 +116,48 @@ export class CandidatesComponent implements OnInit {
     });
   }
 
+  openInterviewSummary(candidate: Candidate): void {
+    this.candidateSummary = candidate;
+    this.loadInterview();
+    this.showInterviewPopup = true;
+  }
+
+  handleInterviewSave(result: any): void {
+    if (!this.candidateSummary || !this.jobId) {
+      console.error('Candidate or Job ID is missing.');
+      return;
+    }
+
+    const interviewData: Interview = {
+      candidateId: this.candidateSummary.id,
+      jobId: this.jobId,
+      interviewNotes: result.summary,
+      interviewDate: null,
+      automaticMessage: '',
+      fullName: this.candidateSummary.fullName,
+      email: this.candidateSummary.email,
+      status: this.candidateSummary.jobStatuses[this.jobId],
+    };
+
+    if (this.interviewNotes) {
+      this.candidateService.updateInterview(interviewData, this.jobId, this.candidateSummary.id).subscribe({
+        next: () => {
+          this.loadInterview();
+          this.showInterviewPopup = false;
+        },
+        error: (error) => console.error('Failed to update interview:', error),
+      });
+    } else {
+      this.candidateService.saveInterview(interviewData, this.jobId, this.candidateSummary.id).subscribe({
+        next: () => {
+          this.loadInterview();
+          this.showInterviewPopup = false;
+        },
+        error: (error) => console.error('Failed to save interview:', error),
+      });
+    }
+  }
+
   goBack() {
     this.router.navigate([`/job-details/${this.jobId}`]);
   }
@@ -119,5 +194,11 @@ export class CandidatesComponent implements OnInit {
     const preferredCandidates = this.candidates.filter(c => c.jobStatuses[this.jobId] === 'preferred');
     const result = preferredCandidates.length === 0;
     return result;
+  }
+
+  ngOnDestroy(): void {
+    if (this.interviewSub) {
+      this.interviewSub.unsubscribe();
+    }
   }
 }
