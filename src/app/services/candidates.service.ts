@@ -194,6 +194,7 @@ export class CandidateService {
 
   sendInterviewData(interviewData: any): void {
     const url = `${this.commanderCandidatesUrl}/send-interview-invitation`;
+    console.log(interviewData)
     this.http.post(url, interviewData).pipe(
       catchError(error => {
         console.error('Error sending interview invitation:', error);

@@ -63,7 +63,7 @@ export class InterviewSummaryComponent implements OnInit, OnDestroy {
     this.candidateService.getCurrentUser().subscribe({
       next: user => {
         if (user) {
-          this.currentUser = user;
+          this.currentUser = CandidateMapperService.mapVolunteerCandidateModel(user);
         }
       }
     });
@@ -107,70 +107,33 @@ export class InterviewSummaryComponent implements OnInit, OnDestroy {
     });
   }
 
-  private getChangedFields(): Interview {
-    return {
-      candidateId: this.candidateId!,
-      jobId: this.jobId!,
-      interviewNotes: '',
-      interviewDate: this.interviewDate,
-      automaticMessage: this.automaticMessage,
-      status: this.interview?.status || 'Pending',
-      fullName: this.candidate?.fullName || '',
-      email: this.candidate?.email || '',
-      ...this.getChangedFieldsData()
-    };
-  }
-
-  private getChangedFieldsData(): Partial<Interview> {
-    const changes: Partial<Interview> = {};
-    if (this.interviewDate !== this.originalInterviewData.interviewDate) {
-      changes.interviewDate = this.interviewDate;
-    }
-    if (this.automaticMessage !== this.originalInterviewData.automaticMessage) {
-      changes.automaticMessage = this.automaticMessage;
-    }
-
-    return changes;
-  }
-
   onSave(): void {
     if (!this.candidateId || !this.jobId) {
-      console.error('Missing required IDs');
-      return;
+        console.error('Missing required IDs');
+        return;
     }
 
-    const interviewData: Interview = {
-      candidateId: this.candidateId,
-      jobId: this.jobId,
-      interviewNotes: '',
-      interviewDate: this.interviewDate,
-      automaticMessage: this.automaticMessage,
-      status: this.interview?.status || 'Pending',
-      fullName: this.candidate?.fullName || '',
-      email: this.candidate?.email || '',
-    };
+    if (!this.interviewDate) {
+        console.error('Interview date and time must be selected');
+        return;
+    }
 
     const interviewEmailData = {
-      candidate_email: this.candidate?.email || '',
-      commander_email: this.currentUser?.email || '',
-      job_title: this.currentJob?.jobName || '',
-      interview_time: this.interviewDate || '',
-      candidate_name: this.candidate?.fullName || '',
-      commander_name: this.currentUser?.fullName || '',
-      additional_info: this.automaticMessage || '',
+        candidate_email: this.candidate?.email || '',
+        commander_email: this.currentUser?.email || '',
+        job_title: this.currentJob?.jobName || '',
+        interview_time: this.interviewDate,
+        candidate_name: this.candidate?.fullName || '',
+        commander_name: this.currentUser?.fullName || '',
+        additional_info: this.automaticMessage || '',
     };
 
-    if (!this.isInterviewScheduled) {
-      this.candidateService.saveInterview(interviewData, this.jobId, this.candidateId).subscribe({
-        next: newInterview => {
-          this.candidateService.sendInterviewData(interviewEmailData);
-          this.getInterview(this.candidateId!, this.jobId!);
-          window.location.reload();
-        },
-        error: err => console.error('Error adding new interview:', err)
-      });
-    }
-  }
+    console.log('Interview Email Data:', interviewEmailData);
+
+    this.candidateService.sendInterviewData(interviewEmailData);
+    this.getInterview(this.candidateId!, this.jobId!);
+    window.location.reload();
+}
 
 
   onCancel(): void {
@@ -210,8 +173,27 @@ export class InterviewSummaryComponent implements OnInit, OnDestroy {
   }
 
   onDateChange(formattedDate: string): void {
-    this.interviewDate = new Date(formattedDate);
-  }
+    console.log('Received formatted date:', formattedDate);
+
+    const [datePart, timePart] = formattedDate.split(' ');
+    const [year, month, day] = datePart.split('-');
+    const [hours, minutes] = timePart.split(':');
+
+    const months = {
+        'Jan': 0, 'Feb': 1, 'Mar': 2, 'Apr': 3, 'May': 4, 'Jun': 5,
+        'Jul': 6, 'Aug': 7, 'Sep': 8, 'Oct': 9, 'Nov': 10, 'Dec': 11
+    };
+
+    this.interviewDate = new Date(
+        parseInt(year),
+        months[month as keyof typeof months],
+        parseInt(day),
+        parseInt(hours),
+        parseInt(minutes)
+    );
+
+    console.log('Updated interview date:', this.interviewDate);
+}
 
   ngOnDestroy(): void {
     if (this.candidateSub) {

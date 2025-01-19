@@ -89,13 +89,19 @@ export class InterviewDateFormatterComponent implements OnInit, OnChanges {
 
   onDateTimeChange(): void {
     if (this.dateControl.value && this.timeControl.value) {
-      const [year, month, day] = this.dateControl.value.split('-');
-      const [hours, minutes] = this.timeControl.value.split(':');
-      const localDate = new Date(+year, +month - 1, +day, +hours, +minutes);
+        const [year, month, day] = this.dateControl.value.split('-');
+        const [hours, minutes] = this.timeControl.value.split(':');
 
-      const utcDate = new Date(localDate.getTime());
+        const combinedDateTime = new Date(
+            parseInt(year),
+            parseInt(month) - 1,
+            parseInt(day),
+            parseInt(hours),
+            parseInt(minutes)
+        );
 
-      this.dateChange.emit(this.formatForAPI(utcDate));
+        console.log('Combined DateTime:', combinedDateTime);
+        this.dateChange.emit(this.formatForAPI(combinedDateTime));
     }
-  }
+}
 }
