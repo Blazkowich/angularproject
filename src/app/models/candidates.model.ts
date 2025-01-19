@@ -16,7 +16,7 @@ export interface Candidate {
   interests: string;
   personalSummary: string;
   jobStatuses: {
-    [jobId: string]: 'preferred' | 'rejected' | 'pending' | 'hired';
+    [jobId: string]: 'preferred_final' | 'preferred' | 'rejected' | 'pending' | 'hired';
   };
   imageUrl: string;
 }

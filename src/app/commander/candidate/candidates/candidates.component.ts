@@ -20,10 +20,11 @@ export class CandidatesComponent implements OnInit, OnDestroy {
   candidates: Candidate[] = [];
   jobId: string = '';
   allCandidates: Candidate[] = [];
-  currentFilter: 'preferred' | 'rejected' | 'pending' | 'all' = 'all';
+  currentFilter: 'preferred_final' | 'preferred' | 'rejected' | 'pending' | 'all' = 'all';
   isMainActive: boolean = false;
   isCandidatesActive: boolean = false;
   isPreferableActive: boolean = false;
+  isSelectedCandidatesActive: boolean = false;
   showInterviewPopup = false;
   interviewNotes: string = '';
   candidateSummary: Candidate | undefined;
@@ -42,6 +43,7 @@ export class CandidatesComponent implements OnInit, OnDestroy {
       this.isMainActive = currentUrl === '/' || /\/job-details(\/\d+)?$/.test(currentUrl);
       this.isCandidatesActive = /\/job-details\/\d+\/candidates$/.test(currentUrl);
       this.isPreferableActive = /\/job-details\/\d+\/candidates\/preferred$/.test(currentUrl);
+      this.isSelectedCandidatesActive = /\/job-details\/\d+\/candidates\/preferred$/.test(currentUrl);
     });
   }
 
@@ -93,10 +95,15 @@ export class CandidatesComponent implements OnInit, OnDestroy {
   private applyFilter(): void {
     if (this.jobId) {
       if (this.isPreferableActive) {
-        this.candidates = this.allCandidates.filter(candidate => candidate.jobStatuses[this.jobId] === 'preferred');
+        this.candidates = this.allCandidates.filter(candidate =>
+          candidate.jobStatuses[this.jobId] === 'preferred' ||
+          candidate.jobStatuses[this.jobId] === 'preferred_final'
+        );
       } else if (this.isCandidatesActive) {
         this.candidates = this.allCandidates.filter(candidate =>
-          candidate.jobStatuses[this.jobId] === 'pending' || candidate.jobStatuses[this.jobId] === 'rejected');
+          candidate.jobStatuses[this.jobId] === 'pending' ||
+          candidate.jobStatuses[this.jobId] === 'rejected'
+        );
       } else {
         this.candidates = this.allCandidates;
       }
@@ -107,6 +114,8 @@ export class CandidatesComponent implements OnInit, OnDestroy {
     this.route.url.subscribe(url => {
       if (url.some(segment => segment.path === 'preferred')) {
         this.currentFilter = 'preferred';
+      } else if (url.some(segment => segment.path === 'preferred_final')) {
+        this.currentFilter = 'preferred_final';
       } else if (url.some(segment => segment.path === 'rejected')) {
         this.currentFilter = 'rejected';
       } else {
@@ -191,9 +200,11 @@ export class CandidatesComponent implements OnInit, OnDestroy {
 
   // For the Preferable Candidates section
   shouldShowPreferableText(): boolean {
-    const preferredCandidates = this.candidates.filter(c => c.jobStatuses[this.jobId] === 'preferred');
-    const result = preferredCandidates.length === 0;
-    return result;
+    const preferredCandidates = this.candidates.filter(c =>
+      c.jobStatuses[this.jobId] === 'preferred' ||
+      c.jobStatuses[this.jobId] === 'preferred_final'
+    );
+    return preferredCandidates.length === 0;
   }
 
   ngOnDestroy(): void {

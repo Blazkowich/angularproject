@@ -88,6 +88,7 @@ export class HrCandidatePageComponent implements OnInit, OnDestroy {
       this.candidateService.getCandidatesForHR().subscribe({
         next: (candidates: Candidate[]) => {
           this.candidates = CandidateMapperService.mapCandidatesForHRModel(candidates);
+          console.log(this.candidates);
           this.filteredCandidates = [...this.candidates];
         },
         error: (error) => {
@@ -127,15 +128,16 @@ export class HrCandidatePageComponent implements OnInit, OnDestroy {
     }
 
     const status = candidate.jobStatuses?.[this.jobId]?.toLowerCase();
-
-    if (status === 'preferred') {
+    if (status === 'preferred_final') {
       return {
-        text: 'Preferred',
+        text: 'Selected',
         class: 'btn btn-outline-success status-button'
       };
     }
 
     switch (status) {
+      case 'preferred':
+        return { text: 'Preferred', class: 'btn btn-outline-success status-button' };
       case 'pending':
         return { text: 'Pending', class: 'btn btn-outline-warning status-button' };
       case 'rejected':
@@ -200,8 +202,21 @@ export class HrCandidatePageComponent implements OnInit, OnDestroy {
   selectCandidate(candidateId: string, status: string): void {
     localStorage.setItem('candidateId', candidateId);
     this.selectedCandidateId = candidateId;
-    if (status === 'preferred') {
-      this.isPreferredModalOpen = true;
+
+    const normalizedStatus = status.toLowerCase();
+    if (normalizedStatus === 'selected' || normalizedStatus === 'preferred_final') {
+      if (this.jobId) {
+        this.jobService.getJobById(this.jobId).subscribe({
+          next: (job: Job) => {
+            this.selectedJobName = job.jobName;
+            this.selectedJobUnit = job.unit;
+            this.isPreferredModalOpen = true;
+          },
+          error: (err) => {
+            console.error('Error fetching job details:', err);
+          }
+        });
+      }
     }
   }
 

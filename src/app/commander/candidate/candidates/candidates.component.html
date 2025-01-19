@@ -26,7 +26,7 @@
           <a class="nav-link" [ngClass]="{'active-tab': isCandidatesActive}" (click)="goToCandidates()">מועמדים</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [ngClass]="{'active-tab': isPreferableActive}" (click)="gotToPreferableCandidates()">מתאימים</a>
+          <a class="nav-link" [ngClass]="{'active-tab': isPreferableActive || isSelectedCandidatesActive}" (click)="gotToPreferableCandidates()">מתאימים ונבחרים</a>
         </li>
       </ul>
     </div>
@@ -102,38 +102,59 @@
     </div>
   </div>
 
-  <!-- Preferable Candidates Listings -->
-  <div class="container" dir="rtl">
-    <div class="row justify-content-center">
-      <div class="col-12 col-md-10 col-lg-8">
-        <div class="candidate-box-container">
-          <h3 *ngIf="isPreferableActive && (candidates | filter: { status: ['preferred'], jobId: this.jobId }).length > 0">
-            Preferrable Candidates
-          </h3>
-          <div *ngFor="let candidate of candidates | filter: { status: ['preferred'], jobId: this.jobId }"
-              class="candidate-box mb-3 position-relative cursor-pointer">
-            <div class="d-flex align-items-center w-100 p-2">
-              <div class="profile-image-container">
-                <img [src]="candidate.imageUrl"
-                    alt="Profile picture"
-                    class="profile-image"
-                    onerror="this.src='assets/images/on.svg'"
-                    (click)="$event.stopPropagation(); goToCandidateProfile(candidate.id)">
-              </div>
-              <div class="me-3 d-flex flex-column flex-grow-1 text-end">
-                <div (click)="goToCandidateDetails(candidate.id)">
-                  <h4 class="mb-1">{{ candidate.fullName }}</h4>
-                  <h5 class="mb-0">{{ candidate.age }}</h5>
-                </div>
-                <h5 class="button-like-text for-summary" (click)="$event.stopPropagation(); openInterviewSummary(candidate)">Summary</h5>
-              </div>
-              <i class="bi bi-chevron-left chevron-icon" (click)="goToCandidateDetails(candidate.id)"></i>
+<!-- Preferable Candidates Listings -->
+<div class="container" dir="rtl">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-10 col-lg-8">
+      <div class="candidate-box-container">
+        <h3 *ngIf="isPreferableActive && (candidates | filter: { status: ['preferred'], jobId: this.jobId }).length > 0">
+          Preferable Candidates
+        </h3>
+        <div *ngFor="let candidate of candidates | filter: { status: ['preferred'], jobId: this.jobId }"
+            class="candidate-box mb-3 position-relative cursor-pointer">
+          <div class="d-flex align-items-center w-100 p-2" (click)="goToCandidateDetails(candidate.id)">
+            <div class="profile-image-container">
+              <img [src]="candidate.imageUrl"
+                  alt="Profile picture"
+                  class="profile-image"
+                  onerror="this.src='assets/images/on.svg'"
+                  (click)="goToCandidateProfile(candidate.id)">
             </div>
+            <div class="me-3 d-flex flex-column flex-grow-1 text-end">
+              <h4 class="mb-1">{{ candidate.fullName }}</h4>
+              <h5 class="mb-0">{{ candidate.age }}</h5>
+              <h5 class="mb-0">{{ candidate.jobStatuses[jobId] }}</h5>
+            </div>
+            <i class="bi bi-chevron-left chevron-icon"></i>
+          </div>
+        </div>
+
+        <h3 *ngIf="isPreferableActive && (candidates | filter: { status: ['preferred_final'], jobId: this.jobId }).length > 0">
+          Selected Candidates
+        </h3>
+        <div *ngFor="let candidate of candidates | filter: { status: ['preferred_final'], jobId: this.jobId }"
+            class="candidate-box mb-3 position-relative cursor-pointer">
+          <div class="d-flex align-items-center w-100 p-2">
+            <div class="profile-image-container">
+              <img [src]="candidate.imageUrl"
+                  alt="Profile picture"
+                  class="profile-image"
+                  onerror="this.src='assets/images/on.svg'"
+                  (click)="goToCandidateProfile(candidate.id)">
+            </div>
+            <div class="me-3 d-flex flex-column flex-grow-1 text-end">
+              <h4 class="mb-1">{{ candidate.fullName }}</h4>
+              <h5 class="mb-0">{{ candidate.age }}</h5>
+              <h5 class="button-like-text for-summary" (click)="openInterviewSummary(candidate)">Summary</h5>
+            </div>
+            <i class="bi bi-chevron-left chevron-icon"></i>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
+
 </div>
 
 <!-- Background Image Component -->

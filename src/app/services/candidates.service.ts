@@ -135,7 +135,7 @@ export class CandidateService {
     );
   }
 
-  updateCandidateStatus(jobId: string, candidateId: string, status: 'preferred' | 'rejected'): Observable<any> {
+  updateCandidateStatus(jobId: string, candidateId: string, status: 'preferred_final' | 'preferred' | 'rejected'): Observable<any> {
     const url = `${this.commanderCandidatesUrl}/jobs/${jobId}/volunteers/${candidateId}`;
     return this.http.patch(url, { status }).pipe(
       catchError((error) => {

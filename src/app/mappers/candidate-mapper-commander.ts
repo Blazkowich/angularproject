@@ -36,10 +36,10 @@ export class CandidateMapperService {
 
   /* Commander Mappers */
   static mapToCommandersCandidatesModel(rawData: any, jobId?: string): Candidate {
-    const jobStatuses: { [key: string]: 'preferred' | 'rejected' | 'pending' | 'hired' } = {};
+    const jobStatuses: { [key: string]: 'preferred_final' | 'preferred' | 'rejected' | 'pending' | 'hired' } = {};
 
     if (jobId && rawData.status) {
-      jobStatuses[jobId] = rawData.status as 'preferred' | 'rejected' | 'pending' | 'hired';
+      jobStatuses[jobId] = rawData.status as 'preferred_final' | 'preferred' | 'rejected' | 'pending' | 'hired';
     }
 
     return {
@@ -93,7 +93,7 @@ export class CandidateMapperService {
         ? Object.entries(candidate.jobStatuses).reduce((acc, [jobId, status]) => {
             acc[jobId] = status;
             return acc;
-          }, {} as { [jobId: string]: 'preferred' | 'rejected' | 'pending' | 'hired' })
+          }, {} as { [jobId: string]: 'preferred_final' | 'preferred' | 'rejected' | 'pending' | 'hired' })
         : {},
       imageUrl: candidate?.imageUrl || '',
     };

@@ -77,13 +77,26 @@ export class CandidatesDetailsComponent implements OnInit, OnDestroy{
     this.showPopup = false;
   }
 
-  updateCandidateStatus(status: 'preferred' | 'rejected') {
+  onCandidatePreferredFinal() {
+    if (this.candidate?.jobStatuses[this.jobId] === 'preferred') {
+      this.isApproved = true;
+      this.updateCandidateStatus('preferred_final');
+      this.showPopup = true;
+    } else {
+      console.log('Cannot transition to Preferred Final unless the status is "preferred"');
+    }
+  }
+
+  updateCandidateStatus(status: 'preferred' | 'rejected' | 'preferred_final') {
     if (this.jobId && this.candidate?.id) {
       this.candidateService
         .updateCandidateStatus(this.jobId, this.candidate.id, status)
         .subscribe({
           next: () => {
             console.log(`Candidate status updated to: ${status}`);
+            if (this.candidate?.jobStatuses) {
+              this.candidate.jobStatuses[this.jobId] = status;
+            }
           },
           error: (err) => {
             console.log('Error updating status:', err);
