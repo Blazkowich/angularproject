@@ -69,12 +69,13 @@ export class JobApplicationDetailsComponent implements OnInit {
   onApply(formData: { additionalInfo: string, resume: File | null }) {
     this.jobService.applyForJob(this.jobId, formData.additionalInfo, formData.resume).subscribe({
       next: (response) => {
-        console.log('Application successful:', response);
         this.isApplied = true;
         this.isCancelled = false;
+        alert("בקשת המשרה הפנויה הוגשה בהצלחה.");
       },
       error: (error) => {
         console.error('Error applying for job:', error);
+        alert('שגיאה בהגשת מועמדות לעבודה');
       },
     });
   }
@@ -85,9 +86,11 @@ export class JobApplicationDetailsComponent implements OnInit {
         console.log('Application canceled successfully:', response);
         this.isApplied = false;
         this.isCancelled = true;
+        alert('הבקשה בוטלה בהצלחה');
       },
       error: (error) => {
         console.error('Error canceling application:', error);
+        alert('שגיאה בביטול האפליקציה');
       },
     });
   }

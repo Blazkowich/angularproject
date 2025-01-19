@@ -41,7 +41,7 @@ candidate: Candidate | undefined;
   }
 
   goBack() {
-    this.router.navigate([`/job-details/${this.jobId}/candidates`]);
+    this.router.navigate([`/candidates-list`]);
   }
 
   ngOnDestroy(): void {
