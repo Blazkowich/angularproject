@@ -111,12 +111,8 @@ export class JobMapper {
       closedBase: false,
       jobDescription: input.description,
       additionalInfo: input.additional_info,
-      commonQuestions: Array.isArray(input.common_questions)
-      ? input.common_questions
-      : input.common_questions ? [input.common_questions] : [],
-    commonAnswers: Array.isArray(input.common_answers)
-      ? input.common_answers
-      : input.common_answers ? [input.common_answers] : [],
+      commonQuestions: input.questions?.map((q: any) => q.question_text) || [],
+      commonAnswers: input.questions?.map((q: any) => q.answer_text) || [],
       education: input.education,
       techSkills: input.tech_skills,
       workExperience: input.experience,
