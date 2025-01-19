@@ -1,7 +1,7 @@
-<div class="popup-container">
+<div dir="rtl" class="popup-container">
   <div class="popup">
     <div class="popup-header-container">
-      <h2 class="popup-header">Adding a new soldier</h2>
+      <h2 class="popup-header">הוספת חייל חדש</h2>
       <button type="button" class="close" (click)="close()">
         <img src="/assets/images/close.svg" alt="Close" />
       </button>
@@ -11,7 +11,7 @@
       <input
         type="text"
         class="form-control"
-        placeholder="Soldier's name"
+        placeholder="שם החייל"
         [(ngModel)]="soldierName"
         name="soldierName"
         required
@@ -19,7 +19,7 @@
       <input
         type="text"
         class="form-control"
-        placeholder="Enter ID"
+        placeholder="הזן תעודת זהות"
         [(ngModel)]="soldierId"
         name="soldierId"
         required
@@ -27,7 +27,7 @@
       <input
         type="text"
         class="form-control"
-        placeholder="Enter Email"
+        placeholder="Email"
         [(ngModel)]="soldierEmail"
         name="soldierEmail"
         required
@@ -35,17 +35,17 @@
       <input
         type="text"
         class="form-control"
-        placeholder="Enter Phone"
+        placeholder="טלפון"
         [(ngModel)]="soldierPhone"
         name="soldierPhone"
         required
       />
-      <button type="submit" class="btn btn-primary">Add</button>
+      <button type="submit" class="btn btn-primary">הוספה</button>
     </form>
 
     <div *ngIf="message" class="popup-message">
       <p>{{ message }}</p>
-      <button (click)="close()" class="btn btn-primary">Close</button>
+      <button (click)="close()" class="btn btn-primary">סגור</button>
     </div>
   </div>
 </div>

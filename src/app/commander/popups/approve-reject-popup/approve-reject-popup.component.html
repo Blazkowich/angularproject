@@ -5,17 +5,17 @@
         <img src="assets/images/sendArrow.svg" alt="Send Arrow" class="modal-icon">
 
         <div class="message-container" *ngIf="isApproved">
-          <p class="message-title">Candidate approved successfully</p>
-          <p class="message-subtitle">Notification will be sent to HR</p>
+          <p class="message-title">מועמדות לתפקיד אושרה בהצלחה</p>
+          <p class="message-subtitle">הפנייה מועברת לסגל המשאן להמשך טיפול </p>
         </div>
 
         <div class="message-container" *ngIf="!isApproved">
-          <p class="message-title">Candidate rejected successfully</p>
-          <p class="message-subtitle">Notification will be sent to candidate</p>
+          <p class="message-title">מועמדות לתפקיד נדחתה</p>
+          <p class="message-subtitle">העדכון יישלח למתנדב </p>
         </div>
 
         <button class="close-button" (click)="onClose()">
-          Click to close
+          סגור
         </button>
       </div>
     </div>

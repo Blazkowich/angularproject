@@ -1,7 +1,7 @@
 <div class="container py-3">
   <!-- Header -->
   <div class="d-flex justify-content-center align-items-center mb-3" style="font-weight: bold;">
-    <span class="text-muted">interview | {{ candidate?.fullName }}</span>
+    <span class="text-muted">רעיון | {{ candidate?.fullName }}</span>
   </div>
   <div *ngIf="interviewDate" class="mb-3 text-center">
     <h6>Interview Scheduled For:</h6>
@@ -26,13 +26,22 @@
 
   <!-- Cancel/Delete Confirmation Modal -->
   <div *ngIf="showDeleteConfirmation" class="modal-overlay">
+<!--    <div class="modal-content">-->
+<!--      <h4>Cancel Interview</h4>-->
+<!--      <p>Do you want to reset the form or delete this interview?</p>-->
+<!--      <div class="d-flex justify-content-end gap-2">-->
+<!--        <button class="btn btn-danger" (click)="onDeleteConfirm()">Delete Interview</button>-->
+<!--        <button class="btn btn-secondary" (click)="onCancel()">Reset Form</button>-->
+<!--        <button class="btn btn-outline-secondary" (click)="onDeleteCancel()">Close</button>-->
+<!--      </div>-->
+<!--    </div>-->
     <div class="modal-content">
-      <h4>Cancel Interview</h4>
-      <p>Do you want to reset the form or delete this interview?</p>
+      <h4>ביטול ראיון</h4>
+      <p>האם תרצה/י לאפס את הטופס או למחוק ראיון זה?</p>
       <div class="d-flex justify-content-end gap-2">
-        <button class="btn btn-danger" (click)="onDeleteConfirm()">Delete Interview</button>
-        <button class="btn btn-secondary" (click)="onCancel()">Reset Form</button>
-        <button class="btn btn-outline-secondary" (click)="onDeleteCancel()">Close</button>
+        <button class="btn btn-danger" (click)="onDeleteConfirm()">מחק ראיון</button>
+        <button class="btn btn-secondary" (click)="onCancel()">איפוס טופס</button>
+        <button class="btn btn-outline-secondary" (click)="onDeleteCancel()">סגור</button>
       </div>
     </div>
   </div>
@@ -53,7 +62,7 @@
   <!-- Right-aligned Section -->
   <div class="right-aligned-section">
     <div class="form-group mb-4 interviewDate">
-      <label for="interviewDate">Interview Date:</label>
+      <label for="interviewDate">תאריך ראיון</label>
       <app-interview-date-formatter
         [initialDate]="interviewDate?.toISOString()!"
         (dateChange)="onDateChange($event)">
@@ -61,24 +70,24 @@
     </div>
 
     <div class="form-group mb-4">
-      <label for="automaticMessage">Automatic Message</label>
+      <label for="automaticMessage">הודעה</label>
       <textarea
         id="automaticMessage"
         class="form-control"
         rows="4"
         [(ngModel)]="automaticMessage"
-        placeholder="Message to be sent automatically to the candidate."
+        placeholder="הודעה למועםד"
       ></textarea>
     </div>
 
     <div class="d-flex justify-content-end gap-2">
       <button class="btn btn-primary" (click)="onSave()">
-        {{ isInterviewScheduled ? 'Update' : 'Save' }}
+        {{ isInterviewScheduled ? 'עדכום' : 'שמור' }}
       </button>
       <button *ngIf="isInterviewScheduled" class="btn btn-secondary" (click)="onDeleteClick()">
-        Cancel
+        בטל
       </button>
-      <button class="btn btn-outline-secondary" (click)="goBack()">Back</button>
+      <button class="btn btn-outline-secondary" (click)="goBack()">אחורה</button>
     </div>
   </div>
 </div>

@@ -93,8 +93,8 @@ export class JobApplicationDetailsComponent implements OnInit {
   }
 
   getButtonText(): string {
-    if (this.isApplied) return 'Cancel';
-    return 'Apply';
+    if (this.isApplied) return 'ביטול מועמדות';
+    return 'להגשת מועמדות';
   }
 
   getButtonClass(): string {

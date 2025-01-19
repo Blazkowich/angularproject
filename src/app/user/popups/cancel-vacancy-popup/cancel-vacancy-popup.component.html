@@ -6,20 +6,20 @@
 
         <!-- Confirmation View -->
         <div class="message-container" *ngIf="isConfirmationView">
-          <p class="message-title">Application Cancelled</p>
-          <p class="message-subtitle">Update will be sent to relevant parties</p>
-          <button class="close-button" (click)="onClose()">Close</button>
+          <p class="message-title">מועמדות התבטלה</p>
+          <p class="message-subtitle">העדכון יישלח לגורמים הרלוונטיים </p>
+          <button class="close-button" (click)="onClose()">סגור</button>
         </div>
 
         <!-- Initial View -->
         <div *ngIf="!isConfirmationView">
           <div class="message-container">
-            <p class="message-title">Are you sure you want to cancel your application?</p>
-            <p class="message-subtitle">This action cannot be undone</p>
+            <p class="message-title">האם אתה בטוח שברצונך לבטל את המועמדות שלך?</p>
+            <p class="message-subtitle">לא ניתן לבטל פעולה זו</p>
           </div>
           <div class="button-container">
-            <button class="cancel-button" (click)="onCancel()">Yes</button>
-            <button class="close-button" (click)="onClose()">No</button>
+            <button class="cancel-button" (click)="onCancel()">כן</button>
+            <button class="close-button" (click)="onClose()">לא</button>
           </div>
         </div>
       </div>

@@ -3,7 +3,7 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Update Job Details</h5>
+        <h5 class="modal-title">עדכון תפקיד</h5>
         <button type="button" class="close" (click)="close()">
           <img src="/assets/images/close.svg" alt="Close" />
         </button>
@@ -11,42 +11,42 @@
       <div class="modal-body">
         <form (ngSubmit)="onSubmit()">
           <div class="form-group">
-            <label for="jobName">Job Name</label>
+            <label for="jobName">שם תפקיד</label>
             <input type="text" class="form-control" id="jobName" [(ngModel)]="job.jobName" name="jobName" required>
           </div>
           <div class="form-group">
-            <label for="jobAddress">Job Address</label>
+            <label for="jobAddress">מיקום</label>
             <input type="text" class="form-control" id="jobAddress" [(ngModel)]="job.address" name="jobAddress" required>
           </div>
           <div class="form-group">
-            <label for="jobCategory">Job Category</label>
+            <label for="jobCategory">תחום תפקיד</label>
             <input type="text" class="form-control" id="jobCategory" [(ngModel)]="job.jobCategory" name="jobCategory" required>
           </div>
           <div class="form-group">
-            <label for="jobDescription">Job Description</label>
+            <label for="jobDescription">תיאור תפקיד</label>
             <textarea class="form-control" id="jobDescription" [(ngModel)]="job.jobDescription" name="jobDescription" required></textarea>
           </div>
           <div class="form-group">
-            <label for="techSkills">Tech Skills</label>
+            <label for="techSkills">מערכות ושפות תוכנה</label>
             <input type="text" class="form-control" id="techSkills" [(ngModel)]="job.techSkills" name="techSkills">
           </div>
           <div class="form-group">
-            <label for="education">Education</label>
+            <label for="education">השכלה</label>
             <input type="text" class="form-control" id="education" [(ngModel)]="job.education" name="education">
           </div>
           <div class="form-group">
-            <label for="candidateCount">Number of Candidates</label>
+            <label for="candidateCount">מספר תקנים</label>
             <input type="number" class="form-control" id="candidateCount" [(ngModel)]="job.positions" name="candidateCount" required>
           </div>
           <div class="form-group">
-            <label for="commonQuestion">Question</label>
+            <label for="commonQuestion">שאלה</label>
             <input type="text" class="form-control" id="commonQuestion" [(ngModel)]="job.commonQuestions" name="commonQuestion" required>
           </div>
           <div class="form-group">
-            <label for="commonAnswer">Answer</label>
+            <label for="commonAnswer">תשובה</label>
             <input type="text" class="form-control" id="commonAnswer" [(ngModel)]="job.commonAnswers" name="commonAnswer" required>
           </div>
-          <button type="submit" class="btn btn-primary">Save Changes</button>
+          <button type="submit" class="btn btn-primary">שמור</button>
         </form>
       </div>
     </div>

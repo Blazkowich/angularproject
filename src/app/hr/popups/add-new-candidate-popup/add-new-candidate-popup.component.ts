@@ -42,7 +42,7 @@ export class AddNewCandidatePopupComponent {
       this.candidateService.createCandidate(candidateData).subscribe({
         next: (response) => {
           this.isLoading = false;
-          this.message = 'The soldier was successfully added to the candidate database';
+          this.message = 'החייל נוסף בהצלחה';
           setTimeout(() => {
             this.candidateAdded.emit();
             this.close();
@@ -50,7 +50,7 @@ export class AddNewCandidatePopupComponent {
         },
         error: (err) => {
           this.isLoading = false;
-          this.error = err.message || 'Failed to add candidate. Please try again.';
+          this.error = err.message || 'הוספת המועמד נכשלה. אנא נסה שוב.';
         }
       });
     }

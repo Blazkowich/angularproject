@@ -12,7 +12,7 @@
         class="fw-bold"
         [class.active]="activeTab === 'jobRequirements'"
         (click)="switchTab('jobRequirements')">
-        Job<br>Requirements
+        דרישות התפקיד
       </a>
       <span class="mx-2 fw-bold divider">|</span>
       <a
@@ -20,37 +20,37 @@
         class="fw-bold"
         [class.active]="activeTab === 'faq'"
         (click)="switchTab('faq')">
-        Frequently<br>Asked Questions
+        שאלות נפוצות
       </a>
     </div>
 
     <!-- Job Requirements Content -->
     <div [ngClass]="{'fade-in': activeTab === 'jobRequirements'}" *ngIf="activeTab === 'jobRequirements'">
-      <h5 class="mb-3">Job Description</h5>
+      <h5 class="mb-3">תיאור תפקיד</h5>
       <p>{{ job?.jobDescription }}</p>
 
       <div class="mb-3">
-        <h6>Work experience</h6>
+        <h6>ניסיון תעסוקתי</h6>
         <p>{{ job?.workExperience }}</p>
       </div>
 
       <div class="mb-3">
-        <h6>Education</h6>
+        <h6>השכלה</h6>
         <p>{{ job?.education }}</p>
       </div>
 
       <div class="mb-3">
-        <h6>Courses and certifications</h6>
+        <h6>קורסים והסמכות</h6>
         <p>{{ job?.passedCourses }}</p>
       </div>
 
       <div class="mb-4">
-        <h6>Software systems and languages</h6>
+        <h6>מערכות ושפות תוכנה</h6>
         <p>{{ job?.techSkills }}</p>
       </div>
 
       <div class="mb-3">
-        <h6 class="mb-1">Additional Info</h6>
+        <h6 class="mb-1">חשוב שידעו</h6>
         <p>{{ job?.additionalInfo }}</p>
       </div>
 
@@ -72,7 +72,7 @@
           <p class="answer-text">{{job?.commonAnswers?.[i]}}</p>
         </div>
         <div *ngIf="!job?.commonQuestions?.length" class="text-center">
-          <p>No FAQ available for this position.</p>
+          <p>אין שאלות נפוצות זמינות לתפקיד זה.</p>
         </div>
       </div>
     </div>

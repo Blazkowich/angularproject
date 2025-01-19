@@ -12,7 +12,7 @@
     type="text"
     class="form-control search-input"
     style="direction: rtl;"
-    placeholder="Search for a role"
+    placeholder="חיפוש תפקיד ספציפי"
     [(ngModel)]="searchQuery"
     (ngModelChange)="filterJobs()">
   <i class="bi bi-search position-relative"
@@ -35,12 +35,12 @@
          [routerLink]="'/personal-profile'"
          (click)="isProfileDropdownOpen = false">
         <i class="bi bi-person"></i>
-        Profile
+        פרופיל
       </a>
       <a class="dropdown-item d-flex align-items-center gap-2"
          (click)="Logout(); isProfileDropdownOpen = false">
         <i class="bi bi-box-arrow-right"></i>
-        Logout
+        התנתק
       </a>
     </div>
   </div>
@@ -50,14 +50,14 @@
  <div class="filter-section">
   <button class="btn btn-outline-secondary filter-button d-flex align-items-center gap-2" (click)="toggleSortOrder()">
     <i class="bi bi-sort-down"></i>
-    Sort by name
+סינון לפי  שם
     <i *ngIf="isSortedAscending" class="bi bi-arrow-down"></i>
     <i *ngIf="!isSortedAscending" class="bi bi-arrow-up"></i>
   </button>
 </div>
 
  <!-- Title -->
- <h1 class="h3 mb-4 text-black role-title">Role database</h1>
+ <h1 class="h3 mb-4 text-black role-title">מאגר תפקידים</h1>
 
  <!-- Role List -->
  <div class="role-list mb-5">

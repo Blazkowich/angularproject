@@ -12,7 +12,7 @@
       type="text"
       class="form-control search-input"
       style="direction: rtl;"
-      placeholder="Search for a Soldier"
+      placeholder="חיפוש תפקיד ספציפי"
       [(ngModel)]="searchQuery"
       (input)="filterCandidates()">
     <i class="bi bi-search position-absolute"
@@ -33,7 +33,7 @@
         <a class="dropdown-item d-flex align-items-center gap-2"
            (click)="Logout(); isProfileDropdownOpen = false">
           <i class="bi bi-box-arrow-right"></i>
-          Logout
+          התנתק
         </a>
       </div>
     </div>
@@ -45,7 +45,7 @@
       <button class="btn btn-outline-secondary filter-button d-flex align-items-center gap-2"
       (click)="toggleSortByName()">
         <i class="bi" [ngClass]="{'bi-chevron-down': !isNameAscending, 'bi-chevron-up': isNameAscending}"></i>
-        Sort by name
+    סינון לפי  שם
       </button>
     </div>
     <div class="filter-left">
@@ -53,13 +53,13 @@
         class="btn btn-primary d-flex align-items-center gap-2 add-candidate-btn"
         (click)="openAddCandidatePopup()">
         <i class="bi bi-plus"></i>
-        Add Candidate
+        הוספת חייל חדש
       </button>
     </div>
   </div>
 
   <!-- Title -->
-  <h1 class="h3 mb-4 text-black role-title">Role database</h1>
+  <h1 class="h3 mb-4 text-black role-title">מאגר תפקידים</h1>
 
   <!-- Role List -->
   <div class="role-list mb-5">

@@ -20,13 +20,13 @@
     <div class="container">
       <ul class="nav nav-tabs justify-content-center d-flex align-items-center">
         <li class="nav-item">
-          <a class="nav-link" [ngClass]="{'active-tab': isMainActive}" (click)="goBack()">მთავარი</a>
+          <a class="nav-link" [ngClass]="{'active-tab': isMainActive}" (click)="goBack()">ראשי</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [ngClass]="{'active-tab': isCandidatesActive}" (click)="goToCandidates()">კანდიდატები</a>
+          <a class="nav-link" [ngClass]="{'active-tab': isCandidatesActive}" (click)="goToCandidates()">מועמדים</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [ngClass]="{'active-tab': isPreferableActive}" (click)="gotToPreferableCandidates()">შესაფერისები</a>
+          <a class="nav-link" [ngClass]="{'active-tab': isPreferableActive}" (click)="gotToPreferableCandidates()">מתאימים</a>
         </li>
       </ul>
     </div>
@@ -36,7 +36,7 @@
   <div *ngIf="isCandidatesActive && shouldShowCandidatesText()" class="container mt-5">
     <div class="row">
       <div class="col-12 text-center mb-5">
-        <h2 class="fw-bold mb-3">You don't have Candidates</h2>
+        <h2 class="fw-bold mb-3">אין לנו מועמדים בשבילך כרגע</h2>
       </div>
     </div>
   </div>
@@ -45,7 +45,7 @@
   <div *ngIf="isPreferableActive && shouldShowPreferableText()" class="container mt-5">
     <div class="row">
       <div class="col-12 text-center mb-5">
-        <h2 class="fw-bold mb-3">You don't have Preferred Candidates</h2>
+        <h2 class="fw-bold mb-3">אין לך מועמדים מובחרים כרגע</h2>
       </div>
     </div>
   </div>

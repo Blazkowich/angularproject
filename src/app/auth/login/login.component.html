@@ -6,23 +6,24 @@
       <div class="d-flex align-items-center mb-5">
         <img src="/assets/images/on.svg" alt="on" class="img-fluid me-3" style="height: 7vh; width: auto;">
         <div class="d-flex">
-          <h1 class="d-inline me-2 fs-2 mb-0">Welcome to</h1>
+<!--          <h1 class="d-inline me-2 fs-2 mb-0">Welcome to</h1>-->
+<!--          <h1 class="d-inline me-2 fs-2 mb-0">Welcome to</h1>-->
           <h1 class="d-inline fs-2 text-success mb-0">גיוס</h1>
         </div>
       </div>
 
       <!-- Login Form -->
-      <div class="w-100 px-3" style="max-width: 500px;">
+      <div dir="rtl" class="w-100 px-3" style="max-width: 500px;">
         <div class="mb-4">
-          <input type="text" class="form-control form-control-lg py-3 rounded-3" [(ngModel)]="username" placeholder="Username">
+          <input type="text" class="form-control form-control-lg py-3 rounded-3" [(ngModel)]="username" placeholder="שׁם משתמש">
         </div>
         <div class="mb-4">
-          <input type="password" class="form-control form-control-lg py-3 rounded-3" [(ngModel)]="password" placeholder="Password">
+          <input type="password" class="form-control form-control-lg py-3 rounded-3" [(ngModel)]="password" placeholder="סיסמה">
         </div>
 
         <!-- Forgot Password -->
         <div class="text-center mb-4">
-          <a href="" class="text-decoration-none fw-bold" style="color: #6B4EFF;" (click)="onForgotPasswordClick($event)">Forgot Password?</a>
+          <a href="" class="text-decoration-none fw-bold" style="color: #6B4EFF;" (click)="onForgotPasswordClick($event)">שכחת סיסמה?</a>
         </div>
 
         <!-- Login Button -->
@@ -31,7 +32,7 @@
             class="btn btn-primary btn-lg py-3 rounded-pill"
             style="background-color: #446BF2;"
             (click)="login()">
-            Enter
+            כניסה
           </button>
         </div>
       </div>

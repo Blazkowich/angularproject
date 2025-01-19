@@ -21,13 +21,13 @@
   <div class="container">
     <ul class="nav nav-tabs justify-content-center d-flex align-items-center">
       <li class="nav-item">
-        <a class="nav-link active text-primary border-bottom border-primary border-3 cursor-pointer" (click)="goBack()">მთავარი</a>
+        <a class="nav-link active text-primary border-bottom border-primary border-3 cursor-pointer" (click)="goBack()">ראשי</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-secondary cursor-pointer" (click)="goToCandidates()">კანდიდატები</a>
+        <a class="nav-link text-secondary cursor-pointer" (click)="goToCandidates()">מועמדים</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-secondary cursor-pointer" (click)="gotToPreferableCandidates()">შესაფერისები</a>
+        <a class="nav-link text-secondary cursor-pointer" (click)="gotToPreferableCandidates()">מתאימים</a>
       </li>
     </ul>
   </div>
@@ -45,7 +45,7 @@
           </div>
           <div class="col-6 text-end d-flex align-items-center justify-content-end gap-2">
             <i class="bi bi-people text-secondary"></i>
-            <span class="text-secondary">რაოდ: {{ job?.positions }}</span>
+            <span class="text-secondary">תקנים: {{ job?.positions }}</span>
           </div>
         </div>
 
@@ -53,15 +53,15 @@
        <div class="row">
         <div class="col-12 col-md-6 d-flex align-items-center gap-2 mb-3">
           <img class="edit-button" src="/assets/images/edit.svg" alt="edit icon" (click)="openJobPopup()">
-          <span class="text-secondary">Job status:</span>
-          <span [ngClass]="isJobOpen(job!) ? 'text-success' : 'text-brown'">
+          <span class="text-secondary">מצב תפקיד</span>
+          <span  [ngClass]="isJobOpen(job!) ? 'text-success' : 'text-brown'">
             {{ job?.status }}
           </span>
         </div>
           <div class="col-12 col-md-6 text-md-end">
-            <a href="#" class="text-primary text-decoration-none">
-              Questions and answers
-            </a>
+<!--            <a href="#" class="text-primary text-decoration-none">-->
+<!--              Questions and answers-->
+<!--            </a>-->
           </div>
         </div>
       </div>
