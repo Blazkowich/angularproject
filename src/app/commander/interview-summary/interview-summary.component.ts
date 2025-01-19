@@ -160,19 +160,7 @@ export class InterviewSummaryComponent implements OnInit, OnDestroy {
       additional_info: this.automaticMessage || '',
     };
 
-    if (this.isInterviewScheduled) {
-      const updatedInterview = this.getChangedFields();
-      if (Object.keys(this.getChangedFieldsData()).length > 0) {
-        this.candidateService.updateInterview(updatedInterview, this.jobId, this.candidateId).subscribe({
-          next: updatedInterview => {
-            this.candidateService.sendInterviewData(interviewEmailData);
-            this.getInterview(this.candidateId!, this.jobId!);
-            window.location.reload();
-          },
-          error: err => console.error('Error updating interview:', err)
-        });
-      }
-    } else {
+    if (!this.isInterviewScheduled) {
       this.candidateService.saveInterview(interviewData, this.jobId, this.candidateId).subscribe({
         next: newInterview => {
           this.candidateService.sendInterviewData(interviewEmailData);
@@ -183,6 +171,7 @@ export class InterviewSummaryComponent implements OnInit, OnDestroy {
       });
     }
   }
+
 
   onCancel(): void {
     if (this.isInterviewScheduled) {
