@@ -136,7 +136,7 @@ export class HrCandidatePageComponent implements OnInit, OnDestroy {
 
     switch (status) {
       case 'preferred':
-        return { text: 'Preferred', class: 'btn btn-outline-success status-button' };
+        return { text: 'Preferred', class: 'btn btn-outline-primary status-button' };
       case 'pending':
         return { text: 'Pending', class: 'btn btn-outline-warning status-button' };
       case 'rejected':

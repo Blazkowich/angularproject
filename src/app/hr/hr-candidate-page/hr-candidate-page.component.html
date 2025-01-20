@@ -64,9 +64,9 @@
   <!-- Role List -->
   <div class="role-list mb-5">
     <div *ngFor="let candidate of filteredCandidates" class="card role-card mb-3 shadow-lg border-custom">
-      <div class="card-body" [routerLink]="'/hr-candidate-profile/' + candidate.id" (click)="selectCandidate(candidate.id, getStatusButton(candidate).text.toLowerCase())">
+      <div class="card-body" (click)="selectCandidate(candidate.id, getStatusButton(candidate).text.toLowerCase())">
         <ng-container *ngIf="!isJobSpecificList; else statusButton">
-          <i class="bi bi-chevron-left chevron-icon me-3"></i>
+          <i class="bi bi-chevron-left chevron-icon me-3" ></i>
         </ng-container>
         <ng-template #statusButton>
           <button [class]="getStatusButton(candidate).class">
@@ -74,7 +74,7 @@
           </button>
         </ng-template>
 
-        <div class="flex-grow-1">
+        <div class="flex-grow-1" [routerLink]="'/hr-candidate-profile/' + candidate.id">
           <h6 class="card-title mb-1">{{ candidate?.fullName }}</h6>
           <small class="text-muted">{{ candidate?.phone }}</small>
         </div>
