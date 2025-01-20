@@ -16,11 +16,13 @@ export class LoginComponent {
   username: string = '';
   password: string = '';
   errorMessage: string = '';
+  showError: boolean = false;
   showRestorePassword: boolean = false;
 
   constructor(private router: Router, private loginService: LoginService) {}
 
   login(): void {
+    this.showError = false;
     this.loginService.login(this.username, this.password).subscribe(
       (response) => {
         // Role-based redirection
@@ -35,7 +37,9 @@ export class LoginComponent {
       },
       (error) => {
         console.error('Login failed:', error);
+        this.showError = true;
         this.errorMessage = 'Invalid username or password';
+        this.password = '';
       }
     );
   }

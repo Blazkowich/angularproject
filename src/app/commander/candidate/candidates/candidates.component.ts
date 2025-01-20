@@ -1,3 +1,4 @@
+import { Interview } from './../../../models/interview.model';
 import { CommonModule, Location } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router, RouterModule } from '@angular/router';
@@ -6,7 +7,6 @@ import { Candidate } from '../../../models/candidates.model';
 import { filter, Subscription } from 'rxjs';
 import { ImageComponent } from '../../../shared/image/image.component';
 import { FilterPipe } from '../../../shared/filterPipe/filter.pipe';
-import { Interview } from '../../../models/interview.model';
 import { InterviewSummaryPopupComponent } from '../../popups/interview-summary-popup/interview-summary-popup.component';
 
 @Component({
@@ -17,6 +17,7 @@ import { InterviewSummaryPopupComponent } from '../../popups/interview-summary-p
   styleUrl: './candidates.component.css'
 })
 export class CandidatesComponent implements OnInit, OnDestroy {
+  interviewMap: Map<string, Interview | null> = new Map();
   candidates: Candidate[] = [];
   jobId: string = '';
   allCandidates: Candidate[] = [];
@@ -74,8 +75,14 @@ export class CandidatesComponent implements OnInit, OnDestroy {
             email: this.candidateSummary!.email,
             status: this.candidateSummary!.jobStatuses[this.jobId]
           };
+
+          this.interviewMap.set(this.candidateSummary!.id, this.interview);
         },
-        error: (error) => console.error('Failed to load interview:', error)
+        error: (error) => {
+          console.error('Failed to load interview:', error);
+          this.interviewMap.set(this.candidateSummary!.id, null);
+        }
+
       });
   }
 
@@ -123,6 +130,23 @@ export class CandidatesComponent implements OnInit, OnDestroy {
       }
       this.applyFilter();
     });
+  }
+
+  hasInterview(candidate: Candidate): boolean {
+    if (!this.interviewMap.has(candidate.id)) {
+      this.candidateService
+        .getInterview(this.jobId, candidate.id)
+        .subscribe({
+          next: (interview) => {
+            this.interviewMap.set(candidate.id, interview);
+          },
+          error: () => {
+            this.interviewMap.set(candidate.id, null);
+          }
+        });
+      return false;
+    }
+    return this.interviewMap.get(candidate.id) !== null;
   }
 
   openInterviewSummary(candidate: Candidate): void {
@@ -211,5 +235,6 @@ export class CandidatesComponent implements OnInit, OnDestroy {
     if (this.interviewSub) {
       this.interviewSub.unsubscribe();
     }
+    this.interviewMap.clear();
   }
 }
