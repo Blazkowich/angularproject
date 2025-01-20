@@ -88,7 +88,6 @@ export class HrCandidatePageComponent implements OnInit, OnDestroy {
       this.candidateService.getCandidatesForHR().subscribe({
         next: (candidates: Candidate[]) => {
           this.candidates = CandidateMapperService.mapCandidatesForHRModel(candidates);
-          console.log(this.candidates);
           this.filteredCandidates = [...this.candidates];
         },
         error: (error) => {
@@ -173,7 +172,6 @@ export class HrCandidatePageComponent implements OnInit, OnDestroy {
   onAssignmentComplete(success: boolean): void {
     if (success) {
       const jobId = localStorage.getItem('jobId');
-      console.log(jobId);
 
       this.candidateService.getCandidatesForHR().subscribe({
         next: (candidates: Candidate[]) => {
