@@ -37,9 +37,13 @@ export class CreateJobComponent {
   };
 
   // DropDown Variables
-  jobCategories: string[] = ['Category 1', 'Category 2', 'Category 3'];
-  jobUnits: string[] = ['Unit 1', 'Unit 2', 'Unit 3'];
-  jobEducations: string[] = ['High School', 'Bachelors', 'Masters'];
+  jobCategories: string[] = ['לוגיסטיקה','מודיעין','תוכנה ומחשבים','אוויר'];
+  jobUnits: string[] = ['תקשוב','חיל האוויר','חיל הים','מודיעין ','חט״ל'];
+  jobEducations: string[] = ['תיכון', 'תואר ראשון', 'תואר שני', 'תואר שלישי', 'תעודה מקצועית'];
+  // jobCategories: string[] = ['Category 1', 'Category 2', 'Category 3'];
+  // jobUnits: string[] = ['Unit 1', 'Unit 2', 'Unit 3'];
+  // jobEducations: string[] = ['High School', 'Bachelors', 'Masters'];
+
 
   progressNumber: number = 25;
 
