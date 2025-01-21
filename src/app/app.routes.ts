@@ -20,8 +20,8 @@ import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.
 import { HrUserProfileComponent } from './hr/hr-user-profile/hr-user-profile.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: '**', redirectTo: '/login' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '**', redirectTo: 'login' },
   { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
   { path: 'reset-password', component: ForgotPasswordComponent },
   //Commander
