@@ -57,7 +57,7 @@
       <div class="col-12 col-md-10 col-lg-8">
         <div class="candidate-box-container">
           <h3 *ngIf="isCandidatesActive && (candidates | filter: { status: ['pending'], jobId: this.jobId }).length > 0"
-            style="font-family: 'Heebo', sans-serif;">Candidates To Review</h3>
+            style="font-family: 'Heebo', sans-serif;">מועמדים לבחינה</h3>
           <div *ngFor="let candidate of candidates | filter: { status: ['pending'], jobId: this.jobId }"
               class="candidate-box mb-3 position-relative cursor-pointer"
               (click)="goToCandidateDetails(candidate.id)">
@@ -78,7 +78,7 @@
             </div>
           </div>
           <h3 *ngIf="isCandidatesActive && (candidates | filter: { status: ['rejected'], jobId: this.jobId }).length > 0"
-            style="font-family: 'Heebo', sans-serif;">Rejected</h3>
+            style="font-family: 'Heebo', sans-serif;">מועמדים שנדחו</h3>
           <div *ngFor="let candidate of candidates | filter: { status: ['rejected'], jobId: this.jobId }"
               class="candidate-box mb-3 position-relative cursor-pointer"
               (click)="goToCandidateDetails(candidate.id)">
@@ -109,7 +109,7 @@
     <div class="col-12 col-md-10 col-lg-8">
       <div class="candidate-box-container">
         <h3 *ngIf="isPreferableActive && (candidates | filter: { status: ['preferred'], jobId: this.jobId }).length > 0">
-          Preferable Candidates
+          מתאימים
         </h3>
         <div *ngFor="let candidate of candidates | filter: { status: ['preferred'], jobId: this.jobId }"
             class="candidate-box mb-3 position-relative cursor-pointer">
@@ -126,8 +126,8 @@
               <h5 class="mb-0">{{ candidate.age }}</h5>
               <h5 class="mb-0 d-flex justify-content-start align-items-center gap-2">
                 <span>{{ candidate.jobStatuses[jobId] }}</span>
-                <span class="button-like-text" (click)="contactCandidate(candidate.id); $event.stopPropagation()">Contact</span>
-                <span *ngIf="hasInterview(candidate)" class="button-like-text for-summary" (click)="openInterviewSummary(candidate); $event.stopPropagation()">Summary</span>
+                <span class="button-like-text" (click)="contactCandidate(candidate.id); $event.stopPropagation()">צור קשר</span>
+                <span *ngIf="hasInterview(candidate)" class="button-like-text for-summary" (click)="openInterviewSummary(candidate); $event.stopPropagation()">סיכום ראיון</span>
               </h5>
             </div>
             <i class="bi bi-chevron-left chevron-icon"></i>
@@ -135,7 +135,7 @@
         </div>
 
         <h3 *ngIf="isPreferableActive && (candidates | filter: { status: ['preferred_final'], jobId: this.jobId }).length > 0">
-          Selected Candidates
+         מועמדים מובחרים
         </h3>
         <div *ngFor="let candidate of candidates | filter: { status: ['preferred_final'], jobId: this.jobId }"
             class="candidate-box mb-3 position-relative cursor-pointer">
@@ -150,7 +150,7 @@
             <div class="me-3 d-flex flex-column flex-grow-1 text-end">
               <h4 class="mb-1">{{ candidate.fullName }}</h4>
               <h5 class="mb-0">{{ candidate.age }}</h5>
-              <h5 class="button-like-text for-summary" (click)="openInterviewSummary(candidate)">Summary</h5>
+              <h5 class="button-like-text for-summary" (click)="openInterviewSummary(candidate)">סיכום ראיון</h5>
             </div>
             <i class="bi bi-chevron-left chevron-icon"></i>
           </div>
