@@ -48,7 +48,7 @@ export class HrMainPageComponent implements OnInit {
 
     this.jobService.getJobs().subscribe({
       next: (jobs: Job[]) => {
-        this.jobs = JobMapper.mapJobsForHRMainPage(jobs).filter(job => job.status.toLowerCase() !== 'closed');
+        this.jobs = JobMapper.mapJobsForHRMainPage(jobs).filter(job => job.status !== 'CLOSED');
         this.filteredJobs = [...this.jobs];
       },
       error: (jobsError) => {
