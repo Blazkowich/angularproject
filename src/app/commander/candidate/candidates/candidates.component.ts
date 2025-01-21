@@ -8,6 +8,9 @@ import { filter, Subscription } from 'rxjs';
 import { ImageComponent } from '../../../shared/image/image.component';
 import { FilterPipe } from '../../../shared/filterPipe/filter.pipe';
 import { InterviewSummaryPopupComponent } from '../../popups/interview-summary-popup/interview-summary-popup.component';
+import { Job } from '../../../models/jobs.model';
+import { JobService } from '../../../services/jobs.service';
+import { JobMapper } from '../../../mappers/job-mapper';
 
 @Component({
   selector: 'app-candidates',
@@ -17,6 +20,8 @@ import { InterviewSummaryPopupComponent } from '../../popups/interview-summary-p
   styleUrl: './candidates.component.css'
 })
 export class CandidatesComponent implements OnInit, OnDestroy {
+  job: Job | undefined;
+  jobSub: Subscription | undefined;
   interviewMap: Map<string, Interview | null> = new Map();
   candidates: Candidate[] = [];
   jobId: string = '';
@@ -36,6 +41,7 @@ export class CandidatesComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private candidateService: CandidateService,
+    private jobService: JobService
   ) {
     router.events.pipe(
       filter(event => event instanceof NavigationEnd)
@@ -51,7 +57,22 @@ export class CandidatesComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.jobId = localStorage.getItem('jobId')!;
     this.loadCandidates();
+    this.loadJobs();
     this.checkFilter();
+  }
+
+  private loadJobs(): void {
+    if (!this.jobId) {
+      console.error('Job ID is missing');
+      return;
+    }
+
+    this.jobSub = this.jobService.getJobById(this.jobId)
+    .subscribe({
+      next: job => {
+        this.job = JobMapper.mapJobResponse(job);
+      }
+    });
   }
 
   private loadInterview(): void {
@@ -232,6 +253,10 @@ export class CandidatesComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    if (this.jobSub) {
+      this.jobSub.unsubscribe();
+    }
+
     if (this.interviewSub) {
       this.interviewSub.unsubscribe();
     }
