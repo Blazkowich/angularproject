@@ -4,13 +4,12 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router, RouterModule } from '@angular/router';
 import { CandidateService } from '../../../services/candidates.service';
 import { Candidate } from '../../../models/candidates.model';
-import { filter, Subscription } from 'rxjs';
+import {filter, firstValueFrom, map, Observable, of, Subscription, throwError} from 'rxjs';
 import { ImageComponent } from '../../../shared/image/image.component';
 import { FilterPipe } from '../../../shared/filterPipe/filter.pipe';
 import { InterviewSummaryPopupComponent } from '../../popups/interview-summary-popup/interview-summary-popup.component';
-import { Job } from '../../../models/jobs.model';
-import { JobService } from '../../../services/jobs.service';
-import { JobMapper } from '../../../mappers/job-mapper';
+import {catchError, tap} from "rxjs/operators";
+import {InterviewMapper} from "../../../mappers/interview-mapper";
 
 @Component({
   selector: 'app-candidates',
@@ -20,8 +19,6 @@ import { JobMapper } from '../../../mappers/job-mapper';
   styleUrl: './candidates.component.css'
 })
 export class CandidatesComponent implements OnInit, OnDestroy {
-  job: Job | undefined;
-  jobSub: Subscription | undefined;
   interviewMap: Map<string, Interview | null> = new Map();
   candidates: Candidate[] = [];
   jobId: string = '';
@@ -41,7 +38,6 @@ export class CandidatesComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private candidateService: CandidateService,
-    private jobService: JobService
   ) {
     router.events.pipe(
       filter(event => event instanceof NavigationEnd)
@@ -56,56 +52,86 @@ export class CandidatesComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.jobId = localStorage.getItem('jobId')!;
-    this.loadCandidates();
-    this.loadJobs();
+     this.loadCandidates();
     this.checkFilter();
   }
 
-  private loadJobs(): void {
-    if (!this.jobId) {
-      console.error('Job ID is missing');
-      return;
-    }
-
-    this.jobSub = this.jobService.getJobById(this.jobId)
-    .subscribe({
-      next: job => {
-        this.job = JobMapper.mapJobResponse(job);
-      }
-    });
-  }
-
-  private loadInterview(): void {
+  private loadInterview(): Observable<Interview | null> {
     if (!this.jobId || !this.candidateSummary?.id) {
       console.error('Job ID or Candidate ID is missing');
-      return;
+      return of(null); // Return an Observable of null in case of error
     }
 
-    this.interviewSub = this.candidateService
-      .getInterview(this.jobId, this.candidateSummary.id)
-      .subscribe({
-        next: (interview) => {
-          this.interviewNotes = interview?.interviewNotes || '';
-          this.interview = {
-            candidateId: this.candidateSummary!.id,
-            jobId: this.jobId,
-            interviewNotes: this.interviewNotes,
-            interviewDate: null,
-            automaticMessage: '',
-            fullName: this.candidateSummary!.fullName,
-            email: this.candidateSummary!.email,
-            status: this.candidateSummary!.jobStatuses[this.jobId]
-          };
-
-          this.interviewMap.set(this.candidateSummary!.id, this.interview);
-        },
-        error: (error) => {
-          console.error('Failed to load interview:', error);
-          this.interviewMap.set(this.candidateSummary!.id, null);
+    return this.candidateService.getInterview(this.jobId, this.candidateSummary.id).pipe(
+      tap(response => {
+        console.log("Raw HTTP Response:", response);
+        console.log("Response as JSON string:", JSON.stringify(response, null, 2));
+      }),
+      map(response => {
+        if (!response) {
+          console.log("Response is null or undefined");
+          return null;
         }
-
-      });
+        try {
+          const mappedInterview = InterviewMapper.mapToInterviewModel(response);
+          console.log("Mapped Interview:", mappedInterview);
+          return mappedInterview;
+        } catch (mapError) {
+          console.error("Error mapping interview:", mapError, response);
+          return null;
+        }
+      }),
+      catchError(error => {
+        console.error(`Error fetching interview for jobId ${this.jobId} and volunteerId ${this.candidateSummary?.id}:`, error);
+        if (error.status === 404) {
+          console.log("404 Error caught, returning null");
+          return of(null);
+        }
+        return throwError(() => new Error('Unable to fetch interview'));
+      })
+    );
   }
+  // private loadInterview(): void {
+  //   if (!this.jobId || !this.candidateSummary?.id) {
+  //     console.error('Job ID or Candidate ID is missing');
+  //     return;
+  //   }
+  //   console.log(this.candidateSummary.id)
+  //   console.log(this.candidateSummary)
+  //
+  //   this.interviewSub = this.candidateService
+  //     // .getInterview(this.jobId, "3")
+  //     .getInterview(this.jobId, this.candidateSummary.id)
+  //     .subscribe({
+  //       next: (interview) => {
+  //         console.log('interview start ')
+  //         console.log(interview)
+  //         console.log('interview nd ')
+  //         this.interviewNotes = interview?.interviewNotes || '';
+  //         console.log('interviewNotes start')
+  //         console.log(this.interviewNotes )
+  //         console.log('interviewNotes end')
+  //
+  //         this.interview = {
+  //           candidateId: this.candidateSummary!.id,
+  //           jobId: this.jobId,
+  //           interviewNotes: this.interviewNotes,
+  //           interviewDate: null,
+  //           automaticMessage: '',
+  //           fullName: this.candidateSummary!.fullName,
+  //           email: this.candidateSummary!.email,
+  //           status: this.candidateSummary!.jobStatuses[this.jobId]
+  //         };
+  //
+  //         this.interviewMap.set(this.candidateSummary!.id, this.interview);
+  //       },
+  //       error: (error) => {
+  //         console.error('Failed to load interview:', error);
+  //         this.interviewMap.set(this.candidateSummary!.id, null);
+  //       }
+  //
+  //     });
+  // }
 
   private loadCandidates(): void {
     this.candidateService.getCandidatesForJob(this.jobId).subscribe({
@@ -170,10 +196,26 @@ export class CandidatesComponent implements OnInit, OnDestroy {
     return this.interviewMap.get(candidate.id) !== null;
   }
 
-  openInterviewSummary(candidate: Candidate): void {
+  // openInterviewSummary(candidate: Candidate): void {
+  //   console.log('gaxsna b');
+  //   this.candidateSummary = candidate;
+  //   this.loadInterview(); // Call loadInterview here
+  //   this.showInterviewPopup = true;
+  // }
+
+  async openInterviewSummary(candidate: Candidate): Promise<void> {
     this.candidateSummary = candidate;
-    this.loadInterview();
-    this.showInterviewPopup = true;
+
+    try {
+      this.interview = await firstValueFrom(this.loadInterview()); // Wait for interview data
+
+      console.log("Interview after await", this.interview); // Check interview value
+      this.showInterviewPopup = true;
+
+    } catch (error) {
+      console.error("Error loading interview:", error);
+      // Handle error, perhaps display a message to the user
+    }
   }
 
   handleInterviewSave(result: any): void {
@@ -193,7 +235,8 @@ export class CandidatesComponent implements OnInit, OnDestroy {
       status: this.candidateSummary.jobStatuses[this.jobId],
     };
 
-    if (this.interviewNotes) {
+    // if (this.interviewNotes) {
+    if (this.interview) {
       this.candidateService.updateInterview(interviewData, this.jobId, this.candidateSummary.id).subscribe({
         next: () => {
           this.loadInterview();
@@ -202,6 +245,7 @@ export class CandidatesComponent implements OnInit, OnDestroy {
         error: (error) => console.error('Failed to update interview:', error),
       });
     } else {
+
       this.candidateService.saveInterview(interviewData, this.jobId, this.candidateSummary.id).subscribe({
         next: () => {
           this.loadInterview();
@@ -253,10 +297,6 @@ export class CandidatesComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.jobSub) {
-      this.jobSub.unsubscribe();
-    }
-
     if (this.interviewSub) {
       this.interviewSub.unsubscribe();
     }
