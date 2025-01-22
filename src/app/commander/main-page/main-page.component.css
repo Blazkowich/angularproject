@@ -2,6 +2,7 @@
   background-color: #282949;
   width: 300px;
   transition: opacity 0.3s;
+  z-index: 1;
 }
 
 .create-btn:hover {
