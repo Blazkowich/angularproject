@@ -134,6 +134,7 @@
 }
 
 .filter-section {
+  width: 100%;
   direction: rtl;
   display: flex;
   gap: 3px;
