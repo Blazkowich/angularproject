@@ -3,14 +3,10 @@
   <header class="text-white py-4 mt-6">
     <div class="container">
       <div class="row align-items-center">
-        <div class="col-12 text-center">
-          <div class="d-flex justify-content-center align-items-center">
-            <div class="me-4" style="margin-top: 50px;">
-              <h1 class="h5 mb-0" style="font-family: 'Heebo', sans-serif;">{{ job?.jobName }}</h1>
-              <p class="small mb-0" style="font-family: 'Heebo', sans-serif;">{{ job?.unit }}</p>
-            </div>
-            <img class="cursor-pointer" src="assets/images/back.svg" alt="Back" style="margin-top: 50px; width: 30px; height: 30px; filter: brightness(0) invert(1);" (click)="goBack()">
-          </div>
+        <div class="card-header text-white text-center py-4 rounded-top-4">
+          <img class="back-button" src="assets/images/back.svg" alt="Back" (click)="goBack()">
+          <h2 class="mb-0">{{ job?.jobName }}</h2>
+          <p class="mb-0">{{ job?.unit }}</p>
         </div>
       </div>
     </div>
