@@ -1,19 +1,9 @@
-.nav-link {
-  color: #6c757d;
-  border: none;
-  position: relative;
-  cursor: pointer;
-  padding: 0.5rem 1rem;
+.nav {
+  margin-top: 5%;
+  flex-wrap: nowrap;
+  gap: 2px;
 }
 
-.nav-link:hover {
-  color: #0d6efd;
-}
-
-.active-tab {
-  color: #0d6efd !important;
-  border-bottom: 3px solid #0d6efd !important;
-}
 
 .card-header {
   background-color: var(--primary-color);
@@ -35,12 +25,6 @@ p {
   line-height: 1.6;
 }
 
-.nav-tabs .nav-link.active,
-.nav-tabs .nav-item.show .nav-link {
-  border: none;
-  background: none;
-}
-
 .candidate-box-container {
   position: relative;
   z-index: 1;
@@ -55,7 +39,7 @@ p {
   min-height: 70px;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
-  overflow: visible; /* Changed from hidden to allow button to overflow */
+  overflow: visible;
 }
 
 .candidate-box:hover {
@@ -200,6 +184,13 @@ h5 {
 .app-interview-summary-popup {
   position: relative;
   z-index: 1000;
+}
+
+.nav-link.active {
+  border-color: #0d6efd !important;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 5px;
 }
 
 @media (max-width: 1025px) {

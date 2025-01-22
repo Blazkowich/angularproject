@@ -1,4 +1,3 @@
-import { JobMapper } from '../../../mappers/job-mapper';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { JobEditPopupComponent } from '../../popups/job-edit-popup/job-edit-popup.component';
 import { CloseJobPopupComponent } from "../../popups/close-job-popup/close-job-popup.component";
@@ -7,11 +6,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Job } from '../../../models/jobs.model';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
+import { JobDetailsBarComponent } from '../../job-details-bar/job-details-bar.component';
+import { JobMapper } from '../../../mappers/job-mapper';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'commander-job-details',
   standalone: true,
-  imports: [JobEditPopupComponent, CommonModule],
+  imports: [FormsModule, JobEditPopupComponent, CommonModule, JobDetailsBarComponent],
   templateUrl: './job-details.component.html',
   styleUrl: './job-details.component.css'
 })
@@ -52,14 +54,6 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
 
   goBack() {
     this.router.navigate(['/open-jobs']);
-  }
-
-  goToCandidates() {
-    this.router.navigate([`/job-details/${this.jobId}/candidates`]);
-  }
-
-  gotToPreferableCandidates() {
-    this.router.navigate([`/job-details/${this.jobId}/candidates/preferred`]);
   }
 
   ngOnDestroy(): void {

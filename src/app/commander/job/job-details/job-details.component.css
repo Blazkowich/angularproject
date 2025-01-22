@@ -1,3 +1,9 @@
+.nav {
+  margin-top: 5%;
+  flex-wrap: nowrap;
+  gap: 2px;
+}
+
 .text-brown {
   color: brown;
 }

@@ -13,21 +13,7 @@
   </header>
 
 <!-- Navigation -->
-<nav class="border-bottom mt-6">
-  <div class="container">
-    <ul class="nav nav-tabs justify-content-center d-flex align-items-center">
-      <li class="nav-item">
-        <a class="nav-link active text-primary border-bottom border-primary border-3 cursor-pointer" (click)="goBack()">ראשי</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-secondary cursor-pointer" (click)="goToCandidates()">מועמדים</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-secondary cursor-pointer" (click)="gotToPreferableCandidates()">מתאימים</a>
-      </li>
-    </ul>
-  </div>
-</nav>
+<app-job-details-bar [jobId]="jobId"></app-job-details-bar>
 
   <!-- Main Content -->
   <main class="container py-4">
