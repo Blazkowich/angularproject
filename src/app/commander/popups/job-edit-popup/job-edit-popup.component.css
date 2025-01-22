@@ -55,7 +55,20 @@
     transform: translateY(290px);
   }
   .modal-content {
-    background-color: lightgray;
+    background-color: white;
+  }
+
+  #popup {
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 376px) {
+  .modal.show {
+    transform: translateY(190px);
+  }
+  .modal-content {
+    background-color: white;
   }
 
   #popup {
