@@ -6,7 +6,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  top: -1rem;
+  top: -2rem;
   padding: 0.5rem;
   position: relative;
   cursor: pointer;
@@ -25,22 +25,22 @@
 
 .exb-right {
   position: absolute;
-  top: 4.2rem;
+  top: 3.3rem;
   right: 1rem;
   z-index: 9999;
 }
 
 .icon-img {
-  width: 48px;
+  width: 40px;
   height: auto;
 }
 
 .icon-img-extended {
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
   background-color: #D3DDE5;
   border-radius: 50%;
-  font-size: 24px;
+  font-size: 20px;
   color: black;
   line-height: 1;
   display: flex;
@@ -95,13 +95,26 @@ h4 {
     height: 46px;
     font-size: 20px;
   }
+
+  .exb-right {
+    top: 2.6rem;
+  }
 }
+
+@media (max-width: 1025px) and (max-height: 1025px) {
+  .container-fluid {
+    margin-top: 0%;
+    margin-bottom: 10%;
+  }
+ }
 
 @media (max-width: 821px) {
   .container-fluid {
     margin-bottom: 10%;
+    margin-top: 0;
   }
 }
+
 /* Responsive Design */
 @media (max-width: 576px) {
   .icon-btn-wrapper {
@@ -123,7 +136,7 @@ h4 {
   }
 
   .exb-right {
-    top: 3.6rem;
+    top: 2.6rem;
     right: 0.5rem;
   }
 }
@@ -148,7 +161,7 @@ h4 {
   }
 
   .exb-right {
-    top: 3.4rem;
+    top: 2.4rem;
   }
 }
 
@@ -174,7 +187,7 @@ h4 {
   }
 
   .exb-right {
-    top: 3.5rem;
+    top: 2.5rem;
     right: 0.5rem;
   }
 

@@ -53,6 +53,15 @@ export class CandidatesComponent implements OnInit, OnDestroy {
     private candidateService: CandidateService,
     private jobService: JobService
   ) {
+    router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      const currentUrl = router.url;
+      this.isMainActive = currentUrl === '/' || /\/job-details(\/\d+)?$/.test(currentUrl);
+      this.isCandidatesActive = /\/job-details\/\d+\/candidates$/.test(currentUrl);
+      this.isPreferableActive = /\/job-details\/\d+\/candidates\/preferred$/.test(currentUrl);
+      this.isSelectedCandidatesActive = /\/job-details\/\d+\/candidates\/preferred$/.test(currentUrl);
+    });
   }
 
   ngOnInit(): void {

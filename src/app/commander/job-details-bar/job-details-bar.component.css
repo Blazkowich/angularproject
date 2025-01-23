@@ -1,5 +1,5 @@
 .nav {
-  margin-top: 5%;
+  margin-top: 0%;
   flex-wrap: nowrap;
   gap: 2px;
 }
@@ -15,9 +15,15 @@
   cursor: pointer;
 }
 
+@media (min-height: 1300px){
+  .nav {
+    margin-top: 15% !important;
+  }
+}
+
 @media (max-width: 1025px) {
   .nav {
-    margin-top: 15%;
+    margin-top: 10%;
   }
 }
 
