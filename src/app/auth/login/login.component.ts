@@ -65,15 +65,15 @@ export class LoginComponent {
     );
   }
 
-  @HostListener('document:touchend', ['$event'])
-  onTouchEnd(event: TouchEvent) {
-    const target = event.target as HTMLElement;
-    const loginButton = document.querySelector('button');
+  @HostListener('touchstart', ['$event'])
+  onTouchStart(event: TouchEvent) {
+  }
 
-    if (loginButton && loginButton.contains(target)) {
+  onTouchEnd(event: TouchEvent) {
+    if (event) {
       event.preventDefault();
       event.stopPropagation();
-      this.login();
     }
+    this.login();
   }
 }
