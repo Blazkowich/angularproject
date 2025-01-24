@@ -1,6 +1,6 @@
 /* ============================= Color Override Section ============================= */
 :host {
-  -webkit-overflow-scrolling: touch;
+  -webkit-overflow-scrolling: touch !important;
   overflow: auto;
   display: flex;
   background-color: white;
@@ -8,14 +8,10 @@
   height: 100vh;
 }
 
-.up {
-  z-index: 9999;
-}
-
 button {
-  -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
-  cursor: pointer;
+  -webkit-tap-highlight-color: transparent !important;
+  touch-action: manipulation !important;
+  cursor: pointer !important;
 }
 
 .form-control {
