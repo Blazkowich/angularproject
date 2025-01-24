@@ -67,7 +67,6 @@ export class LoginComponent {
 
   @HostListener('touchstart', ['$event'])
   onTouchStart(event: TouchEvent) {
-    event.preventDefault();
   }
 
   onTouchEnd(event: TouchEvent) {
