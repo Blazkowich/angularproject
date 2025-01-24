@@ -1,9 +1,18 @@
 /* ============================= Color Override Section ============================= */
 :host {
+  -webkit-overflow-scrolling: touch;
+  overflow: auto;
   display: flex;
   background-color: white;
   width: 100%;
   height: 100vh;
+  z-index: 9999;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  cursor: pointer;
   z-index: 9999;
 }
 

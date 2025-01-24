@@ -42,10 +42,14 @@
         <!-- Login Button -->
         <div class="d-grid">
           <button
-            class="btn btn-primary btn-lg py-3 rounded-pill"
+            class="btn btn-primary btn-lg py-3 rounded-pill position-relative"
             style="background-color: #446BF2;"
-            (click)="login()">
-            כניסה
+            (click)="login()"
+            [disabled]="isLoading">
+            <span *ngIf="!isLoading">כניסה</span>
+            <div *ngIf="isLoading" class="spinner-border" role="status">
+              <span class="sr-only"></span>
+            </div>
           </button>
         </div>
       </div>
