@@ -65,15 +65,21 @@ export class LoginComponent {
     );
   }
 
-  @HostListener('document:touchend', ['$event'])
-  onTouchEnd(event: TouchEvent) {
-    const target = event.target as HTMLElement;
-    const loginButton = document.querySelector('button');
+  @HostListener('click', ['$event'])
+    onButtonClick(event: Event) {
+    event.preventDefault();
+    this.login();
+}
 
-    if (loginButton && loginButton.contains(target)) {
-      event.preventDefault();
-      event.stopPropagation();
-      this.login();
-    }
-  }
+  // @HostListener('document:touchend', ['$event'])
+  // onTouchEnd(event: TouchEvent) {
+  //   const target = event.target as HTMLElement;
+  //   const loginButton = document.querySelector('button');
+
+  //   if (loginButton && loginButton.contains(target)) {
+  //     event.preventDefault();
+  //     event.stopPropagation();
+  //     this.login();
+  //   }
+  // }
 }
