@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginService } from '../../services/login.service';
@@ -63,5 +63,18 @@ export class LoginComponent {
         console.error('Password reset request failed:', error);
       }
     );
+  }
+
+  @HostListener('touchstart', ['$event'])
+  onTouchStart(event: TouchEvent) {
+    event.preventDefault();
+  }
+
+  onTouchEnd(event: TouchEvent) {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    this.login();
   }
 }
