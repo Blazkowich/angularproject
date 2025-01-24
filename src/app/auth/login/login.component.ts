@@ -68,7 +68,7 @@ export class LoginComponent {
   @HostListener('document:touchend', ['$event'])
   onTouchEnd(event: TouchEvent) {
     const target = event.target as HTMLElement;
-    const loginButton = (event.target as HTMLElement)?.closest('button');
+    const loginButton = target?.closest('button');
 
     if (loginButton) {
       event.preventDefault();

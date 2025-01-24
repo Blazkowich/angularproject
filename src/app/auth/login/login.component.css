@@ -1,5 +1,5 @@
 /* ============================= Color Override Section ============================= */
-/* :host {
+:host {
   -webkit-overflow-scrolling: touch !important;
   overflow: auto;
   display: flex;
@@ -51,4 +51,4 @@ button {
 html, body {
   height: 100%;
   margin: 0;
-} */
+}
