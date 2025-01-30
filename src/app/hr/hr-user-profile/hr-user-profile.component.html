@@ -32,7 +32,7 @@
           <img src="assets/images/cake.svg" alt="Cake" class="ms-2 icons" style="width: 20px; height: 20px;">
         </div>
         <div class="d-flex align-items-center justify-content-end mb-2">
-          <span>{{ candidate?.gender }}</span>
+          <span>{{ candidate?.gender === 'Male' ? 'זכר' : 'נקבה' }}</span>
           <img src="assets/images/unisex.svg" alt="Gender" class="ms-2 icons" style="width: 20px; height: 20px;">
         </div>
         <div class="d-flex align-items-center justify-content-end mb-2">
@@ -95,10 +95,10 @@
 
       <!-- Personal Description -->
       <div class="mb-4">
+        <h6 class="mb-2">תקציר אישי</h6>
         <p class="text-muted">
           {{ candidate?.personalSummary }}
         </p>
-        <h6 class="mb-2">תקציר אישי</h6>
       </div>
 
       <!-- Save Button -->
