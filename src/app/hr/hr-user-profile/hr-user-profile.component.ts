@@ -18,6 +18,7 @@ export class HrUserProfileComponent implements OnInit, OnDestroy{
 candidate: Candidate | undefined;
   candidateSub: Subscription | undefined;
   jobId: string | undefined;
+  isPreviewOpen = false;
 
   constructor(
     private candidateService: CandidateService,
@@ -31,7 +32,6 @@ candidate: Candidate | undefined;
     if (id) {
       this.candidateSub = this.candidateService.getVolunteerForHRById(id).subscribe({
         next: candidate => {
-          console.log(candidate)
           this.candidate = CandidateMapperService.mapCommanderCandidateForProfile(candidate);
         }
       });
@@ -47,6 +47,22 @@ candidate: Candidate | undefined;
   ngOnDestroy(): void {
     if (this.candidateSub) {
       this.candidateSub.unsubscribe();
+    }
+  }
+
+  openPreview(event: MouseEvent): void {
+    event.stopPropagation();
+    this.isPreviewOpen = true;
+  }
+
+  closePreview(event: MouseEvent): void {
+    event.stopPropagation();
+    this.isPreviewOpen = false;
+  }
+
+  closePreviewOnClickOutside(event: MouseEvent): void {
+    if (this.isPreviewOpen) {
+      this.isPreviewOpen = false;
     }
   }
 }

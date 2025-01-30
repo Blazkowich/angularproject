@@ -129,22 +129,22 @@ export class HrCandidatePageComponent implements OnInit, OnDestroy {
     const status = candidate.jobStatuses?.[this.jobId]?.toLowerCase();
     if (status === 'preferred_final') {
       return {
-        text: 'Selected',
+        text: 'נבחר',
         class: 'btn btn-outline-success status-button'
       };
     }
 
     switch (status) {
       case 'preferred':
-        return { text: 'Preferred', class: 'btn btn-outline-primary status-button' };
+        return { text: 'מועדף', class: 'btn btn-outline-primary status-button' };
       case 'pending':
-        return { text: 'Pending', class: 'btn btn-outline-warning status-button' };
+        return { text: 'נמתין', class: 'btn btn-outline-warning status-button' };
       case 'rejected':
-        return { text: 'Rejected', class: 'btn btn-outline-danger status-button' };
+        return { text: 'נדחה', class: 'btn btn-outline-danger status-button' };
       case 'hired':
-        return { text: 'Hired', class: 'btn btn-outline-info status-button' };
+        return { text: 'שובץ', class: 'btn btn-outline-info status-button' };
       default:
-        return { text: 'Job Placement', class: 'btn btn-outline-primary status-button' };
+        return { text: 'לשבץ', class: 'btn btn-outline-primary status-button' };
     }
   }
 

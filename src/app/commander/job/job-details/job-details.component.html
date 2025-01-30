@@ -21,29 +21,22 @@
       <div class="card-body">
         <!-- Location and Candidate Count -->
         <div class="row mb-4">
-          <div class="col-6 d-flex align-items-center gap-2">
-            <i class="bi bi-geo-alt text-secondary"></i>
-            <span class="text-secondary">{{ job?.address }}</span>
-          </div>
-          <div class="col-6 text-end d-flex align-items-center justify-content-end gap-2">
-            <i class="bi bi-people text-secondary"></i>
-            <span class="text-secondary">תקנים: {{ job?.positions }}</span>
-          </div>
-        </div>
-
-       <!-- Job Status and Questions -->
-       <div class="row">
-        <div class="col-12 col-md-6 d-flex align-items-center gap-2 mb-3">
-          <img class="edit-button" src="/assets/images/edit.svg" alt="edit icon" (click)="openJobPopup()">
-          <span class="text-secondary">מצב תפקיד</span>
-          <span  [ngClass]="isJobOpen(job!) ? 'text-success' : 'text-brown'">
-            {{ job?.status }}
-          </span>
-        </div>
-          <div class="col-12 col-md-6 text-md-end">
-<!--            <a href="#" class="text-primary text-decoration-none">-->
-<!--              Questions and answers-->
-<!--            </a>-->
+          <div class="col-12 d-flex flex-column align-items-end gap-2">
+            <div class="d-flex align-items-center gap-2">
+              <span class="text-secondary">{{ job?.address }}</span>
+              <i class="bi bi-geo-alt text-secondary"></i>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+              <span class="text-secondary">תקנים: {{ job?.positions }}</span>
+              <i class="bi bi-people text-secondary"></i>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+              <span class="text-secondary">מצב תפקיד</span>
+              <img class="edit-button" src="/assets/images/edit.svg" alt="edit icon" (click)="openJobPopup()">
+              <span [ngClass]="isJobOpen(job!) ? 'text-success' : 'text-brown'">
+                {{ job?.status }}
+              </span>
+            </div>
           </div>
         </div>
       </div>

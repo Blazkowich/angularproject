@@ -24,6 +24,7 @@ export class CandidatesDetailsComponent implements OnInit, OnDestroy{
   jobSub: Subscription | undefined;
   showPopup = false;
   isApproved = true;
+  isPreviewOpen: boolean = false;
 
   constructor(
     private candidateService: CandidateService,
@@ -125,6 +126,22 @@ export class CandidatesDetailsComponent implements OnInit, OnDestroy{
     }
     if (this.jobSub) {
       this.jobSub.unsubscribe();
+    }
+  }
+
+  openPreview(event: MouseEvent): void {
+    event.stopPropagation();
+    this.isPreviewOpen = true;
+  }
+
+  closePreview(event: MouseEvent): void {
+    event.stopPropagation();
+    this.isPreviewOpen = false;
+  }
+
+  closePreviewOnClickOutside(event: MouseEvent): void {
+    if (this.isPreviewOpen) {
+      this.isPreviewOpen = false;
     }
   }
 }

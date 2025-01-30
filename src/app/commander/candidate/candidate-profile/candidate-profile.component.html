@@ -26,7 +26,7 @@
           <img src="assets/images/cake.svg" alt="Cake" class="ms-2 icons" style="width: 20px; height: 20px;">
         </div>
         <div class="d-flex align-items-center justify-content-end mb-2">
-          <span>{{ candidate?.gender }}</span>
+            <span>{{ candidate?.gender === 'Male' ? 'זכר' : 'נקבה' }}</span>
           <img src="assets/images/unisex.svg" alt="Gender" class="ms-2 icons" style="width: 20px; height: 20px;">
         </div>
         <div class="d-flex align-items-center justify-content-end mb-2">
@@ -110,7 +110,7 @@
       <!-- Save Button -->
       <div class="text-center">
         <button class="btn btn-primary px-5">שמור</button>
-        <button class="btn btn-secondary px-5" (click)="goBack()">back</button>
+        <button class="btn btn-secondary px-5" (click)="goBack()">אחורה</button>
       </div>
     </div>
   </div>

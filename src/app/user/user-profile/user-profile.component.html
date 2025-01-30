@@ -35,8 +35,8 @@
         </div>
         <div class="d-flex align-items-center justify-content-end mb-2">
           <select [(ngModel)]="candidate.gender" class="form-control">
-            <option value="MALE">MALE</option>
-            <option value="FEMALE">FEMALE</option>
+            <option value="MALE">זכר</option>
+            <option value="FEMALE">נקבה</option>
           </select>
           <img src="assets/images/unisex.svg" alt="Gender" class="ms-2 icons" style="width: 20px; height: 20px;">
         </div>
@@ -49,15 +49,15 @@
       <!-- Contact Info -->
       <div class="mb-4">
         <div class="d-flex align-items-center justify-content-end mb-2">
-          <input [(ngModel)]="candidate.phone" class="form-control" placeholder="Phone">
+          <input [(ngModel)]="candidate.phone" class="form-control" placeholder="טלפון">
           <i class="bi bi-telephone ms-2"></i>
         </div>
         <div class="d-flex align-items-center justify-content-end mb-2">
-          <input [(ngModel)]="candidate.email" class="form-control" placeholder="Email">
+          <input [(ngModel)]="candidate.email" class="form-control" placeholder="אמייל">
           <i class="bi bi-envelope ms-2"></i>
         </div>
         <div class="d-flex align-items-center justify-content-end mb-2">
-          <input [(ngModel)]="candidate.address" class="form-control" placeholder="Address">
+          <input [(ngModel)]="candidate.address" class="form-control" placeholder="כתובת">
           <i class="bi bi-house ms-2"></i>
         </div>
       </div>
@@ -68,7 +68,7 @@
           <div class="card-body py-2 px-3">
             <span>ניסיון תעסוקתי</span>
             <div class="d-flex justify-content-between">
-              <input [(ngModel)]="candidate.experience" class="form-control" placeholder="Experience">
+              <input [(ngModel)]="candidate.experience" class="form-control" placeholder="ניסיון">
             </div>
           </div>
         </div>
@@ -84,7 +84,7 @@
           <div class="card-body py-2 px-3">
             <span>הכשרות וקורסים</span>
             <div class="d-flex justify-content-between">
-              <input [(ngModel)]="candidate.courses" class="form-control" placeholder="Courses">
+              <input [(ngModel)]="candidate.courses" class="form-control" placeholder="קורסים">
             </div>
           </div>
         </div>
@@ -92,7 +92,7 @@
           <div class="card-body py-2 px-3">
             <span>תחומי עניין</span>
             <div class="d-flex justify-content-between">
-              <input [(ngModel)]="candidate.interests" class="form-control" placeholder="Interests">
+              <input [(ngModel)]="candidate.interests" class="form-control" placeholder="תחביבים">
             </div>
           </div>
         </div>
@@ -101,7 +101,7 @@
       <!-- Personal Description -->
       <div class="mb-4">
         <h6 class="mb-2 bottom-text">תקציר אישי</h6>
-        <textarea [(ngModel)]="candidate.personalSummary" class="form-control" rows="3" placeholder="Personal Summary"></textarea>
+        <textarea [(ngModel)]="candidate.personalSummary" class="form-control" rows="3" placeholder="תקציר אישי"></textarea>
       </div>
 
       <!-- Save Button -->

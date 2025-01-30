@@ -1,14 +1,6 @@
-/* Base styles */
-:root {
-  --primary-color: #6c5ce7;
-  --primary-hover: #5b4cc4;
-  --text-color: #333;
-  --spacing-unit: 1rem;
-}
-
 /* Card styles */
 .card {
-  margin: var(--spacing-unit) auto;
+  margin: 1rem auto;
   max-width: 800px;
   background-color: rgba(255, 255, 255, 0);
   border: none;
@@ -30,7 +22,6 @@
 }
 
 .card-header {
-  background-color: var(--primary-color);
   padding: 2rem 1rem;
   margin: 2rem auto;
   position: relative;
@@ -85,7 +76,7 @@ p {
 }
 
 a {
-  color: var(--text-color);
+  color: #333;
   text-decoration: none;
   font-weight: bold;
   font-size: clamp(0.9rem, 2.5vw, 1rem);
@@ -94,18 +85,18 @@ a {
 }
 
 a.active {
-  color: var(--primary-color);
+  color: #0275d8;
 }
 
 .divider {
-  color: var(--text-color);
+  color: #333;
   font-size: 1.2rem;
 }
 
 /* Back button */
 .back-button {
   position: relative;
-  left: var(--spacing-unit);
+  left: 1rem;
   top: 50%;
   transform: translateY(-50%);
   width: clamp(24px, 5vw, 30px);
@@ -125,16 +116,42 @@ a.active {
   padding: 0.75rem 1.5rem;
   font-size: clamp(0.9rem, 2vw, 1rem);
   transition: all 0.3s ease;
+  position: relative;
+  border-radius: 0.375rem;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-weight: 500;
+  text-align: center;
+  display: inline-block;
+  color: #fff;
 }
 
 .btn-primary {
-  background-color: var(--primary-color);
-  border-color: var(--primary-color);
+  background-color: #0275d8;
+  border-color: #0275d8;
+  color: white;
 }
 
 .btn-primary:hover {
-  background-color: var(--primary-hover);
-  border-color: var(--primary-hover);
+  background-color: #46a8fd;
+  border-color: #46a8fd;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: #ff828f;
+  border-color: #ff828f;
+}
+
+.button-container {
+  align-items: center;
+  display: flex;
+  justify-content: center;
 }
 
 /* Content sections */

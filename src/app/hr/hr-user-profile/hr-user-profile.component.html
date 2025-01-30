@@ -9,12 +9,18 @@
         </div>
         <div class="rounded-circle overflow-hidden">
           <div class="profile-image-container">
-            <img class="cursor-pointer"
-             [src]="candidate?.imageUrl"
+            <img class="profile-image-resize"
+                 [src]="candidate?.imageUrl"
                  alt="Profile picture"
-                 class="profile-image"
                  onerror="this.src='assets/images/on.svg'"
-                 (click)="goBack()">
+                 (click)="openPreview($event)">
+            <div class="profile-preview"
+                 [class.visible]="isPreviewOpen"
+                 (click)="closePreview($event)">
+              <img [src]="candidate?.imageUrl"
+                   alt="Profile preview"
+                   onerror="this.src='assets/images/on.svg'">
+            </div>
           </div>
         </div>
       </div>
@@ -97,7 +103,7 @@
 
       <!-- Save Button -->
       <div class="text-center">
-        <button class="btn btn-secondary px-5" (click)="goBack()">back</button>
+        <button class="btn btn-secondary px-5" (click)="goBack()">אחורה</button>
       </div>
     </div>
   </div>

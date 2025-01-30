@@ -3,17 +3,25 @@
   <header class="text-white py-4" style="font-family: 'Heebo', sans-serif;">
     <div class="container">
       <div class="header-content">
-        <div class="profile-image-container">
-          <a (click)="goToCandidateProfile(candidate?.id!)">
-            <img [src]="candidate?.imageUrl"
+        <div class="rounded-circle overflow-hidden">
+          <div class="profile-image-container">
+            <img class="profile-image-resize"
+                 [src]="candidate?.imageUrl"
                  alt="Profile picture"
-                 class="profile-image"
-                 onerror="this.src='assets/images/on.svg'">
-          </a>
+                 onerror="this.src='assets/images/on.svg'"
+                 (click)="openPreview($event)">
+            <div class="profile-preview"
+                 [class.visible]="isPreviewOpen"
+                 (click)="closePreview($event)">
+              <img [src]="candidate?.imageUrl"
+                   alt="Profile preview"
+                   onerror="this.src='assets/images/on.svg'">
+            </div>
+          </div>
         </div>
         <div class="user-info" style="font-family: 'Heebo', sans-serif;">
-          <h1 class="h5 mb-0">{{ candidate?.fullName }}</h1>
-          <p class="small mb-0">{{ candidate?.age }}</p>
+          <h1 class="h5 mb-0">{{ candidate?.age }}, {{ candidate?.fullName }}</h1>
+          <p class="small mb-0">{{ candidate?.idNumber }}</p>
         </div>
         <button class="back-button" (click)="goBack()">
           <img src="assets/images/back.svg" alt="Back">
