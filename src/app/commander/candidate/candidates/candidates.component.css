@@ -132,15 +132,21 @@ h5 {
   margin-top: 5px;
   padding: 4px 5px;
   max-width: 100px;
-  background-color: #446BF2;
-  color: white;
+  background-color: transparent;
+  color: #446BF2;
+  border: 2px solid #446BF2;
   text-align: center;
   border-radius: 25px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
   font-weight: bold;
   text-decoration: none;
   font-size: 14px;
+}
+
+.button-like-text:hover {
+  background-color: #3658a1;
+  color: white;
 }
 
 /* Preferred Candidate Interview Click */
@@ -151,16 +157,22 @@ h5 {
   margin-top: 5px;
   padding: 4px 5px;
   max-width: 100px;
-  background-color: #446BF2;
-  color: white;
+  background-color: transparent;
+  color: #9364a8;
   text-align: center;
+  border: 2px solid #9364a8;
   border-radius: 25px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  font-weight: bold;
+  transition: background-color 0.3s ease, color 0.3s ease;
   text-decoration: none;
   font-size: 14px;
 }
+
+.button-like-text.for-summary:hover {
+  background-color: #9364a8;
+  color: white;
+}
+
 
 .button-like-text.for-summary {
   z-index: 1001;
@@ -168,10 +180,6 @@ h5 {
 
 .app-interview-summary-popup {
   z-index: 1002 !important;
-}
-
-.button-like-text:hover {
-  background-color: #3658a1;
 }
 
 .app-interview-summary-popup {
