@@ -262,6 +262,26 @@ export class CandidatesComponent implements OnInit, OnDestroy {
     return preferredCandidates.length === 0;
   }
 
+  candidateJobStatus(jobId: string, candidate: Candidate) {
+    const status = candidate.jobStatuses[jobId];
+
+    switch (status) {
+      case 'preferred_final':
+        return 'נבחר';
+      case 'preferred':
+        return 'מועדף'
+      case 'pending':
+        return 'נמתין';
+      case 'rejected':
+        return 'נדחה';
+      case 'hired':
+        return 'שובץ';
+      default:
+        return '';
+    }
+  }
+
+
   ngOnDestroy(): void {
     if (this.jobSub) {
       this.jobSub.unsubscribe();

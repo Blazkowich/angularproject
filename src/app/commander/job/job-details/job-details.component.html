@@ -34,7 +34,7 @@
               <span class="text-secondary">מצב תפקיד</span>
               <img class="edit-button" src="/assets/images/edit.svg" alt="edit icon" (click)="openJobPopup()">
               <span [ngClass]="isJobOpen(job!) ? 'text-success' : 'text-brown'">
-                {{ job?.status }}
+                {{ job?.status === 'OPEN' ? 'פתוח' : 'סגור' }}
               </span>
             </div>
           </div>
