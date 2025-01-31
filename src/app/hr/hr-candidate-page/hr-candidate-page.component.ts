@@ -138,7 +138,7 @@ export class HrCandidatePageComponent implements OnInit, OnDestroy {
       case 'preferred':
         return { text: 'מועדף', class: 'btn btn-outline-primary status-button' };
       case 'pending':
-        return { text: 'נמתין', class: 'btn btn-outline-warning status-button' };
+        return { text: 'ממתין', class: 'btn btn-outline-warning status-button' };
       case 'rejected':
         return { text: 'נדחה', class: 'btn btn-outline-danger status-button' };
       case 'hired':
