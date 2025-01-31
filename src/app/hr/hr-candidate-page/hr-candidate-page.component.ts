@@ -202,7 +202,7 @@ export class HrCandidatePageComponent implements OnInit, OnDestroy {
     this.selectedCandidateId = candidateId;
 
     const normalizedStatus = status.toLowerCase();
-    if (normalizedStatus === 'selected' || normalizedStatus === 'preferred_final') {
+    if (normalizedStatus === 'נבחר' || normalizedStatus === 'preferred_final') {
       if (this.jobId) {
         this.jobService.getJobById(this.jobId).subscribe({
           next: (job: Job) => {
