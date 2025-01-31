@@ -8,11 +8,12 @@ import { CommonModule } from '@angular/common';
 import { Job } from '../../../models/jobs.model';
 import { JobService } from '../../../services/jobs.service';
 import { ApproveRejectPopupComponent } from '../../popups/approve-reject-popup/approve-reject-popup.component';
+import { ApproveRejectEditPopupComponent } from '../../popups/approve-reject-edit-popup/approve-reject-edit-popup.component';
 
 @Component({
   selector: 'app-candidates-details',
   standalone: true,
-  imports: [CommonModule, RouterModule, ApproveRejectPopupComponent],
+  imports: [CommonModule, RouterModule, ApproveRejectPopupComponent, ApproveRejectEditPopupComponent],
   templateUrl: './candidates-details.component.html',
   styleUrl: './candidates-details.component.css'
 })
@@ -25,6 +26,7 @@ export class CandidatesDetailsComponent implements OnInit, OnDestroy{
   showPopup = false;
   isApproved = true;
   isPreviewOpen: boolean = false;
+  showEditPopup = false;
 
   constructor(
     private candidateService: CandidateService,
@@ -60,24 +62,6 @@ export class CandidatesDetailsComponent implements OnInit, OnDestroy{
     }
   }
 
-  onCandidateAgree() {
-    this.isApproved = true;
-    this.updateCandidateStatus('preferred');
-    this.showPopup = true;
-    console.log('Agree');
-  }
-
-  onCandidateReject() {
-    this.isApproved = false;
-    this.updateCandidateStatus('rejected');
-    this.showPopup = true;
-    console.log('Reject');
-  }
-
-  closeCandidatePopup() {
-    this.showPopup = false;
-  }
-
   onCandidatePreferredFinal() {
     if (this.candidate?.jobStatuses[this.jobId] === 'preferred') {
       this.isApproved = true;
@@ -94,7 +78,6 @@ export class CandidatesDetailsComponent implements OnInit, OnDestroy{
         .updateCandidateStatus(this.jobId, this.candidate.id, status)
         .subscribe({
           next: () => {
-            console.log(`Candidate status updated to: ${status}`);
             if (this.candidate?.jobStatuses) {
               this.candidate.jobStatuses[this.jobId] = status;
             }
@@ -143,5 +126,28 @@ export class CandidatesDetailsComponent implements OnInit, OnDestroy{
     if (this.isPreviewOpen) {
       this.isPreviewOpen = false;
     }
+  }
+
+  onCandidateAgree() {
+    this.isApproved = true;
+    this.updateCandidateStatus('preferred');
+    this.showPopup = true;
+    alert('המועמד אושר');
+  }
+
+  onCandidateReject() {
+    this.isApproved = false;
+    this.updateCandidateStatus('rejected');
+    this.showPopup = true;
+    alert('המועמד נדחה');
+  }
+
+  closeCandidatePopup() {
+    this.showPopup = false;
+    this.showEditPopup = false;
+  }
+
+  handleClose() {
+    this.showEditPopup = false;
   }
 }

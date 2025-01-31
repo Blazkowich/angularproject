@@ -248,7 +248,9 @@ export class CandidatesComponent implements OnInit, OnDestroy {
 
   // For the Candidates section
   shouldShowCandidatesText(): boolean {
-    const pendingCandidates = this.candidates.filter(c => c.jobStatuses[this.jobId] === 'pending');
+    const pendingCandidates = this.candidates.filter(c =>
+      c.jobStatuses[this.jobId] === 'pending' ||
+      c.jobStatuses[this.jobId] === 'rejected');
     const result = pendingCandidates.length === 0;
     return result;
   }

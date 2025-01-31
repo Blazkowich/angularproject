@@ -67,17 +67,22 @@
         </div>
         <!-- Agree and Reject buttons in one row -->
         <div class="d-flex justify-content-center mt-4">
-          <button class="btn-image agree-btn" (click)="candidate?.jobStatuses![job?.id!] === 'preferred' ? onCandidatePreferredFinal() : onCandidateAgree()">
+          <button class="btn-image update-status-btn" (click)="showEditPopup = true">
             מועמדות התקבלה
-          </button>
-          <button class="btn-image reject-btn ml-3" (click)="onCandidateReject()">
-            מועמדות נדחתה
           </button>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<app-approve-reject-edit-popup
+  [isVisible]="showEditPopup"
+  (approve)="onCandidateAgree()"
+  (reject)="onCandidateReject()"
+  (close)="handleClose()">
+</app-approve-reject-edit-popup>
+
 <app-approve-reject-popup
   *ngIf="showPopup"
   [isApproved]="isApproved"
