@@ -158,9 +158,9 @@ h5 {
   padding: 4px 5px;
   max-width: 100px;
   background-color: transparent;
-  color: #c39bc5;
+  color: #9364a8;
   text-align: center;
-  border: 2px solid #c39bc5;
+  border: 2px solid #9364a8;
   border-radius: 25px;
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
@@ -169,7 +169,7 @@ h5 {
 }
 
 .button-like-text.for-summary:hover {
-  background-color: #c39bc5;
+  background-color: #9364a8;
   color: white;
 }
 
