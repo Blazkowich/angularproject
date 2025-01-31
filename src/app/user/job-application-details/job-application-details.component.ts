@@ -71,7 +71,7 @@ export class JobApplicationDetailsComponent implements OnInit {
       next: (response) => {
         this.isApplied = true;
         this.isCancelled = false;
-        alert("בקשת המשרה הפנויה הוגשה בהצלחה.");
+        alert("מועמדות נשלחה בהצלחה, העדכון יישלח לגורמים הרלוונטיים");
       },
       error: (error) => {
         console.error('Error applying for job:', error);

@@ -68,10 +68,10 @@
         <!-- Agree and Reject buttons in one row -->
         <div class="d-flex justify-content-center mt-4">
           <button class="btn-image agree-btn" (click)="candidate?.jobStatuses![job?.id!] === 'preferred' ? onCandidatePreferredFinal() : onCandidateAgree()">
-            <img src="assets/images/agree.svg" alt="Agree" class="button-image">
+            מועמדות התקבלה
           </button>
           <button class="btn-image reject-btn ml-3" (click)="onCandidateReject()">
-            <img src="assets/images/reject.svg" alt="Reject" class="button-image">
+            מועמדות נדחתה
           </button>
         </div>
       </div>
