@@ -271,7 +271,7 @@ export class CandidatesComponent implements OnInit, OnDestroy {
       case 'preferred':
         return 'מועדף'
       case 'pending':
-        return 'נמתין';
+        return 'ממתין';
       case 'rejected':
         return 'נדחה';
       case 'hired':
