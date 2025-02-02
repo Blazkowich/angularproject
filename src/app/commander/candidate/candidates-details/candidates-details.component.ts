@@ -145,7 +145,11 @@ export class CandidatesDetailsComponent implements OnInit, OnDestroy{
 
   onCandidateAgree() {
     this.isApproved = true;
-    this.updateCandidateStatus('preferred');
+    if (this.candidate?.jobStatuses[this.jobId] === 'preferred') {
+      this.updateCandidateStatus('preferred_final');
+    } else {
+      this.updateCandidateStatus('preferred');
+    }
     this.showPopup = true;
     alert('המועמד אושר');
   }

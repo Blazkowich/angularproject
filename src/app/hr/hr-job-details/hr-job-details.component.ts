@@ -50,7 +50,8 @@ export class HrJobDetailsComponent implements OnInit {
         this.preferredCandidatesCount = this.candidates.filter(
           (candidate) =>
             candidate.jobStatuses &&
-            candidate.jobStatuses[this.jobId!] === 'preferred'
+            (candidate.jobStatuses[this.jobId!] === 'preferred' ||
+              candidate.jobStatuses[this.jobId!] === 'preferred_final')
         ).length;
       },
       error: (candidatesError) => {

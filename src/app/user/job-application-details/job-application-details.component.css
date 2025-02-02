@@ -96,7 +96,7 @@ a.active {
 /* Back button */
 .back-button {
   position: relative;
-  left: 1rem;
+  left: 0;
   top: 50%;
   transform: translateY(-50%);
   width: clamp(24px, 5vw, 30px);
