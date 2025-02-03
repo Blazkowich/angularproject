@@ -53,46 +53,38 @@
 
       <!-- Categories -->
       <div class="mb-4">
-        <div class="card mb-2">
-          <div class="card-body py-2 px-3">
-            <div class="d-flex justify-content-between">
-              <span>{{ candidate?.experience }}</span>
-              <span>ניסיון תעסוקתי</span>
-            </div>
-          </div>
+        <div class="mb-4">
+          <h6 class="mb-2">ניסיון תעסוקתי</h6>
+          <p class="text-muted">
+            {{ candidate?.experience }}
+          </p>
         </div>
-        <div class="card mb-2">
-          <div class="card-body py-2 px-3">
-            <div class="d-flex justify-content-between">
-              <span>{{ candidate?.education }}</span>
-              <span>השכלה</span>
-            </div>
-          </div>
+        <div class="mb-4">
+          <h6 class="mb-2">השכלה</h6>
+          <p class="text-muted">
+            {{ candidate?.education }}
+          </p>
         </div>
-        <div class="card mb-2">
-          <div class="card-body py-2 px-3">
-            <div class="d-flex justify-content-between">
-              <span>{{ candidate?.courses }}</span>
-              <span>הכשרות וקורסים</span>
-            </div>
-          </div>
+        <div class="mb-4">
+          <h6 class="mb-2" >הכשרות וקורסים</h6>
+          <p class="text-muted">
+            {{ candidate?.courses }}
+          </p>
         </div>
-        <div class="card mb-2">
-          <div class="card-body py-2 px-3">
-            <div class="d-flex justify-content-between">
-              <span>{{ candidate?.interests }}</span>
-              <span>תחומי עניין</span>
-            </div>
-          </div>
+        <div class="mb-4">
+          <h6 class="mb-2">תחומי עניין</h6>
+          <p class="text-muted">
+            {{ candidate?.interests }}
+          </p>
         </div>
       </div>
 
       <!-- Personal Description -->
       <div class="mb-4">
+        <h6 class="mb-2">תקציר אישי</h6>
         <p class="text-muted">
           {{ candidate?.personalSummary }}
         </p>
-        <h6 class="mb-2">תקציר אישי</h6>
       </div>
 
       <!-- Attached Files -->

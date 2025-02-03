@@ -78,8 +78,13 @@ export class MainPageComponent implements OnInit {
   private updateJobCandidatesCount(jobId: string, applications: any[]): void {
     const counts = { preferred: 0, rejected: 0, total: 0 };
     applications.forEach((application) => {
-      counts.total++;
-      if (application.status === 'preferred') {
+      if (application.status !== 'hired')
+      {
+        counts.total++;
+      }
+      if (application.status === 'preferred' ||
+        application.status === 'preferred_final'
+      ) {
         counts.preferred++;
       } else if (application.status === 'rejected') {
         counts.rejected++;
