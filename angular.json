@@ -35,28 +35,27 @@
               "entry": "server.ts"
             }
           },
-          "configurations": {
-            "production": {
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "2kB",
-                  "maximumError": "4kB"
-                }
-              ],
-              "outputHashing": "all"
-            },
-            "development": {
-              "optimization": false,
-              "extractLicenses": false,
-              "sourceMap": true
-            }
-          },
+        "configurations": {
+          "production": {
+            "budgets": [
+              {
+                "type": "initial",
+                "maximumWarning": "500kB",
+                "maximumError": "1MB"
+              },
+              {
+                "type": "anyComponentStyle",
+                "maximumWarning": "2kB",
+                "maximumError": "4kB"
+              }
+            ],
+            "optimization": true,
+            "outputHashing": "all",
+            "sourceMap": false,
+            "extractLicenses": true,
+            "namedChunks": false
+          }
+        },
           "defaultConfiguration": "production"
         },
         "serve": {
