@@ -27,9 +27,10 @@ body {
 
 .card {
   border-radius: 15px;
-  border: 1px solid #e0e0e0;
+  border: none;
   background-color: white;
   text-align: right;
+  box-shadow: none;
 }
 
 .card-body {
@@ -152,6 +153,7 @@ body {
   align-items: center;
   gap: 400px;
   text-align: right;
+  margin-top: 10%;
 }
 
 .d-flex {
