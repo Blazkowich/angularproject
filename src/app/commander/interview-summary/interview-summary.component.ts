@@ -177,7 +177,7 @@ export class InterviewSummaryComponent implements OnInit, OnDestroy {
           next: updatedInterview => {
             this.candidateService.sendInterviewData(interviewEmailData);
             this.getInterview(this.candidateId!, this.jobId!);
-            this.router.navigate(['/open-jobs']);
+            this.router.navigate([`/job-details/${this.jobId}}/candidates/preferred`]);
           },
           error: err => console.error('Error updating interview:', err)
         });
@@ -187,7 +187,7 @@ export class InterviewSummaryComponent implements OnInit, OnDestroy {
         next: newInterview => {
           this.candidateService.sendInterviewData(interviewEmailData);
           this.getInterview(this.candidateId!, this.jobId!);
-          this.router.navigate(['/open-jobs']);
+          this.router.navigate([`/job-details/${this.jobId}}/candidates/preferred`]);
         },
         error: err => console.error('Error adding new interview:', err)
       });
