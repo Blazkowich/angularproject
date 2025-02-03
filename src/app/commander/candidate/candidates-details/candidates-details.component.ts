@@ -145,20 +145,20 @@ export class CandidatesDetailsComponent implements OnInit, OnDestroy{
 
   onCandidateAgree() {
     this.isApproved = true;
-    if (this.candidate?.jobStatuses[this.jobId] === 'preferred') {
-      this.updateCandidateStatus('preferred_final');
-    } else {
+    if (this.candidate?.jobStatuses[this.jobId] === 'pending') {
       this.updateCandidateStatus('preferred');
     }
+
+    if (this.candidate?.jobStatuses[this.jobId] === 'preferred') {
+      this.updateCandidateStatus('preferred_final');
+    }
     this.showPopup = true;
-    alert('המועמד אושר');
   }
 
   onCandidateReject() {
     this.isApproved = false;
     this.updateCandidateStatus('rejected');
     this.showPopup = true;
-    alert('המועמד נדחה');
   }
 
   closeCandidatePopup() {
